@@ -7,7 +7,9 @@ SOURCES += main.cpp \
     block.cpp \
     drawableobject.cpp \
     point2d.cpp \
-    rect.cpp
+    rect.cpp \
+    port.cpp \
+    link.cpp
 
 RESOURCES += qml.qrc
 
@@ -22,5 +24,7 @@ HEADERS += \
     drawableobject.h \
     point2d.h \
     EBlock.h \
-    rect.h
+    rect.h \
+    link.h \
+    port.h
 
