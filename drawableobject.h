@@ -9,7 +9,7 @@ class DrawableObject
 public:
     DrawableObject();
     Point2D Position;
-    void Draw();
+    void virtual Draw();
 };
 
 #endif // DRAWABLEOBJECT_H
