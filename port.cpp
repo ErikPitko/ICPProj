@@ -10,7 +10,7 @@
     Link* Port::GetFirstLink()
     {
         if(_link.size()>0)
-            return _link[0];
+            return _link.front();
         return nullptr;
     }
 
@@ -43,7 +43,6 @@
 
     Block* Port::GetBlock()
     {
-        std::cout<<_block<<std::endl;
         return _block;
     }
 
@@ -51,13 +50,13 @@
     {
         _link = std::vector<Link*>();
         Rect = rect;
-        _block = block;
+        this->_block = block;
         //_backgroundColor = Color.WHITE;
     }
 
     /*Port::Port(MyRect* rect, Block* block,Color color)
     {
-        _link = new std::vector<Link>();
+        _link = new std::vector<Link*>();
         Rect = rect;
         _block = block;
         //_backgroundColor = color;

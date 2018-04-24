@@ -1,30 +1,33 @@
+#-------------------------------------------------
+#
+# Project created by QtCreator 2018-04-24T16:47:28
+#
+#-------------------------------------------------
+
+QT       += core gui
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+TARGET = ICPProj
 TEMPLATE = app
 
-QT += qml quick
-CONFIG += c++11
 
-SOURCES += main.cpp \
+SOURCES += main.cpp\
+        widget.cpp \
     block.cpp \
     drawableobject.cpp \
-    point2d.cpp \
-    port.cpp \
     link.cpp \
-    myrect.cpp
+    myrect.cpp \
+    point2d.cpp \
+    port.cpp
 
-RESOURCES += qml.qrc
-
-# Additional import path used to resolve QML modules in Qt Creator's code model
-QML_IMPORT_PATH =
-
-# Default rules for deployment.
-include(deployment.pri)
-
-HEADERS += \
+HEADERS  += widget.h \
     block.h \
     drawableobject.h \
-    point2d.h \
     EBlock.h \
     link.h \
-    port.h \
-    myrect.h
+    myrect.h \
+    point2d.h \
+    port.h
 
+FORMS    += widget.ui

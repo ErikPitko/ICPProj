@@ -27,8 +27,7 @@
 
    void Link::setInPort(Port *inPort)
    {
-       std::cout << outPort->GetFirstLink()<<std::endl;
-       if (outPort != nullptr && inPort != nullptr)
+       if (this->outPort != nullptr && inPort != nullptr)
            Block::unsetCalculated(outPort->GetBlock());
        this->inPort = inPort;
        if (inPort != nullptr)

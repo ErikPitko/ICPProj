@@ -4,7 +4,7 @@ int Block::stepCounter;
 
 Block::Block(EBlock eBlock, MyRect* rect) : DrawableObject()
 {
-    eBlock = eBlock;
+    this->_eBlock = eBlock;
     _rect = rect;
     stepCounter = 0;
     _outPort = new Port(new MyRect(_rect->XMax()-(Port::PORT_SIZE+Port::PORT_SIZE/2),_rect->y()+_rect->height()/2-Port::PORT_SIZE/2,Port::PORT_SIZE,Port::PORT_SIZE),this);
@@ -12,9 +12,9 @@ Block::Block(EBlock eBlock, MyRect* rect) : DrawableObject()
 
 Block::Block(EBlock eBlock, MyRect* rect, double value) : DrawableObject()
 {
-    eBlock = eBlock;
-    _rect = rect;
-    value = value;
+    this->_eBlock = eBlock;
+    _rect= rect;
+    this->value = value;
     stepCounter = 0;
     _outPort = new Port(new MyRect(_rect->XMax()-(Port::PORT_SIZE+Port::PORT_SIZE/2),_rect->y()+_rect->height()/2-Port::PORT_SIZE/2,Port::PORT_SIZE,Port::PORT_SIZE),this);
 }
@@ -140,6 +140,7 @@ double Block::compute(Block* block) {
 }
 
 void Block::unsetCalculated(Block* block) {
+    std::cout << block<< std::endl;
     if(block == nullptr)
         return;
     if(block->getType() == IN)

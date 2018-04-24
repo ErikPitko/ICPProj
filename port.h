@@ -12,11 +12,11 @@ class Link;
 class Port : public DrawableObject
 {
 private:
-    Block* _block;
+    Block* _block = nullptr;
     std::vector<Link*> _link;
     //Color _backgroundColor;
 public:
-    MyRect* Rect;
+    MyRect* Rect = nullptr;
     static const int PORT_SIZE = 15;
     std::vector<Link*> GetLinks();
     Link* GetFirstLink();

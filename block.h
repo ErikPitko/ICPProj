@@ -13,11 +13,11 @@
 class Block : public DrawableObject
 {
     EBlock _eBlock;
-    MyRect *_rect;
-    MyRect *_resizeRect;
+    MyRect *_rect= nullptr;
+    MyRect *_resizeRect= nullptr;
     //ImageView image;
     std::vector<Port*> inPorts = std::vector<Port*>();
-    Port *_outPort;
+    Port *_outPort = nullptr;
     double value = 0;
     bool calculated = false;
 //    Text debugDisp;
