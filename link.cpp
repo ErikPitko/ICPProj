@@ -13,38 +13,38 @@
             isCycled = link.isCycled;
         }
 
-   Link::Link(Port inPort, Port outPort) : DrawableObject()
+   Link::Link(Port *inPort, Port *outPort) : DrawableObject()
    {
             setInPort(inPort);
             //line = new Line();
             setOutPort(outPort);
             isCycled = false;
    }
-   Link::Port getInPort()
+   Port* Link::getInPort()
    {
            return inPort;
    }
 
-   void Link::setInPort(Port inPort)
+   void Link::setInPort(Port *inPort)
    {
-       if (outPort != null && inPort != null)
-           Block.unsetCalculated(outPort.GetBlock());
+       if (outPort != nullptr && inPort != nullptr)
+           Block::unsetCalculated(outPort->GetBlock());
        this->inPort = inPort;
-       if (inPort != null)
-           inPort.setLink(this);
+       if (inPort != nullptr)
+           inPort->setLink(this);
    }
-   Port Link::getOutPort()
+   Port* Link::getOutPort()
    {
        return outPort;
    }
 
-   void Link::setOutPort(Port outPort)
+   void Link::setOutPort(Port *outPort)
    {
-       if (this->outPort != null && outPort != null)
-           Block.unsetCalculated(outPort.GetBlock());
+       if (this->outPort != nullptr && outPort != nullptr)
+           Block::unsetCalculated(outPort->GetBlock());
        this->outPort = outPort;
-       if (outPort != null)
-           outPort.setLink(this);
+       if (outPort != nullptr)
+           outPort->setLink(this);
    }
 
    /*Link::Line getLine() {
@@ -53,8 +53,8 @@
 
    void Link::Remove()
    {
-       outPort = null;
-       inPort = null;
+       this->outPort = nullptr;
+       this->inPort = nullptr;
    }
 
    bool Link::IsCycled()

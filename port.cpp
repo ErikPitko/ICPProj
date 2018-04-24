@@ -1,22 +1,22 @@
 #include "port.h"
 #include <algorithm>
 
-    Port::std::vector<Link> GetLinks()
+    std::vector<Link> Port::GetLinks()
     {
         return _link;
     }
 
-    Port::Link GetFirstLink()
+    Link* Port::GetFirstLink()
     {
         if(_link.size()>0)
             return _link[0];
         return nullptr;
     }
 
-    void Port::setLink(Link link)
+    void Port::setLink(Link *link)
     {
-        if(std::find(_link.begin(),_link.end(),link) == _link.end())
-            this._link.add(link);
+        if(std::find(_link.begin(),_link.end(),*link) == _link.end())
+            this->_link.push_back(*link);
     }
 
     void Port::unSetLink()
@@ -25,7 +25,7 @@
         {
             Link middle = _link[i];
             if(middle.getOutPort() != nullptr)
-                Block.unsetCalculated(middle.getOutPort().GetBlock());
+                Block::unsetCalculated(middle.getOutPort().GetBlock());
             Port in = middle.getOutPort();
             if(in != nullptr) {
                 in.GetLinks().erase(middle);
@@ -38,25 +38,25 @@
         }
     }
 
-    Port::Block GetBlock()
+    Block* Port::GetBlock()
     {
         return _block;
     }
 
-    Port::Port(Rect rect, Block block)
+    Port::Port(MyRect* rect, Block* block)
     {
         _link = new std::vector<Link>();
         Rect = rect;
         _block = block;
-        _backgroundColor = Color.WHITE;
+        //_backgroundColor = Color.WHITE;
     }
 
-    Port::Port(Rect rect, Block block,Color color)
+    Port::Port(MyRect* rect, Block* block/*,Color color*/)
     {
         _link = new std::vector<Link>();
         Rect = rect;
         _block = block;
-        _backgroundColor = color;
+        //_backgroundColor = color;
     }
 
     void virtual Port::Draw(/*AnchorPane pane*/)

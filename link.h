@@ -7,8 +7,8 @@
 class Link : public DrawableObject
 {
 private:
-    Port inPort;
-    Port outPort;
+    Port *inPort;
+    Port *outPort;
     //Line line;
     bool isCycled;
     //static std::vector<Line> cycledLinks = new std::vector<Line>();
@@ -17,9 +17,11 @@ public:
     //Text txt;
     Link();
     Link(const Link&);
-    Link(Port inPort, Port outPort);
-    Port getInPort();
-    void setOutPort();
+    Link(Port*, Port*);
+    Port* getInPort();
+    Port* getOutPort();
+    void setInPort(Port*);
+    void setOutPort(Port*);
     //Line getLine();
     void Remove();
     bool IsCycled();
