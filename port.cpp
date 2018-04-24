@@ -2,9 +2,9 @@
 #include <algorithm>
 #include <iostream>
 
-    std::vector<Link*> Port::GetLinks()
+    std::vector<Link*>* Port::GetLinks()
     {
-        return _link;
+        return &_link;
     }
 
     Link* Port::GetFirstLink()
@@ -29,15 +29,18 @@
                 Block::unsetCalculated(middle->getOutPort()->GetBlock());
             Port *in = middle->getOutPort();
             if(in != nullptr) {
-                int pos = std::find(in->GetLinks().begin(), in->GetLinks().end(), middle) - in->GetLinks().begin();
-                in->GetLinks().erase(in->GetLinks().begin()+pos);
+                int pos = std::find(in->GetLinks()->begin(), in->GetLinks()->end(), middle) - in->GetLinks()->begin();
+                in->GetLinks()->erase(in->GetLinks()->begin()+pos);
             }
             int pos = std::find(_link.begin(), _link.end(), middle) - _link.begin();
-            _link.erase(_link.begin()+pos);
+            if(pos > 0){
+                std::cout << pos << std::endl;
+               _link.erase(_link.begin()+pos);
+            }
+
             //FXMLExampleController.AnchorPanel.getChildren().remove(middle.tmpPane);
             //FXMLExampleController.AnchorPanel.getChildren().remove(middle.txt);
             //FXMLExampleController.AnchorPanel.getChildren().remove(middle.getLine());
-            middle->Remove();
         }
     }
 
@@ -52,6 +55,17 @@
         Rect = rect;
         this->_block = block;
         //_backgroundColor = Color.WHITE;
+    }
+
+    Port::~Port()
+    {
+        delete Rect;
+        for(Link* link : _link)
+        {
+            delete link;
+        }
+        _link.clear();
+        std::cout << "\tPort: " << this << " deleted." << std::endl;
     }
 
     /*Port::Port(MyRect* rect, Block* block,Color color)

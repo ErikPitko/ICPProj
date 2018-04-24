@@ -25,9 +25,6 @@ class Block : public DrawableObject
 
     void calculatePortsToMiddle();
     bool recalculateHeights();
-    void setValue(double);
-
-
 
 public:
     static const int MINBLOCKSIZE = 100;
@@ -36,6 +33,7 @@ public:
 
     Block(EBlock, MyRect*);
     Block(EBlock, MyRect*, double);
+    virtual ~Block();
     void genInPort();
     /***
      * @brief Recursive searching for loops
@@ -51,16 +49,39 @@ public:
     void setOutPort(Port*);
     void setInPorts(std::vector<Port*>);
     void setInPort(int, Port*);
-    double getValue();
+    double getValue() const;
+    void setValue(double);
     MyRect* getResizeRect();
-    EBlock getType();
+    EBlock getType() const;
     void setRectPosition(Point2D*);
-    MyRect* getRect();
+    MyRect* getRect() const;
+    void setRect(MyRect*);
     void setType(EBlock);
     void Move(double, double);
     void Resize(double, double);
-    void DeleteBlock();
     void virtual Draw(QPainter*) override;
+
+    friend std::istream& operator >>(std::istream& is, Block& block)
+    {
+        MyRect* rect = new MyRect(0,0,0,0);
+        is >> *rect;
+        block.setRect(rect);
+
+        double temp;
+        is >> temp;
+
+        int type;
+        is >> type;
+        block.setType(static_cast<EBlock>(type));
+        block.setValue(temp);
+        return is;
+    }
+
+    friend std::ostream& operator <<(std::ostream& os, const Block& block)
+    {
+        os << *block.getRect() << block.getValue() << block.getType();
+        return os;
+    }
 };
 
 #endif // BLOCK_H

@@ -4,6 +4,7 @@
 #include <QRect>
 #include "point2d.h"
 #include <algorithm>
+#include <iostream>
 
 class MyRect : public QRect
 {
@@ -22,6 +23,26 @@ public:
     Point2D* Position();
     Point2D* Size();
     Point2D* Center();
+
+    friend std::istream& operator >>(std::istream& is, MyRect& rect)
+    {
+        double temp;
+        is >> temp;
+        rect.setX(temp);
+        is >> temp;
+        rect.setY(temp);
+        is >> temp;
+        rect.setWidth(temp);
+        is >> temp;
+        rect.setHeight(temp);
+        return is;
+    }
+
+    friend std::ostream& operator <<(std::ostream& os, MyRect& rect)
+    {
+        os << rect.x() << rect.y() << rect.width() << rect.height();
+        return os;
+    }
 };
 
 #endif // RECT_H

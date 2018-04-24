@@ -18,10 +18,11 @@ private:
 public:
     MyRect* Rect = nullptr;
     static const int PORT_SIZE = 15;
-    std::vector<Link*> GetLinks();
+    std::vector<Link*>* GetLinks();
     Link* GetFirstLink();
     Block* GetBlock();
     Port (MyRect*,Block*);
+    virtual ~Port();
     //Port (MyRect*, Block*/*,Color*/);
     void setLink(Link*);
     void unSetLink();

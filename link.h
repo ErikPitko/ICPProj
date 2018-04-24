@@ -5,13 +5,14 @@ class Port;
 #include <vector>
 #include "port.h"
 #include "drawableobject.h"
+#include <QtGui>
 
 class Link : public DrawableObject
 {
 private:
     Port *inPort = nullptr;
     Port *outPort = nullptr;
-    QLine *line= nullptr;
+    QLine *line = nullptr;
     bool isCycled;
     //static std::vector<Line> cycledLinks = new std::vector<Line>();
 public:
@@ -20,12 +21,12 @@ public:
     Link();
     Link(const Link&);
     Link(Port*, Port*);
+    virtual ~Link();
     Port* getInPort();
     Port* getOutPort();
     void setInPort(Port*);
     void setOutPort(Port*);
-    //Line getLine();
-    void Remove();
+    QLine* getLine();
     bool IsCycled();
     void SetCycled();
     void UnSetCycled();
