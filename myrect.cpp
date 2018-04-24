@@ -33,45 +33,45 @@ Point2D MyRect::Center()
 
 static MyRect ZERO = new MyRect(0,0,0,0);
 
-MyRect::MyRect(MyRect rect)
+MyRect::MyRect(MyRect rect) : QRect()
 {
-    super();
-    setX(rect.getX());
-    setY(rect.getY());
+    //super();
+    setX(rect.x());
+    setY(rect.y());
     setWidth(rect.getWidth());
     setHeight(rect.getHeight());
 }
 
-MyRect::MyRect(Point2D position, Point2D size)
+MyRect::MyRect(Point2D position, Point2D size) : QRect()
 {
-    super();
+    //super();
     setX(position.X);
     setY(position.Y);
     setWidth(size.X);
     setHeight(size.Y);
 }
 
-MyRect::MyRect(double positionX,double positionY, Point2D size)
+MyRect::MyRect(double positionX,double positionY, Point2D size) : QRect()
 {
-    super();
+    //super();
     setX(positionX);
     setY(positionY);
     setWidth(size.X);
     setHeight(size.Y);
 }
 
-MyRect::MyRect(Point2D position, double sizeX,double sizeY)
+MyRect::MyRect(Point2D position, double sizeX,double sizeY) : QRect()
 {
-    super();
+    //super();
     setX(position.X);
     setY(position.Y);
     setWidth(sizeX);
     setHeight(sizeY);
 }
 
-MyRect::MyRect(double positionX,double positionY, double sizeX,double sizeY)
+MyRect::MyRect(double positionX,double positionY, double sizeX,double sizeY) : QRect()
 {
-    super();
+    //super();
     setX(positionX);
     setY(positionY);
     setWidth(sizeX);
@@ -80,16 +80,16 @@ MyRect::MyRect(double positionX,double positionY, double sizeX,double sizeY)
 
 bool MyRect::Contains(Point2D point)
 {
-    return point.X >=  getX() && point.X <= XMax() && point.Y >= getY() && point.Y <= YMax();
+    return point.X >=  x() && point.X <= XMax() && point.Y >= y() && point.Y <= YMax();
 }
 
 bool MyRect::Intersect(MyRect rect)
 {
-    double xmin = Math.max(getX(), rect.getX());
-    double xmax = Math.min(XMax(), rect.XMax());
+    double xmin = max(x(), rect.x());
+    double xmax = min(XMax(), rect.XMax());
     if (xmax >= xmin) {
-        double ymin = Math.max(getY(),rect.getY());
-        double ymax = Math.min(YMax(), rect.YMax());
+        double ymin = max(y(),rect.y());
+        double ymax = min(YMax(), rect.YMax());
         if (ymax >= ymin) {
             return true;
         }

@@ -3,6 +3,7 @@
 
 #include <QRect>
 #include "point2d.h"
+#include <math.h>
 
 class MyRect : public QRect
 {

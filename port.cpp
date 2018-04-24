@@ -9,7 +9,7 @@
     Link* Port::GetFirstLink()
     {
         if(_link.size()>0)
-            return _link[0];
+            return &_link[0];
         return nullptr;
     }
 
@@ -25,12 +25,14 @@
         {
             Link middle = _link[i];
             if(middle.getOutPort() != nullptr)
-                Block::unsetCalculated(middle.getOutPort().GetBlock());
-            Port in = middle.getOutPort();
+                Block::unsetCalculated(middle.getOutPort()->GetBlock());
+            Port *in = middle.getOutPort();
             if(in != nullptr) {
-                in.GetLinks().erase(middle);
+                int pos = std::find(in->GetLinks().begin(), in->GetLinks().end(), middle) - in->GetLinks().begin();
+                in->GetLinks().erase(in->GetLinks().begin()+pos);
             }
-            _link.erase(middle);
+            int pos = std::find(_link.begin(), _link.end(), middle) - _link.begin();
+            _link.erase(_link.begin()+pos);
             //FXMLExampleController.AnchorPanel.getChildren().remove(middle.tmpPane);
             //FXMLExampleController.AnchorPanel.getChildren().remove(middle.txt);
             //FXMLExampleController.AnchorPanel.getChildren().remove(middle.getLine());
@@ -38,7 +40,7 @@
         }
     }
 
-    Block* Port::GetBlock(): DrawableObject()
+    Block* Port::GetBlock()
     {
         return _block;
     }
@@ -59,7 +61,7 @@
         //_backgroundColor = color;
     }*/
 
-    void virtual Port::Draw(/*AnchorPane pane*/)
+    void Port::Draw(/*AnchorPane pane*/)
     {
         //Rect.setFill(_backgroundColor);
         //Rect.setStroke(Color.BLACK);
