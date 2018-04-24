@@ -38,12 +38,12 @@
         }
     }
 
-    Block* Port::GetBlock()
+    Block* Port::GetBlock(): DrawableObject()
     {
         return _block;
     }
 
-    Port::Port(MyRect* rect, Block* block)
+    Port::Port(MyRect* rect, Block* block) : DrawableObject()
     {
         _link = std::vector<Link>();
         Rect = rect;
