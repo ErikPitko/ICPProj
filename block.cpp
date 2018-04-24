@@ -1,10 +1,12 @@
 #include "block.h"
 
+int Block::stepCounter;
+
 Block::Block(EBlock eBlock, MyRect* rect) : DrawableObject()
 {
     eBlock = eBlock;
     _rect = rect;
-    int Block::stepCounter = 0;
+    stepCounter = 0;
 //    _outPort = new Port(new MyRect(_rect.XMax()-(Port.PORT_SIZE+Port.PORT_SIZE/2),_rect.getY()+_rect.getHeight()/2-Port.PORT_SIZE/2,Port.PORT_SIZE,Port.PORT_SIZE),this,Color.RED);
 }
 
@@ -13,7 +15,7 @@ Block::Block(EBlock eBlock, MyRect* rect, double value) : DrawableObject()
     eBlock = eBlock;
     _rect = rect;
     value = value;
-    int Block::stepCounter = 0;
+    stepCounter = 0;
 //    _outPort = new Port(new MyRect(_rect.XMax()-(Port.PORT_SIZE+Port.PORT_SIZE/2),_rect.getY()+_rect.getHeight()/2-Port.PORT_SIZE/2,Port.PORT_SIZE,Port.PORT_SIZE),this,Color.RED);
 }
 
