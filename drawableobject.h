@@ -8,7 +8,6 @@ class DrawableObject
 {
 public:
     DrawableObject();
-    Point2D Position;
     void virtual Draw();
 };
 

@@ -4,7 +4,7 @@ Block::Block(EBlock eBlock, MyRect* rect) : DrawableObject()
 {
     eBlock = eBlock;
     _rect = rect;
-    stepCounter = 0;
+    int Block::stepCounter = 0;
 //    _outPort = new Port(new MyRect(_rect.XMax()-(Port.PORT_SIZE+Port.PORT_SIZE/2),_rect.getY()+_rect.getHeight()/2-Port.PORT_SIZE/2,Port.PORT_SIZE,Port.PORT_SIZE),this,Color.RED);
 }
 
@@ -13,7 +13,7 @@ Block::Block(EBlock eBlock, MyRect* rect, double value) : DrawableObject()
     eBlock = eBlock;
     _rect = rect;
     value = value;
-    stepCounter = 0;
+    int Block::stepCounter = 0;
 //    _outPort = new Port(new MyRect(_rect.XMax()-(Port.PORT_SIZE+Port.PORT_SIZE/2),_rect.getY()+_rect.getHeight()/2-Port.PORT_SIZE/2,Port.PORT_SIZE,Port.PORT_SIZE),this,Color.RED);
 }
 
@@ -132,7 +132,7 @@ double Block::compute(Block* block) {
         }
     }
     if(block->getType()!= IN)
-        Block::stepCounter++;
+        stepCounter++;
     block->calculated = true;
     return block->value;
 }
@@ -147,7 +147,7 @@ void Block::unsetCalculated(Block* block) {
     if(block->_outPort == nullptr)
         return;
     for(int i= 0;i<block->_outPort->GetLinks().size();i++) {
-        Link* link = &block->_outPort->GetLinks()[i];
+        Link* link = block->_outPort->GetLinks()[i];
         if (link == nullptr || link->getOutPort() == nullptr)
             return;
         unsetCalculated(link->getOutPort()->GetBlock());

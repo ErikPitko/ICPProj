@@ -4,7 +4,7 @@
             //line = new Line();
             isCycled = false;
    }
-   Link::Link(const Link&) : DrawableObject()
+   Link::Link(const Link& link) : DrawableObject()
    {
             //line = link.line;
             setOutPort(link.outPort);
@@ -72,7 +72,7 @@
        isCycled = false;
        //cycledLinks.erase(line);
    }
-   void virtual Link::Draw(/*AnchorPane pane*/)
+   void Link::Draw(/*AnchorPane pane*/)
    {
        /*if(inPort == null||outPort== null)
            return;

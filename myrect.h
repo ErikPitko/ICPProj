@@ -3,7 +3,7 @@
 
 #include <QRect>
 #include "point2d.h"
-#include <math.h>
+#include <algorithm>
 
 class MyRect : public QRect
 {
@@ -13,15 +13,15 @@ public:
     MyRect(double, double, Point2D);
     MyRect(Point2D, double, double);
     MyRect(double, double, double, double);
-    bool contains(Point2D);
-    bool intersect(MyRect);
+    bool contains(Point2D*);
+    bool intersect(MyRect*);
     double XMin();
     double XMax();
     double YMin();
     double YMax();
-    Point2D Position();
-    Point2D Size();
-    Point2D Center();
+    Point2D* Position();
+    Point2D* Size();
+    Point2D* Center();
 };
 
 #endif // RECT_H

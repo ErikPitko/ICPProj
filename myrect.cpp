@@ -2,44 +2,42 @@
 
 
 double MyRect::XMin() {
-    return getX();
+    return x();
 }
 
-double MyRect::XMax() { return getX() + getWidth();
+double MyRect::XMax() { return x() + width();
 }
 
 double MyRect::YMin() {
-    return getY();
+    return y();
 }
 
 double MyRect::YMax() {
-    return getY() + getHeight();
+    return y() + height();
 }
 
-Point2D MyRect::Position()
+Point2D* MyRect::Position()
 {
-    return new Point2D(getX(),getY());
+    return new Point2D(x(),x());
 }
 
-Point2D MyRect::Size()
+Point2D* MyRect::Size()
 {
-    return new Point2D(getWidth(),getHeight());
+    return new Point2D(width(),height());
 }
 
-Point2D MyRect::Center()
+Point2D* MyRect::Center()
 {
-    return new Point2D(getX()+(getWidth()/2),getY()+(getHeight()/2));
+    return new Point2D(x()+(width()/2),y()+(height()/2));
 }
 
-static MyRect ZERO = new MyRect(0,0,0,0);
-
-MyRect::MyRect(MyRect rect) : QRect()
+MyRect::MyRect(const MyRect &rect) : QRect()
 {
     //super();
     setX(rect.x());
     setY(rect.y());
-    setWidth(rect.getWidth());
-    setHeight(rect.getHeight());
+    setWidth(rect.width());
+    setHeight(rect.height());
 }
 
 MyRect::MyRect(Point2D position, Point2D size) : QRect()
@@ -78,18 +76,18 @@ MyRect::MyRect(double positionX,double positionY, double sizeX,double sizeY) : Q
     setHeight(sizeY);
 }
 
-bool MyRect::Contains(Point2D point)
+bool MyRect::contains(Point2D *point)
 {
-    return point.X >=  x() && point.X <= XMax() && point.Y >= y() && point.Y <= YMax();
+    return point->X >=  x() && point->X <= XMax() && point->Y >= y() && point->Y <= YMax();
 }
 
-bool MyRect::Intersect(MyRect rect)
+bool MyRect::intersect(MyRect *rect)
 {
-    double xmin = max(x(), rect.x());
-    double xmax = min(XMax(), rect.XMax());
+    double xmin = std::max(x(), rect->x());
+    double xmax = std::min(XMax(), rect->XMax());
     if (xmax >= xmin) {
-        double ymin = max(y(),rect.y());
-        double ymax = min(YMax(), rect.YMax());
+        double ymin = std::max(y(),rect->y());
+        double ymax = std::min(YMax(), rect->YMax());
         if (ymax >= ymin) {
             return true;
         }

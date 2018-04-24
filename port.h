@@ -2,6 +2,7 @@
 #define PORT_H
 class Block;
 class Port;
+class Link;
 #include <vector>
 #include "block.h"
 #include "link.h"
@@ -12,12 +13,12 @@ class Port : public DrawableObject
 {
 private:
     Block* _block;
-    std::vector<Link> _link;
+    std::vector<Link*> _link;
     //Color _backgroundColor;
 public:
     MyRect* Rect;
     static const int PORT_SIZE = 15;
-    std::vector<Link> GetLinks();
+    std::vector<Link*> GetLinks();
     Link* GetFirstLink();
     Block* GetBlock();
     Port (MyRect*,Block*);
