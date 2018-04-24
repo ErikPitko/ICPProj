@@ -2,21 +2,24 @@
 #define PORT_H
 
 #include <vector>
+#include "block.h"
+#include "link.h"
+#include "myrect.h"
 #include "drawableobject.h"
-class Port : DrawableObject
+class Port : public DrawableObject
 {
 private:
     Block _block;
     std::vector<Link> _link;
-    Color _backgroundColor;
+    //Color _backgroundColor;
 public:
-    Rect Rect;
+    MyRect Rect;
     static const int PORT_SIZE = 15;
     std::vector<Link> GetLinks();
     Link GetFirstLink();
     Block GetBlock();
-    Port(Rect,Block);
-    Port(Rect, Block,Color);
+    Port (MyRect,Block);
+    Port (MyRect, Block,Color);
     void setLink(Link);
     void unSetLink();
     void virtual Draw(/*AnchorPane pane*/) override;

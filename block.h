@@ -4,7 +4,8 @@
 #include <vector>
 #include "drawableobject.h"
 #include "EBlock.h"
-#include "rect.h"
+#include "myrect.h"
+#include "port.h"
 #include <vector>
 
 class Block : public DrawableObject
@@ -12,7 +13,7 @@ class Block : public DrawableObject
     EBlock _eBlock;
     Rect _rect;
     Rect _resizeRect;
-    ImageView image;
+    //ImageView image;
     std::vector<Port> inPorts = new std::vector<Port>();
     Port _outPort;
     double value = 0;

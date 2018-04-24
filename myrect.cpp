@@ -1,39 +1,39 @@
-#include "rect.h"
+#include "myrect.h"
 
 
-double Rect::XMin() {
+double MyRect::XMin() {
     return getX();
 }
 
-double Rect::XMax() { return getX() + getWidth();
+double MyRect::XMax() { return getX() + getWidth();
 }
 
-double Rect::YMin() {
+double MyRect::YMin() {
     return getY();
 }
 
-double Rect::YMax() {
+double MyRect::YMax() {
     return getY() + getHeight();
 }
 
-Point2D Rect::Position()
+Point2D MyRect::Position()
 {
     return new Point2D(getX(),getY());
 }
 
-Point2D Rect::Size()
+Point2D MyRect::Size()
 {
     return new Point2D(getWidth(),getHeight());
 }
 
-Point2D Rect::Center()
+Point2D MyRect::Center()
 {
     return new Point2D(getX()+(getWidth()/2),getY()+(getHeight()/2));
 }
 
-static Rect ZERO = new Rect(0,0,0,0);
+static MyRect ZERO = new MyRect(0,0,0,0);
 
-Rect::Rect(Rect rect)
+MyRect::MyRect(MyRect rect)
 {
     super();
     setX(rect.getX());
@@ -42,7 +42,7 @@ Rect::Rect(Rect rect)
     setHeight(rect.getHeight());
 }
 
-Rect::Rect(Point2D position, Point2D size)
+MyRect::MyRect(Point2D position, Point2D size)
 {
     super();
     setX(position.X);
@@ -51,7 +51,7 @@ Rect::Rect(Point2D position, Point2D size)
     setHeight(size.Y);
 }
 
-Rect::Rect(double positionX,double positionY, Point2D size)
+MyRect::MyRect(double positionX,double positionY, Point2D size)
 {
     super();
     setX(positionX);
@@ -60,7 +60,7 @@ Rect::Rect(double positionX,double positionY, Point2D size)
     setHeight(size.Y);
 }
 
-Rect::Rect(Point2D position, double sizeX,double sizeY)
+MyRect::MyRect(Point2D position, double sizeX,double sizeY)
 {
     super();
     setX(position.X);
@@ -69,7 +69,7 @@ Rect::Rect(Point2D position, double sizeX,double sizeY)
     setHeight(sizeY);
 }
 
-Rect::Rect(double positionX,double positionY, double sizeX,double sizeY)
+MyRect::MyRect(double positionX,double positionY, double sizeX,double sizeY)
 {
     super();
     setX(positionX);
@@ -78,12 +78,12 @@ Rect::Rect(double positionX,double positionY, double sizeX,double sizeY)
     setHeight(sizeY);
 }
 
-bool Rect::Contains(Point2D point)
+bool MyRect::Contains(Point2D point)
 {
     return point.X >=  getX() && point.X <= XMax() && point.Y >= getY() && point.Y <= YMax();
 }
 
-bool Rect::Intersect(Rect rect)
+bool MyRect::Intersect(MyRect rect)
 {
     double xmin = Math.max(getX(), rect.getX());
     double xmax = Math.min(XMax(), rect.XMax());

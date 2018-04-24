@@ -5,7 +5,7 @@
             //line = new Line();
             isCycled = false;
    }
-   Link::Link(Link link) : DrawableObject()
+   Link::Link(const Link&) : DrawableObject()
    {
             //line = link.line;
             setOutPort(link.outPort);
