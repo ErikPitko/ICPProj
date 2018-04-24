@@ -51,13 +51,13 @@
         //_backgroundColor = Color.WHITE;
     }
 
-    Port::Port(MyRect* rect, Block* block/*,Color color*/)
+    /*Port::Port(MyRect* rect, Block* block,Color color)
     {
         _link = new std::vector<Link>();
         Rect = rect;
         _block = block;
         //_backgroundColor = color;
-    }
+    }*/
 
     void virtual Port::Draw(/*AnchorPane pane*/)
     {

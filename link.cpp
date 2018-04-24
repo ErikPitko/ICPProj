@@ -1,5 +1,4 @@
 #include "link.h"
-
    Link::Link() : DrawableObject()
    {
             //line = new Line();

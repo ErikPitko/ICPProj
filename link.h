@@ -1,9 +1,11 @@
 #ifndef LINK_H
 #define LINK_H
 
+class Port;
 #include <vector>
 #include "port.h"
 #include "drawableobject.h"
+
 class Link : public DrawableObject
 {
 private:

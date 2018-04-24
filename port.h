@@ -1,9 +1,11 @@
 #ifndef PORT_H
 #define PORT_H
-
+class Block;
+class Port;
 #include <vector>
 #include "block.h"
 #include "link.h"
+#include "port.h"
 #include "myrect.h"
 #include "drawableobject.h"
 class Port : public DrawableObject
@@ -19,7 +21,7 @@ public:
     Link* GetFirstLink();
     Block* GetBlock();
     Port (MyRect*,Block*);
-    Port (MyRect*, Block*/*,Color*/);
+    //Port (MyRect*, Block*/*,Color*/);
     void setLink(Link*);
     void unSetLink();
     void virtual Draw(/*AnchorPane pane*/) override;
