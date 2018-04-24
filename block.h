@@ -32,7 +32,7 @@ class Block : public DrawableObject
 public:
     static const int MINBLOCKSIZE = 100;
     static const int MAXBLOCKSIZE = 400;
-    static int stepCounter = 0;
+    static int stepCounter;
 
     Block(EBlock, MyRect*);
     Block(EBlock, MyRect*, double);
@@ -47,7 +47,7 @@ public:
     static double compute(Block*);
     static void unsetCalculated(Block*);
     std::vector<Port> getInPorts();
-    Port getOutPort();
+    Port* getOutPort();
     void setOutPort(Port*);
     void setInPorts(std::vector<Port>);
     void setInPort(int, Port*);

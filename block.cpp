@@ -1,45 +1,47 @@
 #include "block.h"
 
-Block::Block(EBlock eBlock, MyRect rect) : DrawableObject()
+Block::Block(EBlock eBlock, MyRect* rect) : DrawableObject()
 {
     eBlock = eBlock;
     _rect = rect;
+    stepCounter = 0;
 //    _outPort = new Port(new MyRect(_rect.XMax()-(Port.PORT_SIZE+Port.PORT_SIZE/2),_rect.getY()+_rect.getHeight()/2-Port.PORT_SIZE/2,Port.PORT_SIZE,Port.PORT_SIZE),this,Color.RED);
 }
 
-Block::Block(EBlock eBlock, MyRect rect, double value) : DrawableObject()
+Block::Block(EBlock eBlock, MyRect* rect, double value) : DrawableObject()
 {
     eBlock = eBlock;
     _rect = rect;
     value = value;
+    stepCounter = 0;
 //    _outPort = new Port(new MyRect(_rect.XMax()-(Port.PORT_SIZE+Port.PORT_SIZE/2),_rect.getY()+_rect.getHeight()/2-Port.PORT_SIZE/2,Port.PORT_SIZE,Port.PORT_SIZE),this,Color.RED);
 }
 
 void Block::calculatePortsToMiddle()
 {
-    recalculateHeights();
-    double step = _rect.height() / inPorts.size();
-    double div = step / 2;
-    for (int i = 0; i < inPorts.size(); i++)
-    {
-        inPorts[i].Rect.setY((int) (_rect.getY() + (i + 1) * step - div- Port.PORT_SIZE / 2));
-    }
+//    recalculateHeights();
+//    double step = _rect.height() / inPorts.size();
+//    double div = step / 2;
+//    for (int i = 0; i < inPorts.size(); i++)
+//    {
+//        inPorts[i].Rect.setY((int) (_rect.getY() + (i + 1) * step - div- Port.PORT_SIZE / 2));
+//    }
 }
 
 bool Block::recalculateHeights()
 {
-    if(inPorts.size()*Port.PORT_SIZE >= _rect.height()-10)
-    {
-        _rect.setY(inPorts.size()*Port.PORT_SIZE + inPorts.size()*15);
-        _outPort.Rect.setY(_rect.getY()+_rect.getHeight()/2-Port.PORT_SIZE/2);
-        return true;
-    }
+//    if(inPorts.size()*Port.PORT_SIZE >= _rect.height()-10)
+//    {
+//        _rect.setY(inPorts.size()*Port.PORT_SIZE + inPorts.size()*15);
+//        _outPort.Rect.setY(_rect.getY()+_rect.getHeight()/2-Port.PORT_SIZE/2);
+//        return true;
+//    }
     return false;
 }
 
 void Block::genInPort() {
-    MyRect newport = new MyRect(_rect.getX()+Port.PORT_SIZE/2,_rect.getY()+Port.PORT_SIZE/2 + Port.PORT_SIZE +5*inPorts.size(),Port.PORT_SIZE,Port.PORT_SIZE);
-    this.inPorts.push_back(new Port(newport, this));
+    MyRect* newport = new MyRect(_rect->x()+Port::PORT_SIZE/2,_rect->y()+Port::PORT_SIZE/2 + Port::PORT_SIZE +5*inPorts.size(),Port::PORT_SIZE,Port::PORT_SIZE);
+    this->inPorts.push_back(*new Port(newport, this));
     calculatePortsToMiddle();
 }
 
@@ -135,64 +137,64 @@ double Block::compute(Block* block) {
     return block->value;
 }
 
-static void Block::unsetCalculated(Block block) {
-    if(block == null)
+void Block::unsetCalculated(Block* block) {
+    if(block == nullptr)
         return;
-    if(block.getType() == EBlock.IN)
+    if(block->getType() == IN)
         return;
-    block.calculated = false;
-    block.setValue(0);
-    if(block._outPort== null)
+    block->calculated = false;
+    block->setValue(0);
+    if(block->_outPort == nullptr)
         return;
-    for(int i= 0;i<block._outPort.GetLinks().size();i++) {
-        Link link = block._outPort.GetLinks().get(i);
-        if (link == null || link.getOutPort() == null)
+    for(int i= 0;i<block->_outPort->GetLinks().size();i++) {
+        Link* link = &block->_outPort->GetLinks()[i];
+        if (link == nullptr || link->getOutPort() == nullptr)
             return;
-        unsetCalculated(link.getOutPort().GetBlock());
+        unsetCalculated(link->getOutPort()->GetBlock());
     }
 }
 
-std::vector<Port> getInPorts()
+std::vector<Port> Block::getInPorts()
 {
-    return inPorts;
+    return this->inPorts;
 }
 
-Port Block::GetOutPort(){ return _outPort; }
+Port* Block::getOutPort(){ return _outPort; }
 
-void Block::SetOutPort(Port p)
+void Block::setOutPort(Port* p)
 {
     _outPort = p;
 }
 
-void Block::SetInPorts(List<Port> portList)
+void Block::setInPorts(std::vector<Port> portList)
 {
     inPorts.clear();
-    inPorts.addAll(portList);
+    inPorts.insert(inPorts.end(), portList.begin(), portList.end());
 }
 
-void Block::SetInPort(int index, Port newInPort)
+void Block::setInPort(int index, Port* newInPort)
 {
-    inPorts.set(index,newInPort);
-    CalculatePortsToMiddle();
+    inPorts[index] = *newInPort;
+    calculatePortsToMiddle();
 }
 
-double getValue() {
+double Block::getValue() {
     return value;
 }
 
-MyRect Block::GetResizeRect(){return _resizeRect;}
+MyRect* Block::getResizeRect(){return _resizeRect;}
 
 EBlock Block::getType() {
     return _eBlock;
 }
 
-void Block::setRectPosition(Point2D position)
+void Block::setRectPosition(Point2D* position)
 {
-    _rect.setX(position.X);
-    _rect.setY(position.Y);
+    _rect->setX(position->X);
+    _rect->setY(position->Y);
 }
 
-MyRect Block::getRect()
+MyRect* Block::getRect()
 {
     return _rect;
 }
@@ -311,17 +313,17 @@ void Block::DeleteBlock()
 //    FXMLExampleController.AnchorPanel.getChildren().remove(debugDisp);
 //    if(disp != null)
 //        FXMLExampleController.AnchorPanel.getChildren().remove(disp);
-    if(_outPort!= null)
+    if(_outPort != nullptr)
     {
-        for (int i = 0; i < _outPort.GetLinks().size(); i++) {
-            unsetCalculated(_outPort.GetBlock());
-            _outPort.unSetLink();
+        for (int i = 0; i < _outPort->GetLinks().size(); i++) {
+            unsetCalculated(_outPort->GetBlock());
+            _outPort->unSetLink();
         }
 //        FXMLExampleController.AnchorPanel.getChildren().remove(_outPort.Rect);
     }
     for (int i = 0; i < inPorts.size();i++)
     {
-        inPorts.get(i).unSetLink();
+        inPorts[i].unSetLink();
 //        FXMLExampleController.AnchorPanel.getChildren().remove(inPorts.get(i).Rect);
     }
 //    FXMLExampleController.AnchorPanel.getChildren().remove(_resizeRect);
