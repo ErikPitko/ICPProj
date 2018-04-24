@@ -25,7 +25,7 @@ public:
     //Port (MyRect*, Block*/*,Color*/);
     void setLink(Link*);
     void unSetLink();
-    void virtual Draw(/*AnchorPane pane*/) override;
+    void virtual Draw(QPainter*) override;
 };
 
 #endif // PORT_H

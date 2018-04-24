@@ -21,23 +21,23 @@ Block::Block(EBlock eBlock, MyRect* rect, double value) : DrawableObject()
 
 void Block::calculatePortsToMiddle()
 {
-//    recalculateHeights();
-//    double step = _rect.height() / inPorts.size();
-//    double div = step / 2;
-//    for (int i = 0; i < inPorts.size(); i++)
-//    {
-//        inPorts[i].Rect.setY((int) (_rect.getY() + (i + 1) * step - div- Port.PORT_SIZE / 2));
-//    }
+    recalculateHeights();
+    double step = _rect->height() / inPorts.size();
+    double div = step / 2;
+    for (int i = 0; i < inPorts.size(); i++)
+    {
+        inPorts[i]->Rect->setY((int) (_rect->y() + (i + 1) * step - div- Port::PORT_SIZE / 2));
+    }
 }
 
 bool Block::recalculateHeights()
 {
-//    if(inPorts.size()*Port.PORT_SIZE >= _rect.height()-10)
-//    {
-//        _rect.setY(inPorts.size()*Port.PORT_SIZE + inPorts.size()*15);
-//        _outPort.Rect.setY(_rect.getY()+_rect.getHeight()/2-Port.PORT_SIZE/2);
-//        return true;
-//    }
+    if(inPorts.size()*Port::PORT_SIZE >= _rect->height()-10)
+    {
+        _rect->setY(inPorts.size()*Port::PORT_SIZE + inPorts.size()*15);
+        _outPort->Rect->setY(_rect->y()+_rect->height()/2-Port::PORT_SIZE/2);
+        return true;
+    }
     return false;
 }
 
@@ -140,7 +140,6 @@ double Block::compute(Block* block) {
 }
 
 void Block::unsetCalculated(Block* block) {
-    std::cout << block<< std::endl;
     if(block == nullptr)
         return;
     if(block->getType() == IN)
@@ -333,26 +332,46 @@ void Block::DeleteBlock()
 //    Panel.BlockList.remove(this);
 }
 
-void Block::Draw()
+void Block::Draw(QPainter *p)
 {
-//    image = new ImageView(new Image(getClass().getResourceAsStream("/Res/"+_eBlock.toString()+".png")));
-//    image.setFitHeight(_rect.getHeight());
-//    image.setFitWidth(_rect.getWidth());
-//    image.setX(_rect.getX());
-//    image.setY(_rect.getY());
-//    Font font = null;
-//    try {
-//        font = Font.loadFont(new FileInputStream(new File("src/Res/fonts/Crasns.ttf")), 15);
-//    } catch (FileNotFoundException e) {
-//        e.printStackTrace();
-//    }
+    switch (_eBlock)
+      {
+      case 0: { image = QImage("/home/adam/Stažené/ADD.png"); } break;
+      case 1: { image = QImage("/home/adam/Stažené/SUB.png"); } break;
+      case 2: { image = QImage("/home/adam/Stažené/MUL.png"); } break;
+      case 3: { image = QImage("/home/adam/Stažené/DIV.png"); } break;
+      case 4: { image = QImage("/home/adam/Stažené/IN.png"); } break;
+      case 5: { image = QImage("/home/adam/Stažené/OUT.png"); } break;
+      }
+    p->drawImage(*_rect,image);
+    _resizeRect = new MyRect(_rect->XMax()-8,_rect->YMax()-8,8,8);
+    QBrush brush(Qt::white);
+    p->fillRect(*_resizeRect,brush);
+    p->drawRect(*_resizeRect);
+    for (Port *port: inPorts)
+    {
+        QBrush brush(Qt::white);
+        p->fillRect(*port->Rect,brush);
+        port->Draw(p);
+        for (Link *link: port->GetLinks()) {
+            if(link!= nullptr)
+            {
+                link->Draw(p);
+            }
+        }
+    }
+    if(_outPort!= nullptr)
+    {
+        QBrush brush(Qt::red);
+        p->fillRect(*_outPort->Rect,brush);
+        _outPort->Draw(p);
+    }
 
 //    debugDisp = new Text(String.valueOf(value));
 //    //debugDisp.setFont(font);
 //    debugDisp.setX(_rect.getX() + _rect.getWidth() - debugDisp.getBoundsInLocal().getWidth());
 //    debugDisp.setY(_rect.getY() - 5);
 //    debugDisp.setMouseTransparent(true);
-
 //    if (_eBlock == EBlock.OUT) {
 //        disp = new Text(String.valueOf(value));
 //        disp.setMouseTransparent(true);
@@ -363,20 +382,4 @@ void Block::Draw()
 //        pane.getChildren().addAll(_rect, image, debugDisp, disp);
 //    }else
 //        pane.getChildren().addAll(_rect, image, debugDisp);
-//    _resizeRect = new Rect(_rect.XMax()-8,_rect.YMax()-8,8,8);
-//    _resizeRect.setFill(Color.WHITE);
-//    _resizeRect.setStroke(Color.BLACK);
-//    pane.getChildren().add(_resizeRect);
-//    for (Port p: inPorts)
-//    {
-//        p.Draw(pane);
-//        for (Link link: p.GetLinks()) {
-//            if(link!= null)
-//            {
-//                link.Draw(pane);
-//            }
-//        }
-//    }
-//    if(_outPort!= null)
-//        _outPort.Draw(pane);
 }

@@ -15,7 +15,7 @@ class Block : public DrawableObject
     EBlock _eBlock;
     MyRect *_rect= nullptr;
     MyRect *_resizeRect= nullptr;
-    //ImageView image;
+    QImage image;
     std::vector<Port*> inPorts = std::vector<Port*>();
     Port *_outPort = nullptr;
     double value = 0;
@@ -60,7 +60,7 @@ public:
     void Move(double, double);
     void Resize(double, double);
     void DeleteBlock();
-    void virtual Draw() override;
+    void virtual Draw(QPainter*) override;
 };
 
 #endif // BLOCK_H

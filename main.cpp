@@ -1,11 +1,12 @@
 #include "widget.h"
 #include <QApplication>
-
+#include "block.h"
+#include "blockdialog.h"
+#include <iostream>
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+    QApplication App(argc, argv);
     Widget w;
     w.show();
-
-    return a.exec();
+    return App.exec();
 }

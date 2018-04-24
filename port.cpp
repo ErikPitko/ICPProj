@@ -62,8 +62,9 @@
         //_backgroundColor = color;
     }*/
 
-    void Port::Draw(/*AnchorPane pane*/)
+    void Port::Draw(QPainter *p)
     {
+        p->drawRect(*Rect);
         //Rect.setFill(_backgroundColor);
         //Rect.setStroke(Color.BLACK);
         //pane.getChildren().add(Rect);

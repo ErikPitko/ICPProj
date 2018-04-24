@@ -11,7 +11,7 @@ class Link : public DrawableObject
 private:
     Port *inPort = nullptr;
     Port *outPort = nullptr;
-    //Line line;
+    QLine *line= nullptr;
     bool isCycled;
     //static std::vector<Line> cycledLinks = new std::vector<Line>();
 public:
@@ -29,7 +29,7 @@ public:
     bool IsCycled();
     void SetCycled();
     void UnSetCycled();
-    void virtual Draw(/*AnchorPane pane*/) override;
+    void virtual Draw(QPainter*) override;
 };
 
 #endif // LINK_H

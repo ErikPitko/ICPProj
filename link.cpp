@@ -73,10 +73,15 @@
        isCycled = false;
        //cycledLinks.erase(line);
    }
-   void Link::Draw(/*AnchorPane pane*/)
+   void Link::Draw(QPainter *p)
    {
-       /*if(inPort == null||outPort== null)
+       if(inPort == nullptr||outPort== nullptr)
            return;
+       p->setPen(QPen(Qt::black, 3));
+       line = new QLine(inPort->Rect->Center()->X+7,inPort->Rect->Center()->Y,outPort->Rect->Center()->X-7,outPort->Rect->Center()->Y);
+       p->drawLine(*line);
+       p->setPen(QPen(Qt::black, 1));
+       /*
        if(!pane.getChildren().contains(line))
        {
            line.setStartX(inPort.Rect.Center().X + Port.PORT_SIZE / 2 + 1);

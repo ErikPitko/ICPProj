@@ -6,7 +6,7 @@ DrawableObject::DrawableObject()
 
 }
 
-void DrawableObject::Draw()
+void DrawableObject::Draw(QPainter *p)
 {
 
 }

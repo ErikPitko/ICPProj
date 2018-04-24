@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     link.cpp \
     myrect.cpp \
     point2d.cpp \
-    port.cpp
+    port.cpp \
+    blockdialog.cpp
 
 HEADERS  += widget.h \
     block.h \
@@ -28,6 +29,8 @@ HEADERS  += widget.h \
     link.h \
     myrect.h \
     point2d.h \
-    port.h
+    port.h \
+    blockdialog.h
 
-FORMS    += widget.ui
+FORMS    += widget.ui \
+    blockdialog.ui
