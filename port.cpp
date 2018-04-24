@@ -45,7 +45,7 @@
 
     Port::Port(MyRect* rect, Block* block)
     {
-        _link = new std::vector<Link>();
+        _link = std::vector<Link>();
         Rect = rect;
         _block = block;
         //_backgroundColor = Color.WHITE;
