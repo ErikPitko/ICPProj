@@ -7,19 +7,21 @@
 #include "myrect.h"
 #include "port.h"
 #include <vector>
+#include <iostream>
+#include "link.h"
 
 class Block : public DrawableObject
 {
     EBlock _eBlock;
-    Rect _rect;
-    Rect _resizeRect;
+    MyRect _rect;
+    MyRect _resizeRect;
     //ImageView image;
-    std::vector<Port> inPorts = new std::vector<Port>();
+    std::vector<Port> inPorts = std::vector<Port>();
     Port _outPort;
     double value = 0;
     bool calculated = false;
-    Text debugDisp;
-    Text disp;
+//    Text debugDisp;
+//    Text disp;
 
     void calculatePortsToMiddle();
     bool recalculateHeights();
@@ -30,9 +32,10 @@ class Block : public DrawableObject
 public:
     static const int MINBLOCKSIZE = 100;
     static const int MAXBLOCKSIZE = 400;
+    static int stepCounter = 0;
 
-    Block(EBlock, Rect);
-    Block(EBlock, Rect, double);
+    Block(EBlock, MyRect);
+    Block(EBlock, MyRect, double);
     void genInPort();
     /***
      * @brief Recursive searching for loops
@@ -40,8 +43,8 @@ public:
      * @param block Block to be checked for loop in tree
      * @returns true if loop is found
      */
-    static bool isCycled(Block, Block);
-    static double compute(Block);
+    static bool isCycled(Block*, Block*);
+    static double compute(Block*);
     static void unsetCalculated(Block);
     std::vector<Port> getInPorts();
     Port getOutPort();
@@ -49,10 +52,10 @@ public:
     void setInPorts(std::vector<Port>);
     void setInPort(int, Port);
     double getValue();
-    Rect getResizeRect();
+    MyRect getResizeRect();
     EBlock getType();
     void setRectPosition(Point2D);
-    Rect getRect();
+    MyRect getRect();
     void setType(EBlock);
     void Move(double, double);
     void Resize(double, double);

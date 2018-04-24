@@ -1,34 +1,34 @@
 #include "block.h"
 
-Block::Block(EBlock eBlock, Rect rect) : DrawableObject()
+Block::Block(EBlock eBlock, MyRect rect) : DrawableObject()
 {
     eBlock = eBlock;
     _rect = rect;
-    _outPort = new Port(new Rect(_rect.XMax()-(Port.PORT_SIZE+Port.PORT_SIZE/2),_rect.getY()+_rect.getHeight()/2-Port.PORT_SIZE/2,Port.PORT_SIZE,Port.PORT_SIZE),this,Color.RED);
+//    _outPort = new Port(new MyRect(_rect.XMax()-(Port.PORT_SIZE+Port.PORT_SIZE/2),_rect.getY()+_rect.getHeight()/2-Port.PORT_SIZE/2,Port.PORT_SIZE,Port.PORT_SIZE),this,Color.RED);
 }
 
-Block::Block(EBlock eBlock, Rect rect, double value) : DrawableObject()
+Block::Block(EBlock eBlock, MyRect rect, double value) : DrawableObject()
 {
     eBlock = eBlock;
     _rect = rect;
     value = value;
-    _outPort = new Port(new Rect(_rect.XMax()-(Port.PORT_SIZE+Port.PORT_SIZE/2),_rect.getY()+_rect.getHeight()/2-Port.PORT_SIZE/2,Port.PORT_SIZE,Port.PORT_SIZE),this,Color.RED);
+//    _outPort = new Port(new MyRect(_rect.XMax()-(Port.PORT_SIZE+Port.PORT_SIZE/2),_rect.getY()+_rect.getHeight()/2-Port.PORT_SIZE/2,Port.PORT_SIZE,Port.PORT_SIZE),this,Color.RED);
 }
 
 void Block::calculatePortsToMiddle()
 {
     recalculateHeights();
-    double step = _rect->getHeight() / inPorts.size();
+    double step = _rect.height() / inPorts.size();
     double div = step / 2;
     for (int i = 0; i < inPorts.size(); i++)
     {
-        inPorts.get(i).Rect.setY((int) (_rect.getY() + (i + 1) * step - div- Port.PORT_SIZE / 2));
+        inPorts[i].Rect.setY((int) (_rect.getY() + (i + 1) * step - div- Port.PORT_SIZE / 2));
     }
 }
 
 bool Block::recalculateHeights()
 {
-    if(inPorts.size()*Port.PORT_SIZE >= _rect.getHeight()-10)
+    if(inPorts.size()*Port.PORT_SIZE >= _rect.height()-10)
     {
         _rect.setY(inPorts.size()*Port.PORT_SIZE + inPorts.size()*15);
         _outPort.Rect.setY(_rect.getY()+_rect.getHeight()/2-Port.PORT_SIZE/2);
@@ -38,39 +38,39 @@ bool Block::recalculateHeights()
 }
 
 void Block::genInPort() {
-    Rect newport = new Rect(_rect.getX()+Port.PORT_SIZE/2,_rect.getY()+Port.PORT_SIZE/2 + Port.PORT_SIZE +5*inPorts.size(),Port.PORT_SIZE,Port.PORT_SIZE);
-    this.inPorts.add(new Port(newport, this));
-    CalculatePortsToMiddle();
+    MyRect newport = new MyRect(_rect.getX()+Port.PORT_SIZE/2,_rect.getY()+Port.PORT_SIZE/2 + Port.PORT_SIZE +5*inPorts.size(),Port.PORT_SIZE,Port.PORT_SIZE);
+    this.inPorts.push_back(new Port(newport, this));
+    calculatePortsToMiddle();
 }
 
 void Block::setValue(double value) {
-    this.value = value;
-    if(debugDisp != null) {
-        debugDisp.setText(String.valueOf(value));
-        debugDisp.setX(_rect.getX() + _rect.getWidth() - debugDisp.getBoundsInLocal().getWidth());
-    }
-    if(disp != null) {
-        disp.setText(String.valueOf(value));
-        disp.setX(_rect.Center().X - disp.getBoundsInLocal().getWidth()/2);
-    }
+    this->value = value;
+//    if(debugDisp != null) {
+//        debugDisp.setText(String.valueOf(value));
+//        debugDisp.setX(_rect.getX() + _rect.getWidth() - debugDisp.getBoundsInLocal().getWidth());
+//    }
+//    if(disp != null) {
+//        disp.setText(String.valueOf(value));
+//        disp.setX(_rect.Center().X - disp.getBoundsInLocal().getWidth()/2);
+//    }
 }
 
-static bool Block::isCycled(Block comparing, Block block) {
-        boolean found = false;
+bool Block::isCycled(Block* comparing, Block* block) {
+        bool found = false;
 
-        if(comparing == null) {
+        if(comparing == nullptr) {
             comparing = block;
         }else {
             if(comparing == block)
                 return true;
         }
-        if(block == null)
+        if(block == nullptr)
             return found;
 
-        for (Port port : block.getInPorts()) {
-            Link frontLink = port.GetFirstLink();
-            if (frontLink != null) {
-                found = isCycled(comparing, frontLink.getInPort().GetBlock());
+        for (Port port : block->getInPorts()) {
+            Link* frontLink = port.GetFirstLink();
+            if (frontLink != nullptr) {
+                found = isCycled(comparing, frontLink->getInPort()->GetBlock());
                 if(found)
                     break;
             }
@@ -78,60 +78,61 @@ static bool Block::isCycled(Block comparing, Block block) {
         return found;
 }
 
-static double Block::compute(Block block) {
-    if(isCycled(null, block)) {
-        System.err.println("CYCLE !");
+double Block::compute(Block* block) {
+    if(isCycled(nullptr, block))
+    {
+        std::cerr << "cycle detected" << std::endl;
         return 0;
     }
-    boolean first = true;
-    if (block.calculated)
-        return block.value;
-    for (Port port : block.getInPorts()) {
-        Link frontLink = port.GetFirstLink();
-        if (frontLink != null) {
-            double value = compute(frontLink.getInPort().GetBlock());
-            if(Block.stepCounter == Panel.stepCounter) {
-                return value;
-            }
-            else
-            {
-                ImageView image = block.getImageView();
-                ColorAdjust blackout = new ColorAdjust();
-                blackout.setBrightness(-0.5);
-                image.setEffect(blackout);
-                image.setCache(true);
-                image.setCacheHint(CacheHint.SPEED);
+    bool first = true;
+    if (block->calculated)
+        return block->value;
+    for (Port port : block->getInPorts()) {
+        Link* frontLink = port.GetFirstLink();
+        if (frontLink != nullptr) {
+            double value = compute(frontLink->getInPort()->GetBlock());
+//            if(Block.stepCounter == Panel.stepCounter)
+//            {
+//                return value;
+//            }
+//            else
+//            {
+//                ImageView image = block.getImageView();
+//                ColorAdjust blackout = new ColorAdjust();
+//                blackout.setBrightness(-0.5);
+//                image.setEffect(blackout);
+//                image.setCache(true);
+//                image.setCacheHint(CacheHint.SPEED);
+//            }
 
-            }
-
-            System.out.println(Block.stepCounter);
+//            System.out.println(Block.stepCounter);
             if (first) {
                 first = false;
-                block.setValue(value);
+                block->setValue(value);
                 continue;
             }
-            switch (block.getType()) {
+            switch (block->getType()) {
             case ADD:
-                block.setValue(block.value + value);
+                block->setValue(block->value + value);
                 break;
             case SUB:
-                block.setValue(block.value - value);
+                block->setValue(block->value - value);
                 break;
             case MUL:
-                block.setValue(block.value * value);
+                block->setValue(block->value * value);
                 break;
             case DIV:
-                block.setValue(block.value / value);
+                block->setValue(block->value / value);
                 break;
             default:
-                block.setValue(value);
+                block->setValue(value);
             }
         }
     }
-    if(block.getType()!= EBlock.IN)
-        Block.stepCounter++;
-    block.calculated = true;
-    return block.value;
+    if(block->getType()!= IN)
+        Block::stepCounter++;
+    block->calculated = true;
+    return block->value;
 }
 
 static void Block::unsetCalculated(Block block) {
@@ -179,7 +180,7 @@ double getValue() {
     return value;
 }
 
-Rect Block::GetResizeRect(){return _resizeRect;}
+MyRect Block::GetResizeRect(){return _resizeRect;}
 
 EBlock Block::getType() {
     return _eBlock;
@@ -191,7 +192,7 @@ void Block::setRectPosition(Point2D position)
     _rect.setY(position.Y);
 }
 
-Rect Block::getRect()
+MyRect Block::getRect()
 {
     return _rect;
 }
