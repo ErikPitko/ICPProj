@@ -16,7 +16,7 @@ class Block : public DrawableObject
     MyRect *_rect;
     MyRect *_resizeRect;
     //ImageView image;
-    std::vector<Port> inPorts = std::vector<Port>();
+    std::vector<Port*> inPorts = std::vector<Port*>();
     Port *_outPort;
     double value = 0;
     bool calculated = false;
@@ -46,10 +46,10 @@ public:
     static bool isCycled(Block*, Block*);
     static double compute(Block*);
     static void unsetCalculated(Block*);
-    std::vector<Port> getInPorts();
+    std::vector<Port*> getInPorts();
     Port* getOutPort();
     void setOutPort(Port*);
-    void setInPorts(std::vector<Port>);
+    void setInPorts(std::vector<Port*>);
     void setInPort(int, Port*);
     double getValue();
     MyRect* getResizeRect();

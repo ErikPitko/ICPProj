@@ -1,5 +1,6 @@
 #include "port.h"
 #include <algorithm>
+#include <iostream>
 
     std::vector<Link*> Port::GetLinks()
     {
@@ -42,6 +43,7 @@
 
     Block* Port::GetBlock()
     {
+        std::cout<<_block<<std::endl;
         return _block;
     }
 

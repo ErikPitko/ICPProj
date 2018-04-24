@@ -1,4 +1,5 @@
 #include "link.h"
+#include <iostream>
    Link::Link() : DrawableObject()
    {
             //line = new Line();
@@ -26,6 +27,7 @@
 
    void Link::setInPort(Port *inPort)
    {
+       std::cout << outPort->GetFirstLink()<<std::endl;
        if (outPort != nullptr && inPort != nullptr)
            Block::unsetCalculated(outPort->GetBlock());
        this->inPort = inPort;

@@ -1,5 +1,5 @@
 #include "block.h"
-
+#include <iostream>
 int Block::stepCounter;
 
 Block::Block(EBlock eBlock, MyRect* rect) : DrawableObject()
@@ -7,7 +7,7 @@ Block::Block(EBlock eBlock, MyRect* rect) : DrawableObject()
     eBlock = eBlock;
     _rect = rect;
     stepCounter = 0;
-//    _outPort = new Port(new MyRect(_rect.XMax()-(Port.PORT_SIZE+Port.PORT_SIZE/2),_rect.getY()+_rect.getHeight()/2-Port.PORT_SIZE/2,Port.PORT_SIZE,Port.PORT_SIZE),this,Color.RED);
+    _outPort = new Port(new MyRect(_rect->XMax()-(Port::PORT_SIZE+Port::PORT_SIZE/2),_rect->y()+_rect->height()/2-Port::PORT_SIZE/2,Port::PORT_SIZE,Port::PORT_SIZE),this);
 }
 
 Block::Block(EBlock eBlock, MyRect* rect, double value) : DrawableObject()
@@ -16,7 +16,7 @@ Block::Block(EBlock eBlock, MyRect* rect, double value) : DrawableObject()
     _rect = rect;
     value = value;
     stepCounter = 0;
-//    _outPort = new Port(new MyRect(_rect.XMax()-(Port.PORT_SIZE+Port.PORT_SIZE/2),_rect.getY()+_rect.getHeight()/2-Port.PORT_SIZE/2,Port.PORT_SIZE,Port.PORT_SIZE),this,Color.RED);
+    _outPort = new Port(new MyRect(_rect->XMax()-(Port::PORT_SIZE+Port::PORT_SIZE/2),_rect->y()+_rect->height()/2-Port::PORT_SIZE/2,Port::PORT_SIZE,Port::PORT_SIZE),this);
 }
 
 void Block::calculatePortsToMiddle()
@@ -43,7 +43,7 @@ bool Block::recalculateHeights()
 
 void Block::genInPort() {
     MyRect* newport = new MyRect(_rect->x()+Port::PORT_SIZE/2,_rect->y()+Port::PORT_SIZE/2 + Port::PORT_SIZE +5*inPorts.size(),Port::PORT_SIZE,Port::PORT_SIZE);
-    this->inPorts.push_back(*new Port(newport, this));
+    this->inPorts.push_back(new Port(newport, this));
     calculatePortsToMiddle();
 }
 
@@ -71,8 +71,8 @@ bool Block::isCycled(Block* comparing, Block* block) {
         if(block == nullptr)
             return found;
 
-        for (Port port : block->getInPorts()) {
-            Link* frontLink = port.GetFirstLink();
+        for (Port *port : block->getInPorts()) {
+            Link* frontLink = port->GetFirstLink();
             if (frontLink != nullptr) {
                 found = isCycled(comparing, frontLink->getInPort()->GetBlock());
                 if(found)
@@ -91,8 +91,8 @@ double Block::compute(Block* block) {
     bool first = true;
     if (block->calculated)
         return block->value;
-    for (Port port : block->getInPorts()) {
-        Link* frontLink = port.GetFirstLink();
+    for (Port *port : block->getInPorts()) {
+        Link* frontLink = port->GetFirstLink();
         if (frontLink != nullptr) {
             double value = compute(frontLink->getInPort()->GetBlock());
 //            if(Block.stepCounter == Panel.stepCounter)
@@ -156,7 +156,7 @@ void Block::unsetCalculated(Block* block) {
     }
 }
 
-std::vector<Port> Block::getInPorts()
+std::vector<Port*> Block::getInPorts()
 {
     return this->inPorts;
 }
@@ -168,7 +168,7 @@ void Block::setOutPort(Port* p)
     _outPort = p;
 }
 
-void Block::setInPorts(std::vector<Port> portList)
+void Block::setInPorts(std::vector<Port*> portList)
 {
     inPorts.clear();
     inPorts.insert(inPorts.end(), portList.begin(), portList.end());
@@ -176,7 +176,7 @@ void Block::setInPorts(std::vector<Port> portList)
 
 void Block::setInPort(int index, Port* newInPort)
 {
-    inPorts[index] = *newInPort;
+    inPorts[index] = newInPort;
     calculatePortsToMiddle();
 }
 
@@ -325,7 +325,7 @@ void Block::DeleteBlock()
     }
     for (int i = 0; i < inPorts.size();i++)
     {
-        inPorts[i].unSetLink();
+        inPorts[i]->unSetLink();
 //        FXMLExampleController.AnchorPanel.getChildren().remove(inPorts.get(i).Rect);
     }
 //    FXMLExampleController.AnchorPanel.getChildren().remove(_resizeRect);
