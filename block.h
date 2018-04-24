@@ -13,11 +13,11 @@
 class Block : public DrawableObject
 {
     EBlock _eBlock;
-    MyRect _rect;
-    MyRect _resizeRect;
+    MyRect *_rect;
+    MyRect *_resizeRect;
     //ImageView image;
     std::vector<Port> inPorts = std::vector<Port>();
-    Port _outPort;
+    Port *_outPort;
     double value = 0;
     bool calculated = false;
 //    Text debugDisp;
@@ -34,8 +34,8 @@ public:
     static const int MAXBLOCKSIZE = 400;
     static int stepCounter = 0;
 
-    Block(EBlock, MyRect);
-    Block(EBlock, MyRect, double);
+    Block(EBlock, MyRect*);
+    Block(EBlock, MyRect*, double);
     void genInPort();
     /***
      * @brief Recursive searching for loops
@@ -45,17 +45,17 @@ public:
      */
     static bool isCycled(Block*, Block*);
     static double compute(Block*);
-    static void unsetCalculated(Block);
+    static void unsetCalculated(Block*);
     std::vector<Port> getInPorts();
     Port getOutPort();
-    void setOutPort(Port);
+    void setOutPort(Port*);
     void setInPorts(std::vector<Port>);
-    void setInPort(int, Port);
+    void setInPort(int, Port*);
     double getValue();
-    MyRect getResizeRect();
+    MyRect* getResizeRect();
     EBlock getType();
-    void setRectPosition(Point2D);
-    MyRect getRect();
+    void setRectPosition(Point2D*);
+    MyRect* getRect();
     void setType(EBlock);
     void Move(double, double);
     void Resize(double, double);
