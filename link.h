@@ -31,6 +31,7 @@ public:
     void SetCycled();
     void UnSetCycled();
     void virtual Draw(QPainter*) override;
+    static bool IsPointOnLine(QLine *line, Point2D *point);
 
 };
 std::ostream& operator <<(std::ostream& os, Link& link);

@@ -1,6 +1,7 @@
 #include "link.h"
 #include <iostream>
 #include <vector>
+#include <math.h>
 Link::Link() : DrawableObject()
 {
         line = new QLine();
@@ -78,6 +79,13 @@ void Link::UnSetCycled()
 {
    isCycled = false;
    //cycledLinks.erase(line);
+}
+
+bool Link::IsPointOnLine(QLine *line, Point2D *point)
+{
+    double m = (double)(line->p2().y() - line->p1().y()) / (double)(line->p2().x() - line->p1().x());
+    double b = line->p1().y() - m * line->p1().x();
+    return (abs(point->Y - (m*point->X+b)) < 3);
 }
 
 void Link::Draw(QPainter *p)

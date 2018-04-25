@@ -1,7 +1,7 @@
 #include "block.h"
 
 int Block::stepCounter;
-
+Block* Block::debug = nullptr;
 Block::Block(EBlock eBlock, MyRect* rect) : DrawableObject()
 {
     this->_eBlock = eBlock;
@@ -19,6 +19,8 @@ Block::Block(EBlock eBlock, MyRect* rect, double value) : DrawableObject()
     stepCounter = 0;
     if(_eBlock!= OUT)
         _outPort = new Port(new MyRect(_rect->XMax()-(Port::PORT_SIZE+Port::PORT_SIZE/2),_rect->y()+_rect->height()/2-Port::PORT_SIZE/2,Port::PORT_SIZE,Port::PORT_SIZE),this);
+    else
+        disp = new QLabel("");
 }
 
 Block::~Block()
@@ -54,19 +56,28 @@ Block::~Block()
 void Block::calculatePortsToMiddle()
 {
     recalculateHeights();
-    double step = _rect->height() / inPorts.size();
-    double div = step / 2;
-    for (int i = 0; i < inPorts.size(); i++)
+    if(inPorts.size() != 0)
     {
-        inPorts[i]->Rect->setY((int) (_rect->y() + (i + 1) * step - div- Port::PORT_SIZE / 2));
-        inPorts[i]->Rect->setHeight(Port::PORT_SIZE);
+        double step = _rect->height() / inPorts.size();
+        double div = step / 2;
+        for (int i = 0; i < inPorts.size(); i++)
+        {
+            inPorts[i]->Rect->setY((int) (_rect->y() + (i + 1) * step - div- Port::PORT_SIZE / 2));
+            inPorts[i]->Rect->setHeight(Port::PORT_SIZE);
+        }
     }
 }
 
-void Block::completeDeleteBlock()
+bool Block::completeDeleteBlock()
 {
-    Widget::BlockList->erase(Widget::BlockList->begin()+(std::find(Widget::BlockList->begin(),Widget::BlockList->end(),this) - Widget::BlockList->begin()));
-    delete this;
+    std::vector<Block*>::iterator pos = std::find(Widget::BlockList->begin(),Widget::BlockList->end(),this);
+    if(pos != Widget::BlockList->end())
+    {
+        Widget::BlockList->erase(Widget::BlockList->begin()+std::distance(Widget::BlockList->begin(),pos));
+        delete this;
+        return true;
+    }
+    return false;
 }
 
 bool Block::recalculateHeights()
@@ -93,14 +104,6 @@ void Block::genInPort() {
 
 void Block::setValue(double value) {
     this->value = value;
-//    if(debugDisp != null) {
-//        debugDisp.setText(String.valueOf(value));
-//        debugDisp.setX(_rect.getX() + _rect.getWidth() - debugDisp.getBoundsInLocal().getWidth());
-//    }
-//    if(disp != null) {
-//        disp.setText(String.valueOf(value));
-//        disp.setX(_rect.Center().X - disp.getBoundsInLocal().getWidth()/2);
-//    }
 }
 
 bool Block::isCycled(Block* comparing, Block* block) {
@@ -139,21 +142,14 @@ double Block::compute(Block* block) {
         Link* frontLink = port->GetFirstLink();
         if (frontLink != nullptr) {
             double value = compute(frontLink->getInPort()->GetBlock());
-//            if(Block.stepCounter == Panel.stepCounter)
-//            {
-//                return value;
-//            }
-//            else
-//            {
-//                ImageView image = block.getImageView();
-//                ColorAdjust blackout = new ColorAdjust();
-//                blackout.setBrightness(-0.5);
-//                image.setEffect(blackout);
-//                image.setCache(true);
-//                image.setCacheHint(CacheHint.SPEED);
-//            }
-
-//            System.out.println(Block.stepCounter);
+            if(Block::stepCounter == Widget::stepCounter)
+            {
+                return value;
+            }
+            else
+            {
+                debug = block;
+            }
             if (first) {
                 first = false;
                 block->setValue(value);
@@ -188,6 +184,8 @@ void Block::unsetCalculated(Block* block) {
         return;
     if(block->getType() == IN)
         return;
+    Block::stepCounter = 0;
+    Widget::stepCounter = 0;
     block->calculated = false;
     block->setValue(0);
     if(block->_outPort == nullptr)
@@ -266,31 +264,6 @@ void Block::Move(Point2D *move)
     {
         inport->Rect->moveTo(inport->Rect->x() + move->X,inport->Rect->y() + move->Y);
     }
-//    debugDisp.setX(debugDisp.getX()+deltaX);
-//    debugDisp.setY(debugDisp.getY()+deltaY);
-//    if(disp != null)
-//    {
-//        disp.setX(disp.getX() + deltaX);
-//        disp.setY(disp.getY() + deltaY);
-//    }
-//    if(_outPort != null)
-//        for(int i = 0;i<_outPort.GetLinks().size();i++)
-//            if(_outPort.GetLinks().get(i)!= null)
-//            {
-//                FXMLExampleController.AnchorPanel.getChildren().remove(_outPort.GetLinks().get(i).getLine());
-//                _outPort.GetLinks().get(i).Draw(FXMLExampleController.AnchorPanel);
-//            }
-//    for (Port inport: inPorts)
-//    {
-//        inport.Rect.setX(inport.Rect.getX()+deltaX);
-//        inport.Rect.setY(inport.Rect.getY()+deltaY);
-//        for(int i = 0;i<inport.GetLinks().size();i++)
-//            if(inport.GetLinks().get(i)!= null)
-//            {
-//                FXMLExampleController.AnchorPanel.getChildren().remove(inport.GetLinks().get(i).getLine());
-//                inport.GetLinks().get(i).Draw(FXMLExampleController.AnchorPanel);
-//            }
-//    }
 }
 
 void Block::Resize(Point2D *resize)
@@ -340,13 +313,6 @@ void Block::Resize(Point2D *resize)
         _outPort->Rect->setWidth(Port::PORT_SIZE);
         _outPort->Rect->setHeight(Port::PORT_SIZE);
     }
-//    debugDisp.setX(_rect.getX() + _rect.getWidth() - debugDisp.getBoundsInLocal().getWidth());
-//    debugDisp.setY(_rect.getY() - 5);
-//    if(disp != null)
-//    {
-//        disp.setX(_rect.Center().X - disp.getBoundsInLocal().getWidth() / 2);
-//        disp.setY(_rect.Center().Y + 5);
-//    }
 }
 
 void Block::Draw(QPainter *p)
@@ -360,11 +326,23 @@ void Block::Draw(QPainter *p)
       case 4: { image = QImage("./IN.png"); } break;
       case 5: { image = QImage("./OUT.png"); } break;
       }
+
     p->drawImage(*_rect,image);
+    if(debug != nullptr)
+        if(this == debug)
+        {
+            p->setPen(QPen(Qt::yellow, 5));
+            p->drawRect(*_rect);
+            p->setPen(QPen(Qt::black, 1));
+        }
     _resizeRect = new MyRect(_rect->XMax()-8,_rect->YMax()-8,8,8);
     QBrush brush(Qt::white);
     p->fillRect(*_resizeRect,brush);
     p->drawRect(*_resizeRect);
+    if(Widget::isDebug)
+        p->drawText(_rect->x(),_rect->y(),std::to_string(value).c_str());
+    if(_eBlock == OUT)
+        p->drawText(_rect->x()+_rect->width()/5,_rect->y()+_rect->height()/2 ,std::to_string(value).c_str());
     if(_outPort!= nullptr)
     {
         QBrush brush(Qt::red);
@@ -377,22 +355,6 @@ void Block::Draw(QPainter *p)
         p->fillRect(*port->Rect,brush);
         port->Draw(p);
     }
-
-//    debugDisp = new Text(String.valueOf(value));
-//    //debugDisp.setFont(font);
-//    debugDisp.setX(_rect.getX() + _rect.getWidth() - debugDisp.getBoundsInLocal().getWidth());
-//    debugDisp.setY(_rect.getY() - 5);
-//    debugDisp.setMouseTransparent(true);
-//    if (_eBlock == EBlock.OUT) {
-//        disp = new Text(String.valueOf(value));
-//        disp.setMouseTransparent(true);
-//        disp.setFont(font);
-//        disp.setX(_rect.Center().X - disp.getBoundsInLocal().getWidth()/2);
-//        disp.setY(_rect.Center().Y + 5);
-//        disp.setTextAlignment(TextAlignment.CENTER);
-//        pane.getChildren().addAll(_rect, image, debugDisp, disp);
-//    }else
-//        pane.getChildren().addAll(_rect, image, debugDisp);
 }
 
 std::istream& operator >>(std::istream& is, Block& block)

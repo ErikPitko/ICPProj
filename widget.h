@@ -26,9 +26,13 @@ public:
     static vector<Block*> *BlockList;
     static Point2D *ClickPos;
     static Block *EditBlock;
+    static int stepCounter;
+    static bool isDebug;
     void mousePressEvent(QMouseEvent*);
     void mouseReleaseEvent(QMouseEvent*);
     void mouseMoveEvent(QMouseEvent*);
+    void mouseDoubleClickEvent(QMouseEvent*);
+    void keyPressEvent(QKeyEvent*);
     void ShowContextMenu(const QPoint&);
 private slots:
     void Edit();
@@ -40,6 +44,7 @@ private:
     QRect *rect;
     bool wasInPort = false;
     Port* clickedPort = nullptr;
+    Link *deleteLink = nullptr;
     EEditBlock typeOfEdit = NONE;
 
     Point2D *endDrag = nullptr;

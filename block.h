@@ -8,6 +8,7 @@
 #include "port.h"
 #include <vector>
 #include <iostream>
+#include <QLabel>
 #include "widget.h"
 #include "link.h"
 
@@ -21,8 +22,9 @@ class Block : public DrawableObject
     Port *_outPort = nullptr;
     double value = 0;
     bool calculated = false;
+    static Block* debug;
 //    Text debugDisp;
-//    Text disp;
+    QLabel *disp;
 
     void calculatePortsToMiddle();
     bool recalculateHeights();
@@ -61,7 +63,7 @@ public:
     void Move(Point2D*);
     void Resize(Point2D*);
     void virtual Draw(QPainter*) override;
-    void completeDeleteBlock();
+    bool completeDeleteBlock();
 
 };
 

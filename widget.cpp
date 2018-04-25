@@ -5,8 +5,6 @@
 Widget::Widget(QWidget *parent) : QWidget(parent),ui(new Ui::Widget)
 {
     this->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),
-        this, SLOT(ShowContextMenu(const QPoint&)));
     myMenu.addAction("Edit", this, SLOT(Edit()));
     myMenu.addAction(tr("Delete"), this, SLOT(DeleteBlock()));
     myMenu.addAction(tr("Exit"), this, SLOT(Exit()));
@@ -14,6 +12,8 @@ Widget::Widget(QWidget *parent) : QWidget(parent),ui(new Ui::Widget)
 vector<Block*>* Widget::BlockList = new vector<Block*>();
 Point2D *Widget::ClickPos = nullptr;
 Block *Widget::EditBlock = nullptr;
+bool Widget::isDebug = false;
+int Widget::stepCounter = 0;
 Widget::~Widget()
 {
     delete ui;
@@ -29,6 +29,13 @@ void Widget::paintEvent(QPaintEvent *event)
     }
     for(int i = 0;i<Widget::BlockList->size();i++)
     {
+        if((*Widget::BlockList)[i]->getOutPort() != nullptr)
+        {
+            for(Link *link : (*(*Widget::BlockList)[i]->getOutPort()->GetLinks()))
+            {
+                link->Draw(&painter);
+            }
+        }
         for (Port *port: (*Widget::BlockList)[i]->getInPorts())
         {
             for (Link *link: *(port->GetLinks()))
@@ -54,7 +61,7 @@ void Widget::ShowContextMenu(const QPoint &pos) // this is a slot
 void Widget::Edit()
 {
     BlockDialog block;
-    block.setGeometry(ClickPos->X,ClickPos->Y,192,250);
+    block.move(this->x()+ClickPos->X,this->y()+ClickPos->Y);
     block.setModal(true);
     block.exec();
 }
@@ -67,6 +74,37 @@ void Widget::DeleteBlock()
 void Widget::Exit()
 {
     myMenu.hide();
+}
+
+void Widget::keyPressEvent(QKeyEvent *event)
+{
+
+    if(event->key() == Qt::Key_Return)
+    {
+        for(int i = 0; i < Widget::BlockList->size(); i++)
+        {
+            if((*Widget::BlockList)[i]->getType() == OUT)
+                Block::compute((*Widget::BlockList)[i]);
+        }
+    }
+    if(event->key() == Qt::Key_Space)
+    {
+        isDebug = true;
+
+        Block *outBlock = nullptr;
+        for(int i = 0; i < Widget::BlockList->size(); i++)
+        {
+            if((*Widget::BlockList)[i]->getType() == OUT && (*Widget::BlockList)[i]->getValue() == 0)
+                outBlock = (*Widget::BlockList)[i];
+        }
+        if(outBlock != nullptr)
+        {
+            stepCounter++;
+            Block::compute(outBlock);
+        }
+        else isDebug = false;
+    }
+    repaint();
 }
 
 void Widget::mouseReleaseEvent(QMouseEvent *event)
@@ -100,6 +138,16 @@ void Widget::mouseMoveEvent(QMouseEvent *event)
     ClickPos = new Point2D(event->x(),event->y());
     repaint();
 }
+
+void Widget::mouseDoubleClickEvent(QMouseEvent *event)
+{
+    if(deleteLink != nullptr)
+    {
+        delete deleteLink;
+    }
+    repaint();
+}
+
 void Widget::mousePressEvent(QMouseEvent *event)
 {
     ClickPos = new Point2D(event->x(),event->y());
@@ -119,10 +167,10 @@ void Widget::mousePressEvent(QMouseEvent *event)
                 {
                     if(clickedPort != nullptr)      //pokud neni nakliknutý žádný port
                     {
-                        if(clickedPort->GetBlock() != (*BlockList)[i])  //pokud spojím 2 porty na stejném blocku
+                        if(clickedPort->GetBlock() != (*BlockList)[i] && wasInPort)  //pokud spojím 2 porty na stejném blocku
                         {
                             new Link((*BlockList)[i]->getOutPort(),clickedPort);    //spojení linků
-
+                            wasInPort = false;
                         }
                         if(clickedPort != (*BlockList)[i]->getOutPort())    //pokud kliknu 2x na stejný port nevynuluje se ukazatel(je tam pořád uložen ten stejný
                             clickedPort = nullptr;
@@ -144,7 +192,11 @@ void Widget::mousePressEvent(QMouseEvent *event)
                     {
                         if(clickedPort->GetBlock() != (*BlockList)[i] && !wasInPort)    //pokud kliknu na stejný plok a blok nebyl inport
                         {
-                            new Link(clickedPort,(*BlockList)[i]->getInPorts()[j]); //vytvořím link
+                            if((*BlockList)[i]->getInPorts()[j]->GetLinks()->size() == 0)
+                                new Link(clickedPort,(*BlockList)[i]->getInPorts()[j]); //vytvořím link
+                            clickedPort = nullptr;
+                            wasInPort = false;
+                            goto end;
                         }
                         if(clickedPort != (*BlockList)[i]->getInPorts()[j]) //pokud kliknu 2x na stejný port nevynuluje se ukazatel(je tam pořád uložen ten stejný
                             clickedPort = nullptr;
@@ -152,8 +204,16 @@ void Widget::mousePressEvent(QMouseEvent *event)
                     }
                     else
                     {
-                        clickedPort = (*BlockList)[i]->getInPorts()[j]; //nastavím nakliknutý port
-                        wasInPort = true;   //a nebyl to inport
+                        if((*BlockList)[i]->getInPorts()[j]->GetLinks()->size()==0)
+                        {
+                            clickedPort = (*BlockList)[i]->getInPorts()[j]; //nastavím nakliknutý port
+                            wasInPort = true;   //a nebyl to inport
+                        }
+                        else
+                        {
+                            clickedPort = nullptr;
+                            wasInPort = false;
+                        }
                         goto end;   //vyskočím z vyhledávání
                     }
                 }
@@ -163,6 +223,16 @@ void Widget::mousePressEvent(QMouseEvent *event)
                 typeOfEdit = MOVE;
                 EditBlock = (*BlockList)[i];
                 goto end;
+            }
+            if((*BlockList)[i]->getOutPort() != nullptr)
+            {
+                for(Link *link : (*(*BlockList)[i]->getOutPort()->GetLinks()))
+                {
+                    if(Link::IsPointOnLine(link->getLine(),new Point2D(event->x(),event->y())))
+                    {
+                        deleteLink = link;
+                    }
+                }
             }
         }
         typeOfEdit = PLANEMOVE;
