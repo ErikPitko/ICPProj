@@ -12,10 +12,10 @@ int main(int argc, char *argv[])
     w.show();
     return App.exec();
 
-//    Block* in1 = new Block(IN, new MyRect(0, 0, 0, 0), 2);
-//    Block* in2 = new Block(IN, new MyRect(0, 0, 0, 0), 3);
+//    Block* in1 = new Block(IN, new MyRect(0, 0, 0, 0), 20);
+//    Block* in2 = new Block(IN, new MyRect(0, 0, 0, 0), 5);
 
-//    Block* bl1 = new Block(ADD, new MyRect(0, 0, 0, 0));
+//    Block* bl1 = new Block(MUL, new MyRect(0, 0, 0, 0));
 //    bl1->genInPort();
 //    bl1->genInPort();
 //    bl1->genInPort();
@@ -33,25 +33,7 @@ int main(int argc, char *argv[])
 //    Widget::BlockList->push_back(bl1);
 //    Widget::BlockList->push_back(disp);
 
-//    for (Block* block : *Widget::BlockList)
-//    {
-//        cout << block << endl;
-//        if (block->getType() != OUT)
-//            for (Link* link : *block->getOutPort()->GetLinks())
-//            {
-//                cout << "\t" << *link << endl;
-//            }
-//    }
-//    bl1->completeDeleteBlock();
-//    for (Block* block : *Widget::BlockList)
-//    {
-//        cout << block << endl;
-//        if (block->getType() != OUT)
-//            for (Link* link : *block->getOutPort()->GetLinks())
-//            {
-//                cout << "\t" << *link << endl;
-//            }
-//    }
+//    in2->completeDeleteBlock();
 
 //    Block::compute(Widget::BlockList->back());
 //    cout << "disp: " << Widget::BlockList->back()->getValue() << endl;
@@ -59,14 +41,10 @@ int main(int argc, char *argv[])
 //    LoadManager::loadScene();
 //    LoadManager::saveScene();
 
+
 //    Block::compute(Widget::BlockList->back());
 //    cout << "disp: " << Widget::BlockList->back()->getValue() << endl;
 
-//    cout << "block1: " << *in1 << endl;
-//    cout << "block2: " << *bl1 << endl;
-//    cout << "block1 outPort: " << *in1->getOutPort() << endl;
-//    cout << "block2 inPort: " << *(bl1->getInPorts()[0]) << endl;
-//    cout << "link: " << *in1->getOutPort()->GetFirstLink() << endl;
-
+//    Widget::clearBlocks();
 //    return EXIT_SUCCESS;
 }

@@ -28,6 +28,7 @@ public:
     static Block *EditBlock;
     static int stepCounter;
     static bool isDebug;
+    static void clearBlocks();
     void mousePressEvent(QMouseEvent*);
     void mouseReleaseEvent(QMouseEvent*);
     void mouseMoveEvent(QMouseEvent*);

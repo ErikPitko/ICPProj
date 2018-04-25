@@ -19,6 +19,15 @@ Widget::~Widget()
     delete ui;
 }
 
+void Widget::clearBlocks()
+{
+    for (Block* block : *Widget::BlockList)
+    {
+        delete block;
+    }
+    Widget::BlockList->clear();
+}
+
 void Widget::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);

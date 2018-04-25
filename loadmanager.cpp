@@ -3,14 +3,16 @@
 using namespace std;
 bool LoadManager::saveScene()
 {
-//    Widget::BlockList
+    ofstream fOut ("output.pica");
+    if (!fOut.is_open())
+        return false;
     for (Block* block: *Widget::BlockList)
     {
-        cout << "block" << endl;
-        cout << block << ':' << *block << endl;
+        fOut << "block" << endl;
+        fOut << block << ':' << *block << endl;
     }
 
-    cout << "link" << endl;
+    fOut << "link" << endl;
 
     for (Block* block: *Widget::BlockList)
     {
@@ -18,7 +20,7 @@ bool LoadManager::saveScene()
             continue;
         for (Link* link : *block->getOutPort()->GetLinks())
         {
-            cout << "\t" << *link << endl;
+            fOut << *link << endl;
         }
     }
 
@@ -27,30 +29,29 @@ bool LoadManager::saveScene()
 
 void LoadManager::loadScene()
 {
+    ifstream fIn ("output.pica");
+    if (!fIn.is_open())
+        return;
     std::map<size_t, Block*> blockPair;
-    for (Block* block : *Widget::BlockList)
-    {
-        delete block;
-    }
-    Widget::BlockList->clear();
+    Widget::clearBlocks();
     string op;
     char trash;
 
     cout << "blocks:" << endl;
     while(true)
     {
-        cin >> op;
+        fIn >> op;
         if (op.compare("block"))
             break;
 
         size_t oldPtr;
         Block* tempB = new Block(IN, new MyRect(0,0,0,0));
-        cin >> hex >> oldPtr >> trash;
-        cin >> *tempB;
+        fIn >> hex >> oldPtr >> trash;
+        fIn >> *tempB;
 
         blockPair[oldPtr] = tempB;
         Widget::BlockList->push_back(tempB);
-        cout << hex << oldPtr;
+        cout << "\t" << hex << oldPtr;
         cout << " new_value: " << blockPair.find(oldPtr)->second;
         cout << " : " << *tempB << endl;
     }
@@ -60,11 +61,14 @@ void LoadManager::loadScene()
     int idxInPort;
     cout << "links:" << endl;
 
-    while(cin >> hex >> blockin >> trash >> dec >> idxInPort >> trash >> hex >> blockout)
+    while(fIn >> hex >> blockin >> trash >> dec >> idxInPort >> trash >> hex >> blockout)
     {
+        if (!blockPair.find(blockin)->second || !blockPair.find(blockout)->second){
+            return;
+        }
         new Link(blockPair.find(blockin)->second->getOutPort(),
                  blockPair.find(blockout)->second->getInPorts()[idxInPort]);
-        cout << hex << blockin << " : " << blockout;
+        cout << "\t" << blockPair.find(blockin)->second << " <--> " << blockPair.find(blockout)->second;
         cout << " <- " << idxInPort << endl;
     }
 }
