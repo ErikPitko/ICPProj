@@ -65,7 +65,7 @@ void Block::calculatePortsToMiddle()
 
 void Block::completeDeleteBlock()
 {
-    Widget::BlockList->erase(Widget::BlockList->begin()+(std::find(Widget::BlockList->begin(),Widget::BlockList->end(),Widget::EditBlock) - Widget::BlockList->begin()));
+    Widget::BlockList->erase(Widget::BlockList->begin()+(std::find(Widget::BlockList->begin(),Widget::BlockList->end(),this) - Widget::BlockList->begin()));
     delete this;
 }
 
@@ -426,6 +426,6 @@ std::istream& operator >>(std::istream& is, Block& block)
 
 std::ostream& operator <<(std::ostream& os, Block& block)
 {
-    os << *block.getRect() << ';' << block.getValue() << ';' << block.getInPorts().size() << ';' << block.getType();
+    os << *block.getRect() << ';' << ((block.getType() == IN) ? block.getValue() : 0) << ';' << block.getInPorts().size() << ';' << block.getType();
     return os;
 }

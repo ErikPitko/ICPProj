@@ -25,6 +25,9 @@ Link::Link(Port *inPort, Port *outPort) : DrawableObject()
 Link::~Link()
 {
     this->outPort->unSetLink();
+    std::vector<Link*>* outLinks = this->inPort->GetLinks();
+    int pos = std::find(outLinks->begin(), outLinks->end(), this) - outLinks->begin();
+    outLinks->erase(outLinks->begin()+pos);
 //    TODO delete line
     std::cout << "\tLink: " << this << " deleted." << std::endl;
 }

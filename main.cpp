@@ -33,12 +33,34 @@ int main(int argc, char *argv[])
 //    Widget::BlockList->push_back(bl1);
 //    Widget::BlockList->push_back(disp);
 
+//    for (Block* block : *Widget::BlockList)
+//    {
+//        cout << block << endl;
+//        if (block->getType() != OUT)
+//            for (Link* link : *block->getOutPort()->GetLinks())
+//            {
+//                cout << "\t" << *link << endl;
+//            }
+//    }
+//    bl1->completeDeleteBlock();
+//    for (Block* block : *Widget::BlockList)
+//    {
+//        cout << block << endl;
+//        if (block->getType() != OUT)
+//            for (Link* link : *block->getOutPort()->GetLinks())
+//            {
+//                cout << "\t" << *link << endl;
+//            }
+//    }
+
 //    Block::compute(Widget::BlockList->back());
+//    cout << "disp: " << Widget::BlockList->back()->getValue() << endl;
 
 //    LoadManager::loadScene();
 //    LoadManager::saveScene();
 
 //    Block::compute(Widget::BlockList->back());
+//    cout << "disp: " << Widget::BlockList->back()->getValue() << endl;
 
 //    cout << "block1: " << *in1 << endl;
 //    cout << "block2: " << *bl1 << endl;

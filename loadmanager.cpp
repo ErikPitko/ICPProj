@@ -48,9 +48,7 @@ void LoadManager::loadScene()
         cin >> hex >> oldPtr >> trash;
         cin >> *tempB;
 
-//        blockPairs.push_back(blockPair(oldPtr, tempB));
         blockPair[oldPtr] = tempB;
-
         Widget::BlockList->push_back(tempB);
         cout << hex << oldPtr;
         cout << " new_value: " << blockPair.find(oldPtr)->second;
