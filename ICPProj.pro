@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     myrect.cpp \
     point2d.cpp \
     port.cpp \
-    blockdialog.cpp
+    blockdialog.cpp \
+    loadmanager.cpp
 
 HEADERS  += widget.h \
     block.h \
@@ -31,7 +32,8 @@ HEADERS  += widget.h \
     point2d.h \
     port.h \
     blockdialog.h \
-    eeditblock.h
+    eeditblock.h \
+    loadmanager.h
 
 FORMS    += widget.ui \
     blockdialog.ui

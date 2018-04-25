@@ -63,27 +63,9 @@ public:
     void virtual Draw(QPainter*) override;
     void completeDeleteBlock();
 
-    friend std::istream& operator >>(std::istream& is, Block& block)
-    {
-        MyRect* rect = new MyRect(0,0,0,0);
-        is >> *rect;
-        block.setRect(rect);
-
-        double temp;
-        is >> temp;
-
-        int type;
-        is >> type;
-        block.setType(static_cast<EBlock>(type));
-        block.setValue(temp);
-        return is;
-    }
-
-    friend std::ostream& operator <<(std::ostream& os, const Block& block)
-    {
-        os << *block.getRect() << block.getValue() << block.getType();
-        return os;
-    }
 };
+
+std::istream& operator >>(std::istream& is, Block& block);
+std::ostream& operator <<(std::ostream& os, Block& block);
 
 #endif // BLOCK_H

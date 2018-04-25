@@ -28,13 +28,17 @@ public:
 
     friend std::istream& operator >>(std::istream& is, MyRect& rect)
     {
+        char trash;
         double temp;
         is >> temp;
         rect.setX(temp);
+        is >> trash;
         is >> temp;
         rect.setY(temp);
+        is >> trash;
         is >> temp;
         rect.setWidth(temp);
+        is >> trash;
         is >> temp;
         rect.setHeight(temp);
         return is;
@@ -42,7 +46,7 @@ public:
 
     friend std::ostream& operator <<(std::ostream& os, MyRect& rect)
     {
-        os << rect.x() << rect.y() << rect.width() << rect.height();
+        os << rect.x() << '-' << rect.y() << '-' << rect.width() << '-' << rect.height();
         return os;
     }
 };

@@ -31,6 +31,8 @@ public:
     void SetCycled();
     void UnSetCycled();
     void virtual Draw(QPainter*) override;
+
 };
+std::ostream& operator <<(std::ostream& os, Link& link);
 
 #endif // LINK_H

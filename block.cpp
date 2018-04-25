@@ -394,3 +394,38 @@ void Block::Draw(QPainter *p)
 //    }else
 //        pane.getChildren().addAll(_rect, image, debugDisp);
 }
+
+std::istream& operator >>(std::istream& is, Block& block)
+{
+    char trash;
+    if(block.getRect() != nullptr)
+        delete block.getRect();
+    MyRect* rect = new MyRect(0,0,0,0);
+    is >> *rect;
+    block.setRect(rect);
+    is >> trash;
+
+    double temp;
+    is >> temp;
+    is >> trash;
+
+    unsigned numInPorts;
+    is >> numInPorts;
+    is >> trash;
+    for (unsigned i = 0; i < numInPorts; i++)
+    {
+        block.genInPort();
+    }
+
+    int type;
+    is >> type;
+    block.setType(static_cast<EBlock>(type));
+    block.setValue(temp);
+    return is;
+}
+
+std::ostream& operator <<(std::ostream& os, Block& block)
+{
+    os << *block.getRect() << ';' << block.getValue() << ';' << block.getInPorts().size() << ';' << block.getType();
+    return os;
+}

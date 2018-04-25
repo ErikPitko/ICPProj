@@ -27,6 +27,12 @@ public:
     void setLink(Link*);
     void unSetLink();
     void virtual Draw(QPainter*) override;
+
+    friend std::ostream& operator <<(std::ostream& os, Port& port)
+    {
+        os << port.GetBlock() << ';' << &port;
+        return os;
+    }
 };
 
 #endif // PORT_H
