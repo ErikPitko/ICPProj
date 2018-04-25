@@ -85,44 +85,6 @@ void Link::Draw(QPainter *p)
    line = new QLine(inPort->Rect->Center()->X+7,inPort->Rect->Center()->Y,outPort->Rect->Center()->X-7,outPort->Rect->Center()->Y);
    p->drawLine(*line);
    p->setPen(QPen(Qt::black, 1));
-   /*
-   if(!pane.getChildren().contains(line))
-   {
-       line.setStartX(inPort.Rect.Center().X + Port.PORT_SIZE / 2 + 1);
-       line.setStartY(inPort.Rect.Center().Y);
-       line.setEndX(outPort.Rect.Center().X - (Port.PORT_SIZE / 2 + 1));
-       line.setEndY(outPort.Rect.Center().Y);
-       if(isCycled)
-           line.setStroke(Color.RED);
-       else line.setStroke(Color.BLACK);
-       line.setStrokeWidth(3);
-       line.setOnMouseEntered(event ->
-       {
-           tmpPane = new Rectangle();
-           tmpPane.setX(event.getX()+1);
-           tmpPane.setY(event.getY()+1);
-           txt = new Text();
-           txt.setText(String.valueOf(inPort.GetBlock().getValue()));
-           txt.setFill(Color.BLACK);
-           txt.setX(event.getX()+txt.getBoundsInLocal().getWidth()/2);
-           txt.setY(event.getY()-txt.getBoundsInLocal().getHeight()/3);
-           tmpPane.setX(event.getX()+1);
-           tmpPane.setY(event.getY()-txt.getBoundsInLocal().getHeight());
-           tmpPane.setHeight(txt.getBoundsInLocal().getHeight());
-           tmpPane.setWidth(txt.getBoundsInLocal().getWidth()+20);
-           tmpPane.setFill(Color.WHITE);
-           tmpPane.setStroke(Color.BLACK);
-           pane.getChildren().add(tmpPane);
-           pane.getChildren().add(txt);
-
-       });
-       line.setOnMouseExited(event ->
-       {
-           pane.getChildren().remove(tmpPane);
-           pane.getChildren().remove(txt);
-       });
-       pane.getChildren().add(line);
-   }*/
 }
 
 std::ostream& operator <<(std::ostream& os, Link& link)

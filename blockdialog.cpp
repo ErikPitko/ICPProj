@@ -76,7 +76,8 @@ void BlockDialog::on_Apply_clicked()
                 }
 
             }
-        Widget::EditBlock->completeDeleteBlock();
+            if(Widget::EditBlock != nullptr)
+                Widget::EditBlock->completeDeleteBlock();
         }
     }
     Widget::BlockList->push_back(bl);

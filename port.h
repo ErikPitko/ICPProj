@@ -13,7 +13,7 @@ class Port : public DrawableObject
 {
 private:
     Block* _block = nullptr;
-    std::vector<Link*> _link;
+    std::vector<Link*> *_link;
     //Color _backgroundColor;
 public:
     MyRect* Rect = nullptr;

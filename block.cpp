@@ -65,7 +65,7 @@ void Block::calculatePortsToMiddle()
 
 void Block::completeDeleteBlock()
 {
-    Widget::BlockList->erase(std::find(Widget::BlockList->begin(),Widget::BlockList->end(),Widget::EditBlock));
+    Widget::BlockList->erase(Widget::BlockList->begin()+(std::find(Widget::BlockList->begin(),Widget::BlockList->end(),Widget::EditBlock) - Widget::BlockList->begin()));
     delete this;
 }
 
