@@ -58,8 +58,30 @@ void BlockDialog::on_Apply_clicked()
         }
     }else
         bl->setValue(value);
+    if(Widget::EditBlock != nullptr)
+    {
+        if(Widget::EditBlock->getOutPort()!= nullptr)
+        {
+            for (int i = 0; i < Widget::EditBlock->getOutPort()->GetLinks()->size();i++)
+            {
+                new Link(bl->getOutPort(),(*Widget::EditBlock->getOutPort()->GetLinks())[i]->getOutPort());
+            }
+            for (int i = 0; i < Widget::EditBlock->getInPorts().size();i++)
+            {
+                if(i == bl->getInPorts().size())
+                    break;
+                for(int j=0;j < Widget::EditBlock->getInPorts()[i]->GetLinks()->size();j++)
+                {
+                    new Link((*Widget::EditBlock->getInPorts()[i]->GetLinks())[j]->getInPort(),bl->getInPorts()[i]);
+                }
+
+            }
+        Widget::EditBlock->completeDeleteBlock();
+        }
+    }
     Widget::BlockList->push_back(bl);
-    close();
+    if(this != nullptr)
+        close();
 }
 
 void BlockDialog::on_horizontalSlider_sliderMoved(int position)
@@ -69,7 +91,8 @@ void BlockDialog::on_horizontalSlider_sliderMoved(int position)
 
 void BlockDialog::on_Cancel_clicked()
 {
-    close();
+    if(this != nullptr)
+        close();
 }
 
 void BlockDialog::on_lineEdit_textChanged(const QString &arg1)

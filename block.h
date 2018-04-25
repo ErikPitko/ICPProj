@@ -8,6 +8,7 @@
 #include "port.h"
 #include <vector>
 #include <iostream>
+#include "widget.h"
 #include "link.h"
 
 class Block : public DrawableObject
@@ -57,9 +58,10 @@ public:
     MyRect* getRect() const;
     void setRect(MyRect*);
     void setType(EBlock);
-    void Move(double, double);
-    void Resize(double, double);
+    void Move(Point2D*);
+    void Resize(Point2D*);
     void virtual Draw(QPainter*) override;
+    void completeDeleteBlock();
 
     friend std::istream& operator >>(std::istream& is, Block& block)
     {

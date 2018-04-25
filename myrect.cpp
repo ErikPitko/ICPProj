@@ -43,6 +43,7 @@ MyRect::MyRect(const MyRect &rect) : QRect()
 MyRect::MyRect(Point2D position, Point2D size) : QRect()
 {
     //super();
+
     setX(position.X);
     setY(position.Y);
     setWidth(size.X);
@@ -78,19 +79,26 @@ MyRect::MyRect(double positionX,double positionY, double sizeX,double sizeY) : Q
 
 bool MyRect::contains(Point2D *point)
 {
-    return point->X >=  x() && point->X <= XMax() && point->Y >= y() && point->Y <= YMax();
+    Point2D newPoint = *point;
+    //TODO delete point;
+    return newPoint.X >=  x() && newPoint.X <= XMax() && newPoint.Y >= y() && newPoint.Y <= YMax();
 }
 
 bool MyRect::intersect(MyRect *rect)
 {
-    double xmin = std::max(x(), rect->x());
-    double xmax = std::min(XMax(), rect->XMax());
+    MyRect newRect = *rect;
+   //TODO delete rect;
+    double xmin = std::max(x(), newRect.x());
+    double xmax = std::min(XMax(), newRect.XMax());
     if (xmax >= xmin) {
-        double ymin = std::max(y(),rect->y());
-        double ymax = std::min(YMax(), rect->YMax());
+        double ymin = std::max(y(),newRect.y());
+        double ymax = std::min(YMax(), newRect.YMax());
         if (ymax >= ymin) {
             return true;
         }
     }
     return false;
+}
+void MyRect::mouseClickedEvent( QMouseEvent* e ) {
+    std::cout<<"Rect click"<<std::endl;
 }

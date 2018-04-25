@@ -1,5 +1,5 @@
 #include "block.h"
-#include <iostream>
+
 int Block::stepCounter;
 
 Block::Block(EBlock eBlock, MyRect* rect) : DrawableObject()
@@ -59,22 +59,34 @@ void Block::calculatePortsToMiddle()
     for (int i = 0; i < inPorts.size(); i++)
     {
         inPorts[i]->Rect->setY((int) (_rect->y() + (i + 1) * step - div- Port::PORT_SIZE / 2));
+        inPorts[i]->Rect->setHeight(Port::PORT_SIZE);
     }
+}
+
+void Block::completeDeleteBlock()
+{
+    Widget::BlockList->erase(std::find(Widget::BlockList->begin(),Widget::BlockList->end(),Widget::EditBlock));
+    delete this;
 }
 
 bool Block::recalculateHeights()
 {
     if(inPorts.size()*Port::PORT_SIZE >= _rect->height()-10)
     {
-        _rect->setY(inPorts.size()*Port::PORT_SIZE + inPorts.size()*15);
-        _outPort->Rect->setY(_rect->y()+_rect->height()/2-Port::PORT_SIZE/2);
+        //_rect->setY(inPorts.size()*Port::PORT_SIZE + inPorts.size()*15);
+        _rect->setHeight(inPorts.size()*(Port::PORT_SIZE+5));
+        if(_outPort!= nullptr)
+        {
+            _outPort->Rect->setY(_rect->y()+_rect->height()/2-Port::PORT_SIZE/2);
+            _outPort->Rect->setHeight(Port::PORT_SIZE);
+        }
         return true;
     }
     return false;
 }
 
 void Block::genInPort() {
-    MyRect* newport = new MyRect(_rect->x()+Port::PORT_SIZE/2,_rect->y()+Port::PORT_SIZE/2 + Port::PORT_SIZE +5*inPorts.size(),Port::PORT_SIZE,Port::PORT_SIZE);
+    MyRect* newport = new MyRect(_rect->x()+Port::PORT_SIZE/2,_rect->y()+Port::PORT_SIZE/2 + Port::PORT_SIZE +15*inPorts.size(),Port::PORT_SIZE,Port::PORT_SIZE);
     this->inPorts.push_back(new Port(newport, this));
     calculatePortsToMiddle();
 }
@@ -209,7 +221,7 @@ void Block::setInPorts(std::vector<Port*> portList)
 void Block::setInPort(int index, Port* newInPort)
 {
     inPorts[index] = newInPort;
-    calculatePortsToMiddle();
+    //calculatePortsToMiddle();
 }
 
 double Block::getValue() const {
@@ -243,18 +255,17 @@ void Block::setType(EBlock eBlock) {
     unsetCalculated(this);
 }
 
-void Block::Move(double deltaX, double deltaY)
+void Block::Move(Point2D *move)
 {
-//    _rect.setX(_rect.getX() + deltaX);
-//    _rect.setY(_rect.getY() + deltaY);
-//    _resizeRect.setX(_resizeRect.getX() + deltaX);
-//    _resizeRect.setY(_resizeRect.getY() + deltaY);
-//    if(_outPort != null) {
-//        _outPort.Rect.setX(_outPort.Rect.getX() + deltaX);
-//        _outPort.Rect.setY(_outPort.Rect.getY() + deltaY);
-//    }
-//    image.setX(image.getX() + deltaX);
-//    image.setY(image.getY() + deltaY);
+    _rect->moveTo(_rect->x() + move->X,_rect->y() + move->Y);
+    _resizeRect->moveTo(_resizeRect->x() + move->X,_resizeRect->y() + move->Y);
+    if(_outPort != nullptr) {
+        _outPort->Rect->moveTo(_outPort->Rect->x() + move->X,_outPort->Rect->y() + move->Y);
+    }
+    for (Port *inport: inPorts)
+    {
+        inport->Rect->moveTo(inport->Rect->x() + move->X,inport->Rect->y() + move->Y);
+    }
 //    debugDisp.setX(debugDisp.getX()+deltaX);
 //    debugDisp.setY(debugDisp.getY()+deltaY);
 //    if(disp != null)
@@ -282,39 +293,53 @@ void Block::Move(double deltaX, double deltaY)
 //    }
 }
 
-void Block::Resize(double deltaX,double deltaY)
+void Block::Resize(Point2D *resize)
 {
-//    boolean anyIntersects = false;
-//    if(_rect.getWidth() + deltaX > MINBLOCKSIZE  && _rect.getWidth()+deltaX < MAXBLOCKSIZE)
-//    {
-//        for(int i =0 ;i< Panel.BlockList.size();i++)
-//        {
-//            if (Panel.BlockList.get(i) != this)
-//                if (new Rect(_rect.getX(),_rect.getY(),_rect.getWidth()+deltaX,_rect.getHeight()).Intersect(Panel.BlockList.get(i).getRect()))
-//                    anyIntersects = true;
-//            if(anyIntersects == true)
-//                break;
-//        }
-//        if(!anyIntersects)
-//            _rect.setWidth(_rect.getWidth() + deltaX);
-//    }
-//    anyIntersects = false;
-//    if(_rect.getHeight()+deltaY >= inPorts.size()*(Port.PORT_SIZE+5))
-//        if(_rect.getHeight() + deltaY > MINBLOCKSIZE && _rect.getHeight()+deltaY < MAXBLOCKSIZE)
-//        {
-//            for(int i =0 ;i< Panel.BlockList.size();i++)
-//            {
-//                if (Panel.BlockList.get(i) != this)
-//                    if (new Rect(_rect.getX(),_rect.getY(),_rect.getWidth(),_rect.getHeight()+deltaY).Intersect(Panel.BlockList.get(i).getRect()))
-//                        anyIntersects = true;
-//                if(anyIntersects == true)
-//                    break;
-//            }
-//            if(!anyIntersects)
-//                _rect.setHeight(_rect.getHeight() + deltaY);
-//        }
-//    _resizeRect.setX(_rect.XMax()-8);
-//    _resizeRect.setY(_rect.YMax()-8);
+    if(resize == nullptr)
+        return;
+    bool anyIntersects = false;
+
+    if(_rect->width()+resize->X > Block::MINBLOCKSIZE && _rect->width()+resize->X < Block::MAXBLOCKSIZE)
+    {
+        for(int i =0 ;i< Widget::BlockList->size();i++)
+        {
+            if ((*Widget::BlockList)[i] != this)
+                if (MyRect(_rect->x(),_rect->y(),_rect->width()+resize->X,_rect->height()).intersect((*Widget::BlockList)[i]->getRect()))
+                    anyIntersects = true;
+            if(anyIntersects == true)
+                break;
+        }
+        if(!anyIntersects)
+            _rect->setWidth(_rect->width()+resize->X);
+    }
+    anyIntersects = false;
+     std::cout << _rect->height()<<std::endl;
+    if(_rect->height()+resize->Y >= inPorts.size()*(Port::PORT_SIZE+2))
+        if(_rect->height() + resize->Y > Block::MINBLOCKSIZE && _rect->height()+resize->Y < Block::MAXBLOCKSIZE)
+        {
+            for(int i =0 ;i< Widget::BlockList->size();i++)
+            {
+                if ((*Widget::BlockList)[i] != this)
+                    if (MyRect(_rect->x(),_rect->y(),_rect->width(),_rect->height()+resize->Y).intersect((*Widget::BlockList)[i]->getRect()))
+                        anyIntersects = true;
+                if(anyIntersects == true)
+                    break;
+            }
+            if(!anyIntersects)
+                _rect->setHeight(_rect->height() + resize->Y);
+        }
+    _resizeRect->setX(_rect->XMax()-8);
+    _resizeRect->setY(_rect->YMax()-8);
+    _resizeRect->setWidth(8);
+    _resizeRect->setHeight(8);
+    calculatePortsToMiddle();
+    if(_outPort!= nullptr)
+    {
+        _outPort->Rect->setX(_rect->XMax() - Port::PORT_SIZE - 5);
+        _outPort->Rect->setY(_rect->Center()->Y - Port::PORT_SIZE / 2);
+        _outPort->Rect->setWidth(Port::PORT_SIZE);
+        _outPort->Rect->setHeight(Port::PORT_SIZE);
+    }
 //    debugDisp.setX(_rect.getX() + _rect.getWidth() - debugDisp.getBoundsInLocal().getWidth());
 //    debugDisp.setY(_rect.getY() - 5);
 //    if(disp != null)
@@ -322,62 +347,35 @@ void Block::Resize(double deltaX,double deltaY)
 //        disp.setX(_rect.Center().X - disp.getBoundsInLocal().getWidth() / 2);
 //        disp.setY(_rect.Center().Y + 5);
 //    }
-//    CalculatePortsToMiddle();
-//    if(_outPort!= null)
-//    {
-//        _outPort.Rect.setX(_rect.XMax() - Port.PORT_SIZE - 5);
-//        _outPort.Rect.setY(_rect.Center().Y - Port.PORT_SIZE / 2);
-//        for (Link outLinks : _outPort.GetLinks()) {
-//            outLinks.getLine().setStartX(_outPort.Rect.Center().X + Port.PORT_SIZE / 2);
-//            outLinks.getLine().setStartY(_outPort.Rect.Center().Y);
-//        }
-//    }
-
-//    for (Port inport: inPorts)
-//    {
-//        for (Link inLinks: inport.GetLinks())
-//        {
-//            inLinks.getLine().setEndX(inport.Rect.Center().X-Port.PORT_SIZE/2);
-//            inLinks.getLine().setEndY(inport.Rect.Center().Y);
-//        }
-//    }
-//    image.setFitWidth(_rect.getWidth());
-//    image.setFitHeight(_rect.getHeight());
 }
 
 void Block::Draw(QPainter *p)
 {
     switch (_eBlock)
       {
-      case 0: { image = QImage("/home/adam/Stažené/ADD.png"); } break;
-      case 1: { image = QImage("/home/adam/Stažené/SUB.png"); } break;
-      case 2: { image = QImage("/home/adam/Stažené/MUL.png"); } break;
-      case 3: { image = QImage("/home/adam/Stažené/DIV.png"); } break;
-      case 4: { image = QImage("/home/adam/Stažené/IN.png"); } break;
-      case 5: { image = QImage("/home/adam/Stažené/OUT.png"); } break;
+      case 0: { image = QImage("./ADD.png"); } break;
+      case 1: { image = QImage("./SUB.png"); } break;
+      case 2: { image = QImage("./MUL.png"); } break;
+      case 3: { image = QImage("./DIV.png"); } break;
+      case 4: { image = QImage("./IN.png"); } break;
+      case 5: { image = QImage("./OUT.png"); } break;
       }
     p->drawImage(*_rect,image);
     _resizeRect = new MyRect(_rect->XMax()-8,_rect->YMax()-8,8,8);
     QBrush brush(Qt::white);
     p->fillRect(*_resizeRect,brush);
     p->drawRect(*_resizeRect);
-    for (Port *port: inPorts)
-    {
-        QBrush brush(Qt::white);
-        p->fillRect(*port->Rect,brush);
-        port->Draw(p);
-        for (Link *link: *(port->GetLinks())) {
-            if(link!= nullptr)
-            {
-                link->Draw(p);
-            }
-        }
-    }
     if(_outPort!= nullptr)
     {
         QBrush brush(Qt::red);
         p->fillRect(*_outPort->Rect,brush);
         _outPort->Draw(p);
+    }
+    for (Port *port: inPorts)
+    {
+        QBrush brush(Qt::white);
+        p->fillRect(*port->Rect,brush);
+        port->Draw(p);
     }
 
 //    debugDisp = new Text(String.valueOf(value));

@@ -8,6 +8,8 @@
 #include <iostream>
 #include "block.h"
 #include "blockdialog.h"
+#include "eeditblock.h"
+#include <QMenu>
 using namespace std;
 namespace Ui {
 class Widget;
@@ -23,14 +25,27 @@ public:
     void paintEvent(QPaintEvent *event);
     static vector<Block*> *BlockList;
     static Point2D *ClickPos;
-    /*void createRect(MyRect rect,QPainter *painter);
-    void createLine(Point2D startPos,Point2D endPos,QPainter *painter);
-    void createImage(MyRect rect,QPainter *painter);*/
-    void mousePressEvent(QMouseEvent *event);
+    static Block *EditBlock;
+    void mousePressEvent(QMouseEvent*);
+    void mouseReleaseEvent(QMouseEvent*);
+    void mouseMoveEvent(QMouseEvent*);
+    void ShowContextMenu(const QPoint&);
+private slots:
+    void Edit();
+    void DeleteBlock();
+    void Exit();
 private:
     QPainter painter;
     Ui::Widget *ui;
     QRect *rect;
+    bool wasInPort = false;
+    Port* clickedPort = nullptr;
+    EEditBlock typeOfEdit = NONE;
+
+    Point2D *endDrag = nullptr;
+    QMenu myMenu;
 };
+
+
 
 #endif // WIDGET_H

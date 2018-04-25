@@ -30,7 +30,8 @@ HEADERS  += widget.h \
     myrect.h \
     point2d.h \
     port.h \
-    blockdialog.h
+    blockdialog.h \
+    eeditblock.h
 
 FORMS    += widget.ui \
     blockdialog.ui

@@ -1,0 +1,5 @@
+#ifndef EEDITBLOCK_H
+#define EEDITBLOCK_H
+enum EEditBlock {MOVE, EDIT, RESIZE, PLANEMOVE,NONE};
+
+#endif // EEDITBLOCK_H

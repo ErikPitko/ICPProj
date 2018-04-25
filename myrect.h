@@ -4,6 +4,7 @@
 #include <QRect>
 #include "point2d.h"
 #include <algorithm>
+#include <QtGui>
 #include <iostream>
 
 class MyRect : public QRect
@@ -23,6 +24,7 @@ public:
     Point2D* Position();
     Point2D* Size();
     Point2D* Center();
+    void virtual mouseClickedEvent( QMouseEvent* e );
 
     friend std::istream& operator >>(std::istream& is, MyRect& rect)
     {
