@@ -1,0 +1,496 @@
+\hypertarget{classBlock}{}\section{Block Class Reference}
+\label{classBlock}\index{Block@{Block}}
+Inheritance diagram for Block\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classBlock}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classBlock_a323497a43c8db217fce86704990008c9}{Block} (E\+Block e\+Block, \hyperlink{classMyRect}{My\+Rect} $\ast$rect)
+\item 
+\hyperlink{classBlock_a36a6f635930ffe1ba55af52236e911dd}{Block} (E\+Block e\+Block, \hyperlink{classMyRect}{My\+Rect} $\ast$rect, double \hyperlink{classBlock_afb64e6479c44387ece15c0f8d635236f}{value})
+\item 
+void \hyperlink{classBlock_a1a02b48229dc2df1d58b1c7a202f3e5e}{gen\+In\+Port} ()
+\item 
+std\+::vector$<$ \hyperlink{classPort}{Port} $\ast$ $>$ \hyperlink{classBlock_af10d358559032e920b7b8ad25c113b69}{get\+In\+Ports} ()
+\item 
+\hyperlink{classPort}{Port} $\ast$ \hyperlink{classBlock_a897dd6edfbdec3930d764aa39f0d3de8}{get\+Out\+Port} ()
+\item 
+void \hyperlink{classBlock_a82671bfde9a0d710c72ef5004fdb4179}{set\+Out\+Port} (\hyperlink{classPort}{Port} $\ast$p)
+\item 
+void \hyperlink{classBlock_aa67c1224df9015c055fa5523dfa67f52}{set\+In\+Ports} (std\+::vector$<$ \hyperlink{classPort}{Port} $\ast$$>$ portvector)
+\item 
+void \hyperlink{classBlock_aa24819f99f922d0b2cba3d12775974e0}{set\+In\+Port} (int index, \hyperlink{classPort}{Port} $\ast$new\+In\+Port)
+\item 
+double \hyperlink{classBlock_a613dd5c447f2a2dccebdaba7c2b4b74c}{get\+Value} () const
+\item 
+void \hyperlink{classBlock_acabb5bf7f41bc16338b4efde5a760703}{set\+Value} (double \hyperlink{classBlock_afb64e6479c44387ece15c0f8d635236f}{value})
+\item 
+\hyperlink{classMyRect}{My\+Rect} $\ast$ \hyperlink{classBlock_ad4c55f893fad7eec6e2ecaa9e6bec6da}{get\+Resize\+Rect} ()
+\item 
+E\+Block \hyperlink{classBlock_aefadce64bb60ab2e12a23bce510b74da}{get\+Type} () const
+\item 
+void \hyperlink{classBlock_a939528c280e4d7f516422f85bb22c2d2}{set\+Rect\+Position} (\hyperlink{classPoint2D}{Point2D} $\ast$position)
+\item 
+\hyperlink{classMyRect}{My\+Rect} $\ast$ \hyperlink{classBlock_a396f46a4f7592ffdf4d168be2e79ee52}{get\+Rect} () const
+\item 
+void \hyperlink{classBlock_a0ee328fa6748cad1232dd0803710dbf0}{set\+Rect} (\hyperlink{classMyRect}{My\+Rect} $\ast$rect)
+\item 
+void \hyperlink{classBlock_a931b0465363ea2ec445f817940a78abd}{set\+Type} (E\+Block e\+Block)
+\item 
+void \hyperlink{classBlock_a6e2da20e7645ed07ff449256fc2cc767}{Move} (\hyperlink{classPoint2D}{Point2D} $\ast$delta)
+\item 
+void \hyperlink{classBlock_a88a3549580bb9504230921c8d10ca9dd}{Resize} (\hyperlink{classPoint2D}{Point2D} $\ast$)
+\item 
+virtual void \hyperlink{classBlock_a3561d9ce6a8eee10ca8c397e3d25dc5c}{Draw} (Q\+Painter $\ast$painter) override
+\item 
+bool \hyperlink{classBlock_a5429186079cf37c2b09fef7d377f8a28}{complete\+Delete\+Block} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \hyperlink{classBlock_aafbf3dd9d1af0a328878662cceb7de26}{is\+Cycled} (\hyperlink{classBlock}{Block} $\ast$comparing, \hyperlink{classBlock}{Block} $\ast$block)
+\item 
+static double \hyperlink{classBlock_a801eecced930d343cd4cd5fa14068be1}{compute} (\hyperlink{classBlock}{Block} $\ast$block)
+\item 
+static void \hyperlink{classBlock_ab76d443f7898f82c4ad4cb124375a76c}{unset\+Calculated} (\hyperlink{classBlock}{Block} $\ast$block)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const int \hyperlink{classBlock_ab2e1f1dd232266b80299979e4e3ff4a7}{M\+I\+N\+B\+L\+O\+C\+K\+S\+I\+ZE} = 100
+\item 
+static const int \hyperlink{classBlock_a968c9b7c94b49e5185f8e490c60fbfc0}{M\+A\+X\+B\+L\+O\+C\+K\+S\+I\+ZE} = 400
+\item 
+static int \hyperlink{classBlock_acf7c29d2194e317f2cc831046ec5460e}{step\+Counter}
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classBlock_a4f7dbdad50f95ab979cfdb86c4b63018}{calculate\+Ports\+To\+Middle} ()
+\item 
+bool \hyperlink{classBlock_a3d65e76b1404d38e68243e50034d5551}{recalculate\+Heights} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+E\+Block \hyperlink{classBlock_a2078fc6dc0ee457f3332a38685fea0af}{\+\_\+e\+Block}
+\item 
+\hyperlink{classMyRect}{My\+Rect} $\ast$ \hyperlink{classBlock_a310ce3c87df1c29e3bfa15aafb9b21c0}{\+\_\+rect} = nullptr
+\item 
+\hyperlink{classMyRect}{My\+Rect} $\ast$ \hyperlink{classBlock_ae7f260f0bdfd696d33b758a68de30d4c}{\+\_\+resize\+Rect} = nullptr
+\item 
+Q\+Image \hyperlink{classBlock_aab61fd446868e41197a55c79dc7d709b}{image}
+\item 
+std\+::vector$<$ \hyperlink{classPort}{Port} $\ast$ $>$ \hyperlink{classBlock_a2b9ee38ee6794399262907587010ed3d}{in\+Ports} = std\+::vector$<$\hyperlink{classPort}{Port}$\ast$$>$()
+\item 
+\hyperlink{classPort}{Port} $\ast$ \hyperlink{classBlock_a07a89d0108abe2b1ab8b69aabe815d73}{\+\_\+out\+Port} = nullptr
+\item 
+double \hyperlink{classBlock_afb64e6479c44387ece15c0f8d635236f}{value} = 0
+\item 
+bool \hyperlink{classBlock_a78ba2fc9a1343e5d9f6f372888e90bf2}{calculated} = false
+\item 
+Q\+Label $\ast$ \hyperlink{classBlock_a1d3b391e9531eb8bc0b0362730d4c53d}{disp}
+\end{DoxyCompactItemize}
+\subsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classBlock}{Block} $\ast$ \hyperlink{classBlock_aad15dd9091823b114a17df309bd68bf4}{debug} = nullptr
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBlock_a323497a43c8db217fce86704990008c9}\label{classBlock_a323497a43c8db217fce86704990008c9}} 
+\index{Block@{Block}!Block@{Block}}
+\index{Block@{Block}!Block@{Block}}
+\subsubsection{\texorpdfstring{Block()}{Block()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Block\+::\+Block (\begin{DoxyParamCaption}\item[{E\+Block}]{e\+Block,  }\item[{\hyperlink{classMyRect}{My\+Rect} $\ast$}]{rect }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em e\+Block} & type of the block \\
+\hline
+{\em rect} & graphic properties of the block \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBlock_a36a6f635930ffe1ba55af52236e911dd}\label{classBlock_a36a6f635930ffe1ba55af52236e911dd}} 
+\index{Block@{Block}!Block@{Block}}
+\index{Block@{Block}!Block@{Block}}
+\subsubsection{\texorpdfstring{Block()}{Block()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Block\+::\+Block (\begin{DoxyParamCaption}\item[{E\+Block}]{e\+Block,  }\item[{\hyperlink{classMyRect}{My\+Rect} $\ast$}]{rect,  }\item[{double}]{value }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em e\+Block} & type of the block \\
+\hline
+{\em rect} & graphic properties of the block \\
+\hline
+{\em value} & internal value of block used by input block \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classBlock_a4f7dbdad50f95ab979cfdb86c4b63018}\label{classBlock_a4f7dbdad50f95ab979cfdb86c4b63018}} 
+\index{Block@{Block}!calculate\+Ports\+To\+Middle@{calculate\+Ports\+To\+Middle}}
+\index{calculate\+Ports\+To\+Middle@{calculate\+Ports\+To\+Middle}!Block@{Block}}
+\subsubsection{\texorpdfstring{calculate\+Ports\+To\+Middle()}{calculatePortsToMiddle()}}
+{\footnotesize\ttfamily void Block\+::calculate\+Ports\+To\+Middle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Centers input ports in the block. \mbox{\Hypertarget{classBlock_a5429186079cf37c2b09fef7d377f8a28}\label{classBlock_a5429186079cf37c2b09fef7d377f8a28}} 
+\index{Block@{Block}!complete\+Delete\+Block@{complete\+Delete\+Block}}
+\index{complete\+Delete\+Block@{complete\+Delete\+Block}!Block@{Block}}
+\subsubsection{\texorpdfstring{complete\+Delete\+Block()}{completeDeleteBlock()}}
+{\footnotesize\ttfamily bool Block\+::complete\+Delete\+Block (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Calls destructor on block. Deletes \hyperlink{classBlock}{Block} including all its ports and links. \mbox{\Hypertarget{classBlock_a801eecced930d343cd4cd5fa14068be1}\label{classBlock_a801eecced930d343cd4cd5fa14068be1}} 
+\index{Block@{Block}!compute@{compute}}
+\index{compute@{compute}!Block@{Block}}
+\subsubsection{\texorpdfstring{compute()}{compute()}}
+{\footnotesize\ttfamily double Block\+::compute (\begin{DoxyParamCaption}\item[{\hyperlink{classBlock}{Block} $\ast$}]{block }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Recursive block calculation from root.
+
+Recursively calls all blocks on all input ports and calculates its values. 
+\begin{DoxyParams}{Parameters}
+{\em block} & root block to be calculated \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+value of given root block 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBlock_a3561d9ce6a8eee10ca8c397e3d25dc5c}\label{classBlock_a3561d9ce6a8eee10ca8c397e3d25dc5c}} 
+\index{Block@{Block}!Draw@{Draw}}
+\index{Draw@{Draw}!Block@{Block}}
+\subsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily void Block\+::\+Draw (\begin{DoxyParamCaption}\item[{Q\+Painter $\ast$}]{painter }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Draws block by Q\+Painter. 
+\begin{DoxyParams}{Parameters}
+{\em painter} & the pane \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+Graphics.\+Drawable\+Object\+::\+Draw(\+Q\+Painter$\ast$) 
+\end{DoxySeeAlso}
+
+
+Reimplemented from \hyperlink{classDrawableObject}{Drawable\+Object}.
+
+\mbox{\Hypertarget{classBlock_a1a02b48229dc2df1d58b1c7a202f3e5e}\label{classBlock_a1a02b48229dc2df1d58b1c7a202f3e5e}} 
+\index{Block@{Block}!gen\+In\+Port@{gen\+In\+Port}}
+\index{gen\+In\+Port@{gen\+In\+Port}!Block@{Block}}
+\subsubsection{\texorpdfstring{gen\+In\+Port()}{genInPort()}}
+{\footnotesize\ttfamily void Block\+::gen\+In\+Port (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Generates one input port.
+
+calls \hyperlink{}{Calculate\+Ports\+To\+Middle()} \mbox{\Hypertarget{classBlock_af10d358559032e920b7b8ad25c113b69}\label{classBlock_af10d358559032e920b7b8ad25c113b69}} 
+\index{Block@{Block}!get\+In\+Ports@{get\+In\+Ports}}
+\index{get\+In\+Ports@{get\+In\+Ports}!Block@{Block}}
+\subsubsection{\texorpdfstring{get\+In\+Ports()}{getInPorts()}}
+{\footnotesize\ttfamily std\+::vector$<$ \hyperlink{classPort}{Port} $\ast$ $>$ Block\+::get\+In\+Ports (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Gets the input ports.
+
+\begin{DoxyReturn}{Returns}
+the input ports 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBlock_a897dd6edfbdec3930d764aa39f0d3de8}\label{classBlock_a897dd6edfbdec3930d764aa39f0d3de8}} 
+\index{Block@{Block}!get\+Out\+Port@{get\+Out\+Port}}
+\index{get\+Out\+Port@{get\+Out\+Port}!Block@{Block}}
+\subsubsection{\texorpdfstring{get\+Out\+Port()}{getOutPort()}}
+{\footnotesize\ttfamily \hyperlink{classPort}{Port} $\ast$ Block\+::get\+Out\+Port (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Gets the output port.
+
+\begin{DoxyReturn}{Returns}
+the output port 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBlock_a396f46a4f7592ffdf4d168be2e79ee52}\label{classBlock_a396f46a4f7592ffdf4d168be2e79ee52}} 
+\index{Block@{Block}!get\+Rect@{get\+Rect}}
+\index{get\+Rect@{get\+Rect}!Block@{Block}}
+\subsubsection{\texorpdfstring{get\+Rect()}{getRect()}}
+{\footnotesize\ttfamily \hyperlink{classMyRect}{My\+Rect} $\ast$ Block\+::get\+Rect (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Gets the rectangle.
+
+\begin{DoxyReturn}{Returns}
+the rectangle 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBlock_ad4c55f893fad7eec6e2ecaa9e6bec6da}\label{classBlock_ad4c55f893fad7eec6e2ecaa9e6bec6da}} 
+\index{Block@{Block}!get\+Resize\+Rect@{get\+Resize\+Rect}}
+\index{get\+Resize\+Rect@{get\+Resize\+Rect}!Block@{Block}}
+\subsubsection{\texorpdfstring{get\+Resize\+Rect()}{getResizeRect()}}
+{\footnotesize\ttfamily \hyperlink{classMyRect}{My\+Rect} $\ast$ Block\+::get\+Resize\+Rect (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Gets the resizing rectangle.
+
+\begin{DoxyReturn}{Returns}
+the rectangle 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBlock_aefadce64bb60ab2e12a23bce510b74da}\label{classBlock_aefadce64bb60ab2e12a23bce510b74da}} 
+\index{Block@{Block}!get\+Type@{get\+Type}}
+\index{get\+Type@{get\+Type}!Block@{Block}}
+\subsubsection{\texorpdfstring{get\+Type()}{getType()}}
+{\footnotesize\ttfamily E\+Block Block\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Gets the type.
+
+\begin{DoxyReturn}{Returns}
+the type 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBlock_a613dd5c447f2a2dccebdaba7c2b4b74c}\label{classBlock_a613dd5c447f2a2dccebdaba7c2b4b74c}} 
+\index{Block@{Block}!get\+Value@{get\+Value}}
+\index{get\+Value@{get\+Value}!Block@{Block}}
+\subsubsection{\texorpdfstring{get\+Value()}{getValue()}}
+{\footnotesize\ttfamily double Block\+::get\+Value (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Gets the value.
+
+\begin{DoxyReturn}{Returns}
+the value 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBlock_aafbf3dd9d1af0a328878662cceb7de26}\label{classBlock_aafbf3dd9d1af0a328878662cceb7de26}} 
+\index{Block@{Block}!is\+Cycled@{is\+Cycled}}
+\index{is\+Cycled@{is\+Cycled}!Block@{Block}}
+\subsubsection{\texorpdfstring{is\+Cycled()}{isCycled()}}
+{\footnotesize\ttfamily bool Block\+::is\+Cycled (\begin{DoxyParamCaption}\item[{\hyperlink{classBlock}{Block} $\ast$}]{comparing,  }\item[{\hyperlink{classBlock}{Block} $\ast$}]{block }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Recursive searching for loops 
+\begin{DoxyParams}{Parameters}
+{\em comparing} & Always left null \\
+\hline
+{\em block} & \hyperlink{classBlock}{Block} to be checked for loop in tree \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if loop is found 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBlock_a6e2da20e7645ed07ff449256fc2cc767}\label{classBlock_a6e2da20e7645ed07ff449256fc2cc767}} 
+\index{Block@{Block}!Move@{Move}}
+\index{Move@{Move}!Block@{Block}}
+\subsubsection{\texorpdfstring{Move()}{Move()}}
+{\footnotesize\ttfamily void Block\+::\+Move (\begin{DoxyParamCaption}\item[{\hyperlink{classPoint2D}{Point2D} $\ast$}]{delta }\end{DoxyParamCaption})}
+
+Moves block by value.
+
+
+\begin{DoxyParams}{Parameters}
+{\em delta} & pixels on X and Y axis \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBlock_a3d65e76b1404d38e68243e50034d5551}\label{classBlock_a3d65e76b1404d38e68243e50034d5551}} 
+\index{Block@{Block}!recalculate\+Heights@{recalculate\+Heights}}
+\index{recalculate\+Heights@{recalculate\+Heights}!Block@{Block}}
+\subsubsection{\texorpdfstring{recalculate\+Heights()}{recalculateHeights()}}
+{\footnotesize\ttfamily bool Block\+::recalculate\+Heights (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Calculates block size according to number of input ports and centers output block. \begin{DoxyReturn}{Returns}
+false if block is too small to contain all input ports 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBlock_a88a3549580bb9504230921c8d10ca9dd}\label{classBlock_a88a3549580bb9504230921c8d10ca9dd}} 
+\index{Block@{Block}!Resize@{Resize}}
+\index{Resize@{Resize}!Block@{Block}}
+\subsubsection{\texorpdfstring{Resize()}{Resize()}}
+{\footnotesize\ttfamily void Block\+::\+Resize (\begin{DoxyParamCaption}\item[{\hyperlink{classPoint2D}{Point2D} $\ast$}]{resize }\end{DoxyParamCaption})}
+
+Resizes block by value.
+
+calls \hyperlink{}{Calculate\+Ports\+To\+Middle()} 
+\begin{DoxyParams}{Parameters}
+{\em delta} & pixels on X and Y axis \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBlock_aa24819f99f922d0b2cba3d12775974e0}\label{classBlock_aa24819f99f922d0b2cba3d12775974e0}} 
+\index{Block@{Block}!set\+In\+Port@{set\+In\+Port}}
+\index{set\+In\+Port@{set\+In\+Port}!Block@{Block}}
+\subsubsection{\texorpdfstring{set\+In\+Port()}{setInPort()}}
+{\footnotesize\ttfamily void Block\+::set\+In\+Port (\begin{DoxyParamCaption}\item[{int}]{index,  }\item[{\hyperlink{classPort}{Port} $\ast$}]{new\+In\+Port }\end{DoxyParamCaption})}
+
+Sets new input port and calls \hyperlink{}{Calculate\+Ports\+To\+Middle()}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & index of input port to be changed \\
+\hline
+{\em new\+In\+Port} & new input port \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBlock_aa67c1224df9015c055fa5523dfa67f52}\label{classBlock_aa67c1224df9015c055fa5523dfa67f52}} 
+\index{Block@{Block}!set\+In\+Ports@{set\+In\+Ports}}
+\index{set\+In\+Ports@{set\+In\+Ports}!Block@{Block}}
+\subsubsection{\texorpdfstring{set\+In\+Ports()}{setInPorts()}}
+{\footnotesize\ttfamily void Block\+::set\+In\+Ports (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \hyperlink{classPort}{Port} $\ast$$>$}]{portvector }\end{DoxyParamCaption})}
+
+Sets new vector of input ports.
+
+
+\begin{DoxyParams}{Parameters}
+{\em portvector} & new input port vector \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBlock_a82671bfde9a0d710c72ef5004fdb4179}\label{classBlock_a82671bfde9a0d710c72ef5004fdb4179}} 
+\index{Block@{Block}!set\+Out\+Port@{set\+Out\+Port}}
+\index{set\+Out\+Port@{set\+Out\+Port}!Block@{Block}}
+\subsubsection{\texorpdfstring{set\+Out\+Port()}{setOutPort()}}
+{\footnotesize\ttfamily void Block\+::set\+Out\+Port (\begin{DoxyParamCaption}\item[{\hyperlink{classPort}{Port} $\ast$}]{p }\end{DoxyParamCaption})}
+
+Sets the output port.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & the output port \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBlock_a0ee328fa6748cad1232dd0803710dbf0}\label{classBlock_a0ee328fa6748cad1232dd0803710dbf0}} 
+\index{Block@{Block}!set\+Rect@{set\+Rect}}
+\index{set\+Rect@{set\+Rect}!Block@{Block}}
+\subsubsection{\texorpdfstring{set\+Rect()}{setRect()}}
+{\footnotesize\ttfamily void Block\+::set\+Rect (\begin{DoxyParamCaption}\item[{\hyperlink{classMyRect}{My\+Rect} $\ast$}]{rect }\end{DoxyParamCaption})}
+
+Sets the rectangle.
+
+
+\begin{DoxyParams}{Parameters}
+{\em rect} & new rectangle \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBlock_a939528c280e4d7f516422f85bb22c2d2}\label{classBlock_a939528c280e4d7f516422f85bb22c2d2}} 
+\index{Block@{Block}!set\+Rect\+Position@{set\+Rect\+Position}}
+\index{set\+Rect\+Position@{set\+Rect\+Position}!Block@{Block}}
+\subsubsection{\texorpdfstring{set\+Rect\+Position()}{setRectPosition()}}
+{\footnotesize\ttfamily void Block\+::set\+Rect\+Position (\begin{DoxyParamCaption}\item[{\hyperlink{classPoint2D}{Point2D} $\ast$}]{position }\end{DoxyParamCaption})}
+
+Sets new position, does not redraw in G\+UI. 
+\begin{DoxyParams}{Parameters}
+{\em position} & new position \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBlock_a931b0465363ea2ec445f817940a78abd}\label{classBlock_a931b0465363ea2ec445f817940a78abd}} 
+\index{Block@{Block}!set\+Type@{set\+Type}}
+\index{set\+Type@{set\+Type}!Block@{Block}}
+\subsubsection{\texorpdfstring{set\+Type()}{setType()}}
+{\footnotesize\ttfamily void Block\+::set\+Type (\begin{DoxyParamCaption}\item[{E\+Block}]{e\+Block }\end{DoxyParamCaption})}
+
+Changes type of a block and calls \hyperlink{}{unset\+Calculated(\+Block)}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em e\+Block} & new block type \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBlock_acabb5bf7f41bc16338b4efde5a760703}\label{classBlock_acabb5bf7f41bc16338b4efde5a760703}} 
+\index{Block@{Block}!set\+Value@{set\+Value}}
+\index{set\+Value@{set\+Value}!Block@{Block}}
+\subsubsection{\texorpdfstring{set\+Value()}{setValue()}}
+{\footnotesize\ttfamily void Block\+::set\+Value (\begin{DoxyParamCaption}\item[{double}]{value }\end{DoxyParamCaption})}
+
+Assigns value and changes \hyperlink{}{debug\+Disp} and \hyperlink{classBlock_a1d3b391e9531eb8bc0b0362730d4c53d}{disp}. 
+\begin{DoxyParams}{Parameters}
+{\em value} & value to be assigned \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBlock_ab76d443f7898f82c4ad4cb124375a76c}\label{classBlock_ab76d443f7898f82c4ad4cb124375a76c}} 
+\index{Block@{Block}!unset\+Calculated@{unset\+Calculated}}
+\index{unset\+Calculated@{unset\+Calculated}!Block@{Block}}
+\subsubsection{\texorpdfstring{unset\+Calculated()}{unsetCalculated()}}
+{\footnotesize\ttfamily void Block\+::unset\+Calculated (\begin{DoxyParamCaption}\item[{\hyperlink{classBlock}{Block} $\ast$}]{block }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Set blocks to be recalculated after a change in links or blocks.
+
+Recursively calls each block from given port and sets \hyperlink{classBlock_a78ba2fc9a1343e5d9f6f372888e90bf2}{calculated} to false. 
+\begin{DoxyParams}{Parameters}
+{\em block} & changed block \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classBlock_a2078fc6dc0ee457f3332a38685fea0af}\label{classBlock_a2078fc6dc0ee457f3332a38685fea0af}} 
+\index{Block@{Block}!\+\_\+e\+Block@{\+\_\+e\+Block}}
+\index{\+\_\+e\+Block@{\+\_\+e\+Block}!Block@{Block}}
+\subsubsection{\texorpdfstring{\+\_\+e\+Block}{\_eBlock}}
+{\footnotesize\ttfamily E\+Block Block\+::\+\_\+e\+Block\hspace{0.3cm}{\ttfamily [private]}}
+
+Enum block type. \mbox{\Hypertarget{classBlock_a07a89d0108abe2b1ab8b69aabe815d73}\label{classBlock_a07a89d0108abe2b1ab8b69aabe815d73}} 
+\index{Block@{Block}!\+\_\+out\+Port@{\+\_\+out\+Port}}
+\index{\+\_\+out\+Port@{\+\_\+out\+Port}!Block@{Block}}
+\subsubsection{\texorpdfstring{\+\_\+out\+Port}{\_outPort}}
+{\footnotesize\ttfamily \hyperlink{classPort}{Port}$\ast$ Block\+::\+\_\+out\+Port = nullptr\hspace{0.3cm}{\ttfamily [private]}}
+
+The out port. \mbox{\Hypertarget{classBlock_a310ce3c87df1c29e3bfa15aafb9b21c0}\label{classBlock_a310ce3c87df1c29e3bfa15aafb9b21c0}} 
+\index{Block@{Block}!\+\_\+rect@{\+\_\+rect}}
+\index{\+\_\+rect@{\+\_\+rect}!Block@{Block}}
+\subsubsection{\texorpdfstring{\+\_\+rect}{\_rect}}
+{\footnotesize\ttfamily \hyperlink{classMyRect}{My\+Rect}$\ast$ Block\+::\+\_\+rect = nullptr\hspace{0.3cm}{\ttfamily [private]}}
+
+Graphic properties (position, size). \mbox{\Hypertarget{classBlock_ae7f260f0bdfd696d33b758a68de30d4c}\label{classBlock_ae7f260f0bdfd696d33b758a68de30d4c}} 
+\index{Block@{Block}!\+\_\+resize\+Rect@{\+\_\+resize\+Rect}}
+\index{\+\_\+resize\+Rect@{\+\_\+resize\+Rect}!Block@{Block}}
+\subsubsection{\texorpdfstring{\+\_\+resize\+Rect}{\_resizeRect}}
+{\footnotesize\ttfamily \hyperlink{classMyRect}{My\+Rect}$\ast$ Block\+::\+\_\+resize\+Rect = nullptr\hspace{0.3cm}{\ttfamily [private]}}
+
+Graphic properties of resizing box. \mbox{\Hypertarget{classBlock_a78ba2fc9a1343e5d9f6f372888e90bf2}\label{classBlock_a78ba2fc9a1343e5d9f6f372888e90bf2}} 
+\index{Block@{Block}!calculated@{calculated}}
+\index{calculated@{calculated}!Block@{Block}}
+\subsubsection{\texorpdfstring{calculated}{calculated}}
+{\footnotesize\ttfamily bool Block\+::calculated = false\hspace{0.3cm}{\ttfamily [private]}}
+
+Variable used for optimization. Individual block is not calculated multiple times in one calculation cycle. \mbox{\Hypertarget{classBlock_aad15dd9091823b114a17df309bd68bf4}\label{classBlock_aad15dd9091823b114a17df309bd68bf4}} 
+\index{Block@{Block}!debug@{debug}}
+\index{debug@{debug}!Block@{Block}}
+\subsubsection{\texorpdfstring{debug}{debug}}
+{\footnotesize\ttfamily \hyperlink{classBlock}{Block} $\ast$ Block\+::debug = nullptr\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+Static variale used to draw the rectangle over image, when debug is running. \mbox{\Hypertarget{classBlock_a1d3b391e9531eb8bc0b0362730d4c53d}\label{classBlock_a1d3b391e9531eb8bc0b0362730d4c53d}} 
+\index{Block@{Block}!disp@{disp}}
+\index{disp@{disp}!Block@{Block}}
+\subsubsection{\texorpdfstring{disp}{disp}}
+{\footnotesize\ttfamily Q\+Label$\ast$ Block\+::disp\hspace{0.3cm}{\ttfamily [private]}}
+
+\hyperlink{classBlock}{Block} value inside display block. \mbox{\Hypertarget{classBlock_aab61fd446868e41197a55c79dc7d709b}\label{classBlock_aab61fd446868e41197a55c79dc7d709b}} 
+\index{Block@{Block}!image@{image}}
+\index{image@{image}!Block@{Block}}
+\subsubsection{\texorpdfstring{image}{image}}
+{\footnotesize\ttfamily Q\+Image Block\+::image\hspace{0.3cm}{\ttfamily [private]}}
+
+Background image. \mbox{\Hypertarget{classBlock_a2b9ee38ee6794399262907587010ed3d}\label{classBlock_a2b9ee38ee6794399262907587010ed3d}} 
+\index{Block@{Block}!in\+Ports@{in\+Ports}}
+\index{in\+Ports@{in\+Ports}!Block@{Block}}
+\subsubsection{\texorpdfstring{in\+Ports}{inPorts}}
+{\footnotesize\ttfamily std\+::vector$<$\hyperlink{classPort}{Port}$\ast$$>$ Block\+::in\+Ports = std\+::vector$<$\hyperlink{classPort}{Port}$\ast$$>$()\hspace{0.3cm}{\ttfamily [private]}}
+
+List of input ports. \mbox{\Hypertarget{classBlock_a968c9b7c94b49e5185f8e490c60fbfc0}\label{classBlock_a968c9b7c94b49e5185f8e490c60fbfc0}} 
+\index{Block@{Block}!M\+A\+X\+B\+L\+O\+C\+K\+S\+I\+ZE@{M\+A\+X\+B\+L\+O\+C\+K\+S\+I\+ZE}}
+\index{M\+A\+X\+B\+L\+O\+C\+K\+S\+I\+ZE@{M\+A\+X\+B\+L\+O\+C\+K\+S\+I\+ZE}!Block@{Block}}
+\subsubsection{\texorpdfstring{M\+A\+X\+B\+L\+O\+C\+K\+S\+I\+ZE}{MAXBLOCKSIZE}}
+{\footnotesize\ttfamily const int Block\+::\+M\+A\+X\+B\+L\+O\+C\+K\+S\+I\+ZE = 400\hspace{0.3cm}{\ttfamily [static]}}
+
+The Constant M\+A\+X\+B\+L\+O\+C\+K\+S\+I\+ZE. \mbox{\Hypertarget{classBlock_ab2e1f1dd232266b80299979e4e3ff4a7}\label{classBlock_ab2e1f1dd232266b80299979e4e3ff4a7}} 
+\index{Block@{Block}!M\+I\+N\+B\+L\+O\+C\+K\+S\+I\+ZE@{M\+I\+N\+B\+L\+O\+C\+K\+S\+I\+ZE}}
+\index{M\+I\+N\+B\+L\+O\+C\+K\+S\+I\+ZE@{M\+I\+N\+B\+L\+O\+C\+K\+S\+I\+ZE}!Block@{Block}}
+\subsubsection{\texorpdfstring{M\+I\+N\+B\+L\+O\+C\+K\+S\+I\+ZE}{MINBLOCKSIZE}}
+{\footnotesize\ttfamily const int Block\+::\+M\+I\+N\+B\+L\+O\+C\+K\+S\+I\+ZE = 100\hspace{0.3cm}{\ttfamily [static]}}
+
+The Constant M\+I\+N\+B\+L\+O\+C\+K\+S\+I\+ZE. \mbox{\Hypertarget{classBlock_acf7c29d2194e317f2cc831046ec5460e}\label{classBlock_acf7c29d2194e317f2cc831046ec5460e}} 
+\index{Block@{Block}!step\+Counter@{step\+Counter}}
+\index{step\+Counter@{step\+Counter}!Block@{Block}}
+\subsubsection{\texorpdfstring{step\+Counter}{stepCounter}}
+{\footnotesize\ttfamily int Block\+::step\+Counter\hspace{0.3cm}{\ttfamily [static]}}
+
+Counter used in debug mode. Each individual block calculation rises counter by 1. Calculation proceeds until it matches \hyperlink{}{Graphics.\+Panel\#step\+Counter} \mbox{\Hypertarget{classBlock_afb64e6479c44387ece15c0f8d635236f}\label{classBlock_afb64e6479c44387ece15c0f8d635236f}} 
+\index{Block@{Block}!value@{value}}
+\index{value@{value}!Block@{Block}}
+\subsubsection{\texorpdfstring{value}{value}}
+{\footnotesize\ttfamily double Block\+::value = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+Stored value inside block. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+block.\+h\item 
+block.\+cpp\end{DoxyCompactItemize}

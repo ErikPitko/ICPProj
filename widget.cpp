@@ -78,6 +78,7 @@ void Widget::Edit()
 void Widget::DeleteBlock()
 {
     EditBlock->completeDeleteBlock();
+    EditBlock = nullptr;
 }
 
 void Widget::Exit()
@@ -154,6 +155,7 @@ void Widget::mouseDoubleClickEvent(QMouseEvent *event)
     {
         delete deleteLink;
     }
+    deleteLink = nullptr;
     repaint();
 }
 

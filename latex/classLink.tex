@@ -1,0 +1,71 @@
+\hypertarget{classLink}{}\section{Link Class Reference}
+\label{classLink}\index{Link@{Link}}
+Inheritance diagram for Link\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classLink}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classLink_a2db8894bce4b94c941fe973f46d63600}\label{classLink_a2db8894bce4b94c941fe973f46d63600}} 
+{\bfseries Link} (const \hyperlink{classLink}{Link} \&)
+\item 
+\mbox{\Hypertarget{classLink_a4d958d9cfbb214cd244f997958c5f1ad}\label{classLink_a4d958d9cfbb214cd244f997958c5f1ad}} 
+{\bfseries Link} (\hyperlink{classPort}{Port} $\ast$, \hyperlink{classPort}{Port} $\ast$)
+\item 
+\mbox{\Hypertarget{classLink_abd0c01cc4f2327c0ae4fd8ab6af07653}\label{classLink_abd0c01cc4f2327c0ae4fd8ab6af07653}} 
+\hyperlink{classPort}{Port} $\ast$ {\bfseries get\+In\+Port} ()
+\item 
+\mbox{\Hypertarget{classLink_a6b574d3c11ee9bba28509e5d85acaa94}\label{classLink_a6b574d3c11ee9bba28509e5d85acaa94}} 
+\hyperlink{classPort}{Port} $\ast$ {\bfseries get\+Out\+Port} ()
+\item 
+\mbox{\Hypertarget{classLink_a2689e0202d4a1d1b39588abd25241417}\label{classLink_a2689e0202d4a1d1b39588abd25241417}} 
+void {\bfseries set\+In\+Port} (\hyperlink{classPort}{Port} $\ast$)
+\item 
+\mbox{\Hypertarget{classLink_aa04660e88b32ea60c0209482a6bc68c1}\label{classLink_aa04660e88b32ea60c0209482a6bc68c1}} 
+void {\bfseries set\+Out\+Port} (\hyperlink{classPort}{Port} $\ast$)
+\item 
+\mbox{\Hypertarget{classLink_a83ac4b54c4b0a240701821c2c195364e}\label{classLink_a83ac4b54c4b0a240701821c2c195364e}} 
+Q\+Line $\ast$ {\bfseries get\+Line} ()
+\item 
+\mbox{\Hypertarget{classLink_a0e08eb4518bc88e7b74e6581badd91fd}\label{classLink_a0e08eb4518bc88e7b74e6581badd91fd}} 
+bool {\bfseries Is\+Cycled} ()
+\item 
+\mbox{\Hypertarget{classLink_ac9f06bd0dd2272222b62102a94cf6607}\label{classLink_ac9f06bd0dd2272222b62102a94cf6607}} 
+void {\bfseries Set\+Cycled} ()
+\item 
+\mbox{\Hypertarget{classLink_a41ec810a02d72f2aa6e2c049075dd026}\label{classLink_a41ec810a02d72f2aa6e2c049075dd026}} 
+void {\bfseries Un\+Set\+Cycled} ()
+\item 
+\mbox{\Hypertarget{classLink_ab150ec2cc71a241be7e3abd40837f369}\label{classLink_ab150ec2cc71a241be7e3abd40837f369}} 
+virtual void {\bfseries Draw} (Q\+Painter $\ast$) override
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classLink_a2b815f1d35a5588416190e7ea0a11b63}\label{classLink_a2b815f1d35a5588416190e7ea0a11b63}} 
+static bool {\bfseries Is\+Point\+On\+Line} (Q\+Line $\ast$line, \hyperlink{classPoint2D}{Point2D} $\ast$point)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classLink_a6e935a336f4a03071fcc2b592276c4ca}\label{classLink_a6e935a336f4a03071fcc2b592276c4ca}} 
+\hyperlink{classPort}{Port} $\ast$ {\bfseries in\+Port} = nullptr
+\item 
+\mbox{\Hypertarget{classLink_a0e326445a40f370fbaec9b1bbfd3fc2d}\label{classLink_a0e326445a40f370fbaec9b1bbfd3fc2d}} 
+\hyperlink{classPort}{Port} $\ast$ {\bfseries out\+Port} = nullptr
+\item 
+\mbox{\Hypertarget{classLink_af181aac9843b389800939c294c01d4ac}\label{classLink_af181aac9843b389800939c294c01d4ac}} 
+Q\+Line $\ast$ {\bfseries line} = nullptr
+\item 
+\mbox{\Hypertarget{classLink_a70e3252b06be7f81d6345ad1197dc18c}\label{classLink_a70e3252b06be7f81d6345ad1197dc18c}} 
+bool {\bfseries is\+Cycled}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+link.\+h\item 
+link.\+cpp\end{DoxyCompactItemize}

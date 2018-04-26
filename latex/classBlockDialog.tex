@@ -1,0 +1,181 @@
+\hypertarget{classBlockDialog}{}\section{Block\+Dialog Class Reference}
+\label{classBlockDialog}\index{Block\+Dialog@{Block\+Dialog}}
+Inheritance diagram for Block\+Dialog\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classBlockDialog}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classBlockDialog_ab73c3fae34eb587bee67c0b67974c97e}{Block\+Dialog} (Q\+Widget $\ast$parent=0)
+\item 
+\hyperlink{classBlockDialog_a7a524e7d75f6b0c0addb855de52d713f}{$\sim$\+Block\+Dialog} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classBlockDialog_ad8f20cab9c17a9a03d846a10215c55c5}{on\+\_\+\+A\+D\+D\+\_\+clicked} ()
+\item 
+void \hyperlink{classBlockDialog_af9974e5eed00d8ed6541207152559639}{on\+\_\+\+S\+U\+B\+\_\+clicked} ()
+\item 
+void \hyperlink{classBlockDialog_a8d9ff3eb620ffcf02a184b7a5ca535ce}{on\+\_\+\+M\+U\+L\+\_\+clicked} ()
+\item 
+void \hyperlink{classBlockDialog_a01cf45f68a5b5b688916be2a8d78e7eb}{on\+\_\+\+D\+I\+V\+\_\+clicked} ()
+\item 
+void \hyperlink{classBlockDialog_aaa26399a715ce36bf46f9c4a7a3b834a}{on\+\_\+\+I\+N\+\_\+clicked} ()
+\item 
+void \hyperlink{classBlockDialog_ab5afbbd67eb4c1ee11191cad1da29630}{on\+\_\+\+O\+U\+T\+\_\+clicked} ()
+\item 
+void \hyperlink{classBlockDialog_a5e445ed193d3f7e2eba29e192f038221}{on\+\_\+\+Apply\+\_\+clicked} ()
+\item 
+void \hyperlink{classBlockDialog_a9c009de0d86bff7a265f3db598e204fc}{on\+\_\+horizontal\+Slider\+\_\+slider\+Moved} (int \hyperlink{classBlockDialog_ad0c5a84d24461a66fc604159306cd65c}{value})
+\item 
+void \hyperlink{classBlockDialog_a875bd7ee646be1c30b90f09d3666b4b1}{on\+\_\+\+Cancel\+\_\+clicked} ()
+\item 
+void \hyperlink{classBlockDialog_aadce9fabc644d0d73f36ddc3749c9975}{on\+\_\+line\+Edit\+\_\+text\+Changed} (const Q\+String \&arg1)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+E\+Block \hyperlink{classBlockDialog_a369bf9158760dcf32d7c98d7f4c3fd24}{selected}
+\item 
+double \hyperlink{classBlockDialog_ad0c5a84d24461a66fc604159306cd65c}{value}
+\item 
+int \hyperlink{classBlockDialog_a5d3f519ebe7794146a1f24607ab3066a}{port\+Count} = 2
+\item 
+Ui\+::\+Block\+Dialog $\ast$ \hyperlink{classBlockDialog_ad8e54f70336f615f84a19cf59b4bb420}{ui}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBlockDialog_ab73c3fae34eb587bee67c0b67974c97e}\label{classBlockDialog_ab73c3fae34eb587bee67c0b67974c97e}} 
+\index{Block\+Dialog@{Block\+Dialog}!Block\+Dialog@{Block\+Dialog}}
+\index{Block\+Dialog@{Block\+Dialog}!Block\+Dialog@{Block\+Dialog}}
+\subsubsection{\texorpdfstring{Block\+Dialog()}{BlockDialog()}}
+{\footnotesize\ttfamily Block\+Dialog\+::\+Block\+Dialog (\begin{DoxyParamCaption}\item[{Q\+Widget $\ast$}]{parent = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+The explicit constructor to create new instance.
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & parameter where it will be draw. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBlockDialog_a7a524e7d75f6b0c0addb855de52d713f}\label{classBlockDialog_a7a524e7d75f6b0c0addb855de52d713f}} 
+\index{Block\+Dialog@{Block\+Dialog}!````~Block\+Dialog@{$\sim$\+Block\+Dialog}}
+\index{````~Block\+Dialog@{$\sim$\+Block\+Dialog}!Block\+Dialog@{Block\+Dialog}}
+\subsubsection{\texorpdfstring{$\sim$\+Block\+Dialog()}{~BlockDialog()}}
+{\footnotesize\ttfamily Block\+Dialog\+::$\sim$\+Block\+Dialog (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Destructor that clears window and destroy all objects on it. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classBlockDialog_ad8f20cab9c17a9a03d846a10215c55c5}\label{classBlockDialog_ad8f20cab9c17a9a03d846a10215c55c5}} 
+\index{Block\+Dialog@{Block\+Dialog}!on\+\_\+\+A\+D\+D\+\_\+clicked@{on\+\_\+\+A\+D\+D\+\_\+clicked}}
+\index{on\+\_\+\+A\+D\+D\+\_\+clicked@{on\+\_\+\+A\+D\+D\+\_\+clicked}!Block\+Dialog@{Block\+Dialog}}
+\subsubsection{\texorpdfstring{on\+\_\+\+A\+D\+D\+\_\+clicked}{on\_ADD\_clicked}}
+{\footnotesize\ttfamily void Block\+Dialog\+::on\+\_\+\+A\+D\+D\+\_\+clicked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+Event calls by click on add button. It sets selected operation. \mbox{\Hypertarget{classBlockDialog_a5e445ed193d3f7e2eba29e192f038221}\label{classBlockDialog_a5e445ed193d3f7e2eba29e192f038221}} 
+\index{Block\+Dialog@{Block\+Dialog}!on\+\_\+\+Apply\+\_\+clicked@{on\+\_\+\+Apply\+\_\+clicked}}
+\index{on\+\_\+\+Apply\+\_\+clicked@{on\+\_\+\+Apply\+\_\+clicked}!Block\+Dialog@{Block\+Dialog}}
+\subsubsection{\texorpdfstring{on\+\_\+\+Apply\+\_\+clicked}{on\_Apply\_clicked}}
+{\footnotesize\ttfamily void Block\+Dialog\+::on\+\_\+\+Apply\+\_\+clicked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+Event calls by click on Apply button. Creates new block by selected type and closes the popup window. \mbox{\Hypertarget{classBlockDialog_a875bd7ee646be1c30b90f09d3666b4b1}\label{classBlockDialog_a875bd7ee646be1c30b90f09d3666b4b1}} 
+\index{Block\+Dialog@{Block\+Dialog}!on\+\_\+\+Cancel\+\_\+clicked@{on\+\_\+\+Cancel\+\_\+clicked}}
+\index{on\+\_\+\+Cancel\+\_\+clicked@{on\+\_\+\+Cancel\+\_\+clicked}!Block\+Dialog@{Block\+Dialog}}
+\subsubsection{\texorpdfstring{on\+\_\+\+Cancel\+\_\+clicked}{on\_Cancel\_clicked}}
+{\footnotesize\ttfamily void Block\+Dialog\+::on\+\_\+\+Cancel\+\_\+clicked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+Event calls by click on Cancel button. It closes the window it its not needed. \mbox{\Hypertarget{classBlockDialog_a01cf45f68a5b5b688916be2a8d78e7eb}\label{classBlockDialog_a01cf45f68a5b5b688916be2a8d78e7eb}} 
+\index{Block\+Dialog@{Block\+Dialog}!on\+\_\+\+D\+I\+V\+\_\+clicked@{on\+\_\+\+D\+I\+V\+\_\+clicked}}
+\index{on\+\_\+\+D\+I\+V\+\_\+clicked@{on\+\_\+\+D\+I\+V\+\_\+clicked}!Block\+Dialog@{Block\+Dialog}}
+\subsubsection{\texorpdfstring{on\+\_\+\+D\+I\+V\+\_\+clicked}{on\_DIV\_clicked}}
+{\footnotesize\ttfamily void Block\+Dialog\+::on\+\_\+\+D\+I\+V\+\_\+clicked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+Event calls by click on D\+IV button. It sets selected operation. \mbox{\Hypertarget{classBlockDialog_a9c009de0d86bff7a265f3db598e204fc}\label{classBlockDialog_a9c009de0d86bff7a265f3db598e204fc}} 
+\index{Block\+Dialog@{Block\+Dialog}!on\+\_\+horizontal\+Slider\+\_\+slider\+Moved@{on\+\_\+horizontal\+Slider\+\_\+slider\+Moved}}
+\index{on\+\_\+horizontal\+Slider\+\_\+slider\+Moved@{on\+\_\+horizontal\+Slider\+\_\+slider\+Moved}!Block\+Dialog@{Block\+Dialog}}
+\subsubsection{\texorpdfstring{on\+\_\+horizontal\+Slider\+\_\+slider\+Moved}{on\_horizontalSlider\_sliderMoved}}
+{\footnotesize\ttfamily void Block\+Dialog\+::on\+\_\+horizontal\+Slider\+\_\+slider\+Moved (\begin{DoxyParamCaption}\item[{int}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+Event calls by moving slider on window. Slider sets number of input ports on block. Default value of slider is 2 and its hidden while IN block is selected, because IN block doesnt have any input ports.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & returns value that slider have. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBlockDialog_aaa26399a715ce36bf46f9c4a7a3b834a}\label{classBlockDialog_aaa26399a715ce36bf46f9c4a7a3b834a}} 
+\index{Block\+Dialog@{Block\+Dialog}!on\+\_\+\+I\+N\+\_\+clicked@{on\+\_\+\+I\+N\+\_\+clicked}}
+\index{on\+\_\+\+I\+N\+\_\+clicked@{on\+\_\+\+I\+N\+\_\+clicked}!Block\+Dialog@{Block\+Dialog}}
+\subsubsection{\texorpdfstring{on\+\_\+\+I\+N\+\_\+clicked}{on\_IN\_clicked}}
+{\footnotesize\ttfamily void Block\+Dialog\+::on\+\_\+\+I\+N\+\_\+clicked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+Event calls by click on IN button. It sets selected operation. \mbox{\Hypertarget{classBlockDialog_aadce9fabc644d0d73f36ddc3749c9975}\label{classBlockDialog_aadce9fabc644d0d73f36ddc3749c9975}} 
+\index{Block\+Dialog@{Block\+Dialog}!on\+\_\+line\+Edit\+\_\+text\+Changed@{on\+\_\+line\+Edit\+\_\+text\+Changed}}
+\index{on\+\_\+line\+Edit\+\_\+text\+Changed@{on\+\_\+line\+Edit\+\_\+text\+Changed}!Block\+Dialog@{Block\+Dialog}}
+\subsubsection{\texorpdfstring{on\+\_\+line\+Edit\+\_\+text\+Changed}{on\_lineEdit\_textChanged}}
+{\footnotesize\ttfamily void Block\+Dialog\+::on\+\_\+line\+Edit\+\_\+text\+Changed (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{arg1 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+Event calls by writing text into textbox. The text should be only number. The textbox is showed if the IN block is selected.
+
+
+\begin{DoxyParams}{Parameters}
+{\em arg1} & returns value that IN block have to have. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBlockDialog_a8d9ff3eb620ffcf02a184b7a5ca535ce}\label{classBlockDialog_a8d9ff3eb620ffcf02a184b7a5ca535ce}} 
+\index{Block\+Dialog@{Block\+Dialog}!on\+\_\+\+M\+U\+L\+\_\+clicked@{on\+\_\+\+M\+U\+L\+\_\+clicked}}
+\index{on\+\_\+\+M\+U\+L\+\_\+clicked@{on\+\_\+\+M\+U\+L\+\_\+clicked}!Block\+Dialog@{Block\+Dialog}}
+\subsubsection{\texorpdfstring{on\+\_\+\+M\+U\+L\+\_\+clicked}{on\_MUL\_clicked}}
+{\footnotesize\ttfamily void Block\+Dialog\+::on\+\_\+\+M\+U\+L\+\_\+clicked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+Event calls by click on M\+UL button. It sets selected operation. \mbox{\Hypertarget{classBlockDialog_ab5afbbd67eb4c1ee11191cad1da29630}\label{classBlockDialog_ab5afbbd67eb4c1ee11191cad1da29630}} 
+\index{Block\+Dialog@{Block\+Dialog}!on\+\_\+\+O\+U\+T\+\_\+clicked@{on\+\_\+\+O\+U\+T\+\_\+clicked}}
+\index{on\+\_\+\+O\+U\+T\+\_\+clicked@{on\+\_\+\+O\+U\+T\+\_\+clicked}!Block\+Dialog@{Block\+Dialog}}
+\subsubsection{\texorpdfstring{on\+\_\+\+O\+U\+T\+\_\+clicked}{on\_OUT\_clicked}}
+{\footnotesize\ttfamily void Block\+Dialog\+::on\+\_\+\+O\+U\+T\+\_\+clicked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+Event calls by click on O\+UT button. It sets selected operation. \mbox{\Hypertarget{classBlockDialog_af9974e5eed00d8ed6541207152559639}\label{classBlockDialog_af9974e5eed00d8ed6541207152559639}} 
+\index{Block\+Dialog@{Block\+Dialog}!on\+\_\+\+S\+U\+B\+\_\+clicked@{on\+\_\+\+S\+U\+B\+\_\+clicked}}
+\index{on\+\_\+\+S\+U\+B\+\_\+clicked@{on\+\_\+\+S\+U\+B\+\_\+clicked}!Block\+Dialog@{Block\+Dialog}}
+\subsubsection{\texorpdfstring{on\+\_\+\+S\+U\+B\+\_\+clicked}{on\_SUB\_clicked}}
+{\footnotesize\ttfamily void Block\+Dialog\+::on\+\_\+\+S\+U\+B\+\_\+clicked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+Event calls by click on S\+UB button. It sets selected operation. 
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classBlockDialog_a5d3f519ebe7794146a1f24607ab3066a}\label{classBlockDialog_a5d3f519ebe7794146a1f24607ab3066a}} 
+\index{Block\+Dialog@{Block\+Dialog}!port\+Count@{port\+Count}}
+\index{port\+Count@{port\+Count}!Block\+Dialog@{Block\+Dialog}}
+\subsubsection{\texorpdfstring{port\+Count}{portCount}}
+{\footnotesize\ttfamily int Block\+Dialog\+::port\+Count = 2\hspace{0.3cm}{\ttfamily [private]}}
+
+Default value of ports it sets the slider. \mbox{\Hypertarget{classBlockDialog_a369bf9158760dcf32d7c98d7f4c3fd24}\label{classBlockDialog_a369bf9158760dcf32d7c98d7f4c3fd24}} 
+\index{Block\+Dialog@{Block\+Dialog}!selected@{selected}}
+\index{selected@{selected}!Block\+Dialog@{Block\+Dialog}}
+\subsubsection{\texorpdfstring{selected}{selected}}
+{\footnotesize\ttfamily E\+Block Block\+Dialog\+::selected\hspace{0.3cm}{\ttfamily [private]}}
+
+Type of new block that buttons sets. \mbox{\Hypertarget{classBlockDialog_ad8e54f70336f615f84a19cf59b4bb420}\label{classBlockDialog_ad8e54f70336f615f84a19cf59b4bb420}} 
+\index{Block\+Dialog@{Block\+Dialog}!ui@{ui}}
+\index{ui@{ui}!Block\+Dialog@{Block\+Dialog}}
+\subsubsection{\texorpdfstring{ui}{ui}}
+{\footnotesize\ttfamily Ui\+::\+Block\+Dialog$\ast$ Block\+Dialog\+::ui\hspace{0.3cm}{\ttfamily [private]}}
+
+Ui variable that shows me available components on panel. \mbox{\Hypertarget{classBlockDialog_ad0c5a84d24461a66fc604159306cd65c}\label{classBlockDialog_ad0c5a84d24461a66fc604159306cd65c}} 
+\index{Block\+Dialog@{Block\+Dialog}!value@{value}}
+\index{value@{value}!Block\+Dialog@{Block\+Dialog}}
+\subsubsection{\texorpdfstring{value}{value}}
+{\footnotesize\ttfamily double Block\+Dialog\+::value\hspace{0.3cm}{\ttfamily [private]}}
+
+Value that IN block have on his out port. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+blockdialog.\+h\item 
+blockdialog.\+cpp\end{DoxyCompactItemize}

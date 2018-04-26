@@ -27,8 +27,9 @@ Link::~Link()
 {
     this->outPort->unSetLink();
     std::vector<Link*>* outLinks = this->inPort->GetLinks();
-    int pos = std::find(outLinks->begin(), outLinks->end(), this) - outLinks->begin();
-    outLinks->erase(outLinks->begin()+pos);
+    std::vector<Link*>::iterator pos = std::find(outLinks->begin(), outLinks->end(), this);
+    if(pos != outLinks->end())
+    outLinks->erase(outLinks->begin()+std::distance(outLinks->begin(),pos));
 //    TODO delete line
     std::cout << "\tLink: " << this << " deleted." << std::endl;
 }
