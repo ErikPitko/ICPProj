@@ -22,23 +22,63 @@ class Link;
 #include "port.h"
 #include "myrect.h"
 #include "drawableobject.h"
+/**
+ * The Port class.
+ */
 class Port : public DrawableObject
 {
 private:
+	/** The block in which port resides */
     Block* _block = nullptr;
+    /** The vector of links connected to the port */
     std::vector<Link*> *_link;
-    //Color _backgroundColor;
 public:
+    /** @see Block#_rect */
     MyRect* Rect = nullptr;
+    /** The Constant PORT_SIZE. */
     static const int PORT_SIZE = 15;
+    /**
+	 * Gets the vector of links.
+	 *
+	 * @return the vector of links
+	 */
     std::vector<Link*>* GetLinks();
+    /**
+	 * Gets the first link in vector.
+	 *
+	 * @return the link
+	 */
     Link* GetFirstLink();
+    /**
+	 * Gets the block.
+	 *
+	 * @return the block
+	 */
     Block* GetBlock();
-    Port (MyRect*,Block*);
+    /**
+	 * Instantiates a new port.
+	 *
+	 * @param rect graphic properties of the port
+	 * @param block the block in which given port resides
+	 */
+    Port (MyRect* rect,Block* block);
+    /**
+     * Destructor of port that is called from Block.
+     */
     virtual ~Port();
-    //Port (MyRect*, Block*/*,Color*/);
+    /**
+	 * Adds link to port if it does not exist already.
+	 *
+	 * @param link the new link
+	 */
     void setLink(Link*);
+    /**
+	 * Deletes all links connected to the port.
+	 */
     void unSetLink();
+	/**
+	 * @see Graphics.DrawableObject#Draw(QPainter*)
+	 */
     void virtual Draw(QPainter*) override;
 
     friend std::ostream& operator <<(std::ostream& os, Port& port)

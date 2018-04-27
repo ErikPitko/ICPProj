@@ -13,7 +13,9 @@
 
 #ifndef EBLOCK_H
 #define EBLOCK_H
-
+/**
+ * Enum, which defines the type of block it can take.
+ */
 enum EBlock {ADD, SUB, MUL, DIV, IN, OUT};
 
 #endif // EBLOCK_H

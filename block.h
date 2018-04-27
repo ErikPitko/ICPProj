@@ -24,7 +24,9 @@
 #include <QLabel>
 #include "widget.h"
 #include "link.h"
-
+/**
+ * Class of block
+ */
 class Block : public DrawableObject
 {
     /** Enum block type.*/

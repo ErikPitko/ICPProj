@@ -17,6 +17,9 @@
 #include <QDialog>
 #include "block.h"
 namespace Ui {
+/**
+ * Class of block dialog
+ */
 class BlockDialog;
 }
 

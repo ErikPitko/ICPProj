@@ -13,6 +13,9 @@
 
 #ifndef EEDITBLOCK_H
 #define EEDITBLOCK_H
+/**
+ * Enum, which defines what will happen with block.
+ */
 enum EEditBlock {MOVE, EDIT, RESIZE, PLANEMOVE,NONE};
 
 #endif // EEDITBLOCK_H

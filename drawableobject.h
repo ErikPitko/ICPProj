@@ -16,12 +16,18 @@
 
 #include "point2d.h"
 #include <QtGui>
-
+/**
+ * Class that is inherited by Block, Port and Link
+ */
 class DrawableObject
 {
 public:
-    DrawableObject();
-    void virtual Draw(QPainter*);
+    /**
+	 * Virtual method that is inherited by Block, Link and Port.
+	 *
+	 * @param painter draws objects
+	 */
+    void virtual Draw(QPainter* painter);
 };
 
 #endif // DRAWABLEOBJECT_H

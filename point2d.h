@@ -19,13 +19,33 @@
 class Point2D
 {
 public:
+	/** The x coord. */
     double X;
+    /** The y coord. */
     double Y;
-    Point2D(double, double);
-    static double distance(Point2D, Point2D);
-    static Point2D* vector(Point2D*, Point2D*);
-    Point2D sub(Point2D);
-    Point2D add(Point2D);
+    /**
+	 * Instantiates a new point2D.
+	 *
+	 * @param x the x coord
+	 * @param y the y coord
+	 */
+    Point2D(double x, double y);
+    /**
+	 * Calculates distance between two points.
+	 *
+	 * @param first the first point
+	 * @param second the second point
+	 * @return the distance
+	 */
+    static double distance(Point2D first, Point2D second);
+    /**
+	 * Calculates vector from points.
+	 *
+	 * @param first the first point
+	 * @param second the second point
+	 * @return the point2D vector
+	 */
+    static Point2D* vector(Point2D* first, Point2D* second);
 
     friend std::ostream& operator <<(std::ostream& os, Point2D& point)
     {

@@ -99,6 +99,3 @@ bool MyRect::intersect(MyRect *rect)
     }
     return false;
 }
-void MyRect::mouseClickedEvent( QMouseEvent* e ) {
-    std::cout<<"Rect click"<<std::endl;
-}

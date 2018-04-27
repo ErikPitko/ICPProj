@@ -20,11 +20,24 @@
 #include <fstream>
 #include <map>
 
+/**
+ * Collection of static functions used for saving and loading scene.
+ */
 class LoadManager
 {
     LoadManager() {}
 public:
+    /**
+	 * Saves scene in a file.
+	 *
+	 * @return true if it ends successfully.
+	 */
     static bool saveScene();
+    /**
+	 * Loads scene from the file.
+	 *
+	 * @return true if it ends successfully.
+	 */
     static void loadScene();
 };
 
