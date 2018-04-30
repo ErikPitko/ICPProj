@@ -2,21 +2,53 @@
 #include "ui_widget.h"
 #include "block.h"
 #include "blockdialog.h"
-Widget::Widget(QWidget *parent) : QWidget(parent),ui(new Ui::Widget)
-{
-    this->setContextMenuPolicy(Qt::CustomContextMenu);
-    myMenu.addAction("Edit", this, SLOT(Edit()));
-    myMenu.addAction(tr("Delete"), this, SLOT(DeleteBlock()));
-    myMenu.addAction(tr("Exit"), this, SLOT(Exit()));
-}
+#include "loadmanager.h"
 vector<Block*>* Widget::BlockList = new vector<Block*>();
 Point2D *Widget::ClickPos = nullptr;
 Block *Widget::EditBlock = nullptr;
 bool Widget::isDebug = false;
 int Widget::stepCounter = 0;
+Widget* Widget::storeWidget;
+QAction *Widget::ActionRun = nullptr;
+QAction *Widget::ActionDebug = nullptr;
+QAction *Widget::ActionNextStep = nullptr;
+QAction *Widget::ActionExitDebug = nullptr;
+Widget::Widget(QWidget *parent) : QWidget(parent),ui(new Ui::Widget)
+{
+    this->setContextMenuPolicy(Qt::CustomContextMenu);
+    InstantiateMenu();
+    storeWidget = this;
+    myMenu.addAction("Edit", this, SLOT(Edit()));
+    myMenu.addAction(tr("Delete"), this, SLOT(DeleteBlock()));
+    myMenu.addAction(tr("Exit"), this, SLOT(Exit()));
+}
+
 Widget::~Widget()
 {
     delete ui;
+}
+
+void Widget::InstantiateMenu()
+{
+    QVBoxLayout *boxLayout = new QVBoxLayout(this); // Main layout of widget
+    QMenuBar* menuBar = new QMenuBar();
+    fileMenu = new QMenu("File");
+    menuBar->addMenu(fileMenu);
+    fileMenu->addAction("Open",Load);
+    fileMenu->addAction("Save",Save);
+    fileMenu->addAction("Exit",ExitAll);
+    editMenu = new QMenu("Edit");
+    menuBar->addMenu(editMenu);
+    editMenu->addAction("Clear",clearBlocks);
+    schemeMenu = new QMenu("Scheme");
+    menuBar->addMenu(schemeMenu);
+    ActionRun = schemeMenu->addAction("Run",Run,QKeySequence(tr("Shift+R")));
+    ActionDebug = schemeMenu->addAction("Debug",StartDebug,QKeySequence(tr("Shift+D")));
+    ActionNextStep = schemeMenu->addAction("Next step",Debug,QKeySequence(tr("Shift+Space")));
+    ActionExitDebug = schemeMenu->addAction("Exit debug",ExitDebug,QKeySequence(tr("Shift+Q")));
+    this->layout()->setMenuBar(menuBar);
+    ActionNextStep->setEnabled(false);
+    ActionExitDebug->setEnabled(false);
 }
 
 void Widget::clearBlocks()
@@ -26,6 +58,7 @@ void Widget::clearBlocks()
         delete block;
     }
     Widget::BlockList->clear();
+    storeWidget->repaint();
 }
 
 void Widget::paintEvent(QPaintEvent *event)
@@ -59,12 +92,26 @@ void Widget::paintEvent(QPaintEvent *event)
     painter.end();
 }
 
+void Widget::Load()
+{
+    QString fileName = QFileDialog::getOpenFileName(storeWidget,
+        tr("Open file"), "", tr("Scheme Files (*.icp)"));
+    LoadManager::loadScene(fileName.toStdString());
+    storeWidget->repaint();
+}
+
+void Widget::Save()
+{
+    QString fileName = QFileDialog::getSaveFileName(storeWidget,
+        tr("Save file"), "", tr("Scheme Files (*.icp)"));
+    fileName.append(".icp");
+    LoadManager::saveScene(fileName.toStdString());
+    storeWidget->repaint();
+}
+
 void Widget::ShowContextMenu(const QPoint &pos) // this is a slot
 {
-    // for most widgets
     QPoint globalPos = this->mapToGlobal(pos);
-    // for QAbstractScrollArea and derived classes you would use:
-    // QPoint globalPos = myWidget->viewport()->mapToGlobal(pos);
     myMenu.exec(globalPos);
 }
 void Widget::Edit()
@@ -73,6 +120,12 @@ void Widget::Edit()
     block.move(this->x()+ClickPos->X,this->y()+ClickPos->Y);
     block.setModal(true);
     block.exec();
+}
+
+void Widget::ExitAll()
+{
+    clearBlocks();
+    storeWidget->hide();
 }
 
 void Widget::DeleteBlock()
@@ -86,35 +139,67 @@ void Widget::Exit()
     myMenu.hide();
 }
 
-void Widget::keyPressEvent(QKeyEvent *event)
+void Widget::Run()
 {
-
-    if(event->key() == Qt::Key_Return)
+    for(int i = 0; i< Widget::BlockList->size();i++)
     {
-        for(int i = 0; i < Widget::BlockList->size(); i++)
+        Block::unsetCalculated((*Widget::BlockList)[i]);
+    }
+    Widget::stepCounter = INT_MAX-1;
+    for(int i = 0; i < Widget::BlockList->size(); i++)
+    {
+        if((*Widget::BlockList)[i]->getType() == OUT)
         {
-            if((*Widget::BlockList)[i]->getType() == OUT)
-                Block::compute((*Widget::BlockList)[i]);
+            Block::compute((*Widget::BlockList)[i]);
         }
     }
-    if(event->key() == Qt::Key_Space)
-    {
-        isDebug = true;
+    storeWidget->repaint();
+}
 
-        Block *outBlock = nullptr;
-        for(int i = 0; i < Widget::BlockList->size(); i++)
-        {
-            if((*Widget::BlockList)[i]->getType() == OUT && (*Widget::BlockList)[i]->getValue() == 0)
-                outBlock = (*Widget::BlockList)[i];
-        }
-        if(outBlock != nullptr)
-        {
-            stepCounter++;
-            Block::compute(outBlock);
-        }
-        else isDebug = false;
+void Widget::Debug()
+{
+    Block *outBlock = nullptr;
+    for(int i = 0; i < Widget::BlockList->size(); i++)
+    {
+        if((*Widget::BlockList)[i]->getType() == OUT && (*Widget::BlockList)[i]->getValue() == 0)
+            outBlock = (*Widget::BlockList)[i];
     }
-    repaint();
+    if(outBlock != nullptr)
+    {
+        stepCounter++;
+        Block::compute(outBlock);
+    }
+    else isDebug = false;
+    storeWidget->repaint();
+}
+
+void Widget::StartDebug()
+{
+    for(int i = 0; i< Widget::BlockList->size();i++)
+    {
+        Block::unsetCalculated((*Widget::BlockList)[i]);
+    }
+    ActionRun->setEnabled(false);
+    ActionDebug->setEnabled(false);
+    ActionNextStep->setEnabled(true);
+    ActionExitDebug->setEnabled(true);
+    isDebug = true;
+    Debug();
+    storeWidget->repaint();
+}
+
+void Widget::ExitDebug()
+{
+    for(int i = 0; i< Widget::BlockList->size();i++)
+    {
+        Block::unsetCalculated((*Widget::BlockList)[i]);
+    }
+    ActionRun->setEnabled(true);
+    ActionDebug->setEnabled(true);
+    ActionNextStep->setEnabled(false);
+    ActionExitDebug->setEnabled(false);
+    isDebug = false;
+    storeWidget->repaint();
 }
 
 void Widget::mouseReleaseEvent(QMouseEvent *event)

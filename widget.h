@@ -16,6 +16,7 @@
 
 #include <QWidget>
 #include <QtGui>
+#include <QtCore>
 #include "myrect.h"
 #include <vector>
 #include <iostream>
@@ -23,6 +24,9 @@
 #include "blockdialog.h"
 #include "eeditblock.h"
 #include <QMenu>
+#include <QMenuBar>
+#include <QVBoxLayout>
+#include <QFileDialog>
 using namespace std;
 namespace Ui {
 /**
@@ -45,7 +49,11 @@ public:
      * Destructor that destroy main window.
      */
 	~Widget();
-	/**
+    /**
+      *
+      */
+    void InstantiateMenu();
+    /**
 	 * Paint event is called if any drawable object moves or transform.
 	 * Could be callen with method repaint();
 	 */
@@ -92,9 +100,33 @@ public:
 	 */
     void mouseDoubleClickEvent(QMouseEvent*);
     /**
-	 * Event that is called when any keyboard buttons pressed.
-	 */
-    void keyPressEvent(QKeyEvent*);
+     * Loads the scene from selected file.
+     */
+    static void Load();
+    /**
+     * Saves the scene to selected file.
+     */
+    static void Save();
+    /**
+     * Runs calculate all blocks.
+     */
+    static void Run();
+    /**
+     * Steps the debug.
+     */
+    static void Debug();
+    /**
+     * Starts the debug.
+     */
+    static void StartDebug();
+    /**
+     * Exits the debug.
+     */
+    static void ExitDebug();
+    /**
+     * Exits all windows and frees the alocated memory.
+     */
+    static void ExitAll();
     /**
      * Shows the context menu if you will press on block with right mouse button
      */
@@ -145,6 +177,38 @@ private:
      * Stores the context menu.
      */
     QMenu myMenu;
+    /**
+     * Stores file menu.
+     */
+    QMenu *fileMenu;
+    /**
+     * Action that will call on run.
+     */
+    static QAction *ActionRun;
+    /**
+     * Action that will call on debug.
+     */
+    static QAction *ActionDebug;
+    /**
+     * Action that will call on next step.
+     */
+    static QAction *ActionNextStep;
+    /**
+     * Action that will call on exit debug.
+     */
+    static QAction *ActionExitDebug;
+    /**
+     * Stores edit menu.
+     */
+    QMenu *editMenu;
+    /**
+     * Stores scheme menu.
+     */
+    QMenu *schemeMenu;
+    /**
+     * Store widget as static. I need it in static functions.
+     */
+    static Widget* storeWidget;
 };
 
 

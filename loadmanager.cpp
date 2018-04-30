@@ -1,9 +1,9 @@
 #include "loadmanager.h"
 
 using namespace std;
-bool LoadManager::saveScene()
+bool LoadManager::saveScene(string path)
 {
-    ofstream fOut ("output.pica");
+    ofstream fOut (path);
     if (!fOut.is_open())
         return false;
     for (Block* block: *Widget::BlockList)
@@ -27,9 +27,9 @@ bool LoadManager::saveScene()
     return true;
 }
 
-void LoadManager::loadScene()
+void LoadManager::loadScene(string path)
 {
-    ifstream fIn ("output.pica");
+    ifstream fIn (path);
     if (!fIn.is_open())
         return;
     std::map<size_t, Block*> blockPair;

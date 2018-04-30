@@ -29,16 +29,20 @@ class LoadManager
 public:
     /**
 	 * Saves scene in a file.
-	 *
+     *
+     * @param path the absolute path with file name.
+     *
 	 * @return true if it ends successfully.
 	 */
-    static bool saveScene();
+    static bool saveScene(string path);
     /**
 	 * Loads scene from the file.
 	 *
+     * @param path the absolute path with file name.
+     *
 	 * @return true if it ends successfully.
 	 */
-    static void loadScene();
+    static void loadScene(string path);
 };
 
 #endif // LOADMANAGER_H
