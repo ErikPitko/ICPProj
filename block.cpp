@@ -246,6 +246,7 @@ MyRect* Block::getRect() const
 void Block::setRect(MyRect* rect)
 {
     _rect = rect;
+    calculatePortsToMiddle();
 }
 
 void Block::setType(EBlock eBlock) {
@@ -365,6 +366,8 @@ std::istream& operator >>(std::istream& is, Block& block)
     MyRect* rect = new MyRect(0,0,0,0);
     is >> *rect;
     block.setRect(rect);
+//    _rect->XMax()-(Port::PORT_SIZE+Port::PORT_SIZE/2),_rect->y()+_rect->height()/2-Port::PORT_SIZE/2
+    block.getOutPort()->Rect->moveTo(rect->XMax() - (Port::PORT_SIZE+Port::PORT_SIZE/2), rect->y() + rect->height()/2-Port::PORT_SIZE/2);
     is >> trash;
 
     double temp;
