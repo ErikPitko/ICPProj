@@ -39,6 +39,39 @@ class Widget : public QWidget
 {
     Q_OBJECT
 
+public slots:
+    /**
+     * Static method which deletes all block, ports and links and free the memory.
+     */
+    static void clearBlocks();
+    /**
+     * Loads the scene from selected file.
+     */
+    static void Load();
+    /**
+     * Saves the scene to selected file.
+     */
+    static void Save();
+    /**
+     * Runs calculate all blocks.
+     */
+    static void Run();
+    /**
+     * Steps the debug.
+     */
+    static void Debug();
+    /**
+     * Starts the debug.
+     */
+    static void StartDebug();
+    /**
+     * Exits the debug.
+     */
+    static void ExitDebug();
+    /**
+     * Exits all windows and frees the alocated memory.
+     */
+    static void ExitAll();
 public:
 	/**
 	 * The constructor that construct the main window (widget)
@@ -80,10 +113,6 @@ public:
      */
     static bool isDebug;
     /**
-     * Static method which deletes all block, ports and links and free the memory.
-     */
-    static void clearBlocks();
-    /**
      * Event that is called when mouse buttons pressed.
      */
     void mousePressEvent(QMouseEvent*);
@@ -99,34 +128,6 @@ public:
 	 * Event that is called when mouse buttons pressed.
 	 */
     void mouseDoubleClickEvent(QMouseEvent*);
-    /**
-     * Loads the scene from selected file.
-     */
-    static void Load();
-    /**
-     * Saves the scene to selected file.
-     */
-    static void Save();
-    /**
-     * Runs calculate all blocks.
-     */
-    static void Run();
-    /**
-     * Steps the debug.
-     */
-    static void Debug();
-    /**
-     * Starts the debug.
-     */
-    static void StartDebug();
-    /**
-     * Exits the debug.
-     */
-    static void ExitDebug();
-    /**
-     * Exits all windows and frees the alocated memory.
-     */
-    static void ExitAll();
     /**
      * Shows the context menu if you will press on block with right mouse button
      */
