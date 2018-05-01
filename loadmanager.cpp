@@ -51,9 +51,11 @@ void LoadManager::loadScene(string path)
 
         blockPair[oldPtr] = tempB;
         Widget::BlockList->push_back(tempB);
+        ios_base::fmtflags f( cout.flags() );
         cout << "\t" << hex << oldPtr;
         cout << " new_value: " << blockPair.find(oldPtr)->second;
-        cout << " : " << *tempB << endl;
+        cout << " : " << *tempB << dec << endl;
+        cout.flags(f);
     }
 
     size_t blockin;
