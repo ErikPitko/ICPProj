@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     port.cpp \
     blockdialog.cpp \
     loadmanager.cpp \
-    aboutdialog.cpp
+    aboutdialog.cpp \
+    helpdialog.cpp
 
 HEADERS  += widget.h \
     block.h \
@@ -35,8 +36,9 @@ HEADERS  += widget.h \
     blockdialog.h \
     eeditblock.h \
     loadmanager.h \
-    aboutdialog.h
-
+    aboutdialog.h \
+    helpdialog.h
 FORMS    += widget.ui \
     blockdialog.ui \
+    helpdialog.ui \
     aboutdialog.ui
