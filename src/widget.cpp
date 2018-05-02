@@ -138,7 +138,7 @@ void Widget::Edit()
 
 void Widget::Clear()
 {
-    bool isCycled = false;
+   /* bool isCycled = false;
     for(int i = 0; i< Widget::BlockList->size();i++)
     {
         isCycled = Block::isCycled(nullptr,(*Widget::BlockList)[i]);
@@ -152,7 +152,7 @@ void Widget::Clear()
             Block::unsetCalculated((*Widget::BlockList)[i]);
         }
         storeWidget->repaint();
-    }
+    }*/
 }
 
 void Widget::ExitAll()
@@ -201,7 +201,7 @@ void Widget::Run()
     {
         if((*Widget::BlockList)[i]->getType() == OUT)
         {
-            Block::compute((*Widget::BlockList)[i]);
+            Block::Compute((*Widget::BlockList)[i]);
         }
     }
     storeWidget->repaint();
@@ -218,7 +218,7 @@ void Widget::Debug()
     if(outBlock != nullptr)
     {
         stepCounter++;
-        Block::compute(outBlock);
+        Block::Compute(outBlock);
     }
     else isDebug = false;
     storeWidget->repaint();
@@ -239,7 +239,7 @@ void Widget::ExitDebug()
 {
     for(int i = 0; i< Widget::BlockList->size();i++)
     {
-        Block::unsetCalculated((*Widget::BlockList)[i]);
+        Block::UnsetCalculated((*Widget::BlockList)[i]);
     }
     ActionRun->setEnabled(true);
     ActionDebug->setEnabled(true);

@@ -97,6 +97,8 @@ void Block::setValue(double value) {
     this->value = value;
 }
 
+
+
 bool Block::isCycled(Block* comparing, Block* block) {
         bool found = false;
 
@@ -121,6 +123,22 @@ bool Block::isCycled(Block* comparing, Block* block) {
                 }
             }
         return found;
+}
+
+double Block::Compute(Block* block)
+{
+    std::vector<Block*> vect = std::vector<Block*>();
+    bool varIsCycled = isCycled(vect,block);
+    if(!varIsCycled)
+        compute(block);
+}
+
+void Block::UnsetCalculated(Block* block)
+{
+    std::vector<Block*> vect = std::vector<Block*>();
+    bool varIsCycled = isCycled(vect,block);
+    if(!varIsCycled)
+        unsetCalculated(block);
 }
 
 double Block::compute(Block* block) {

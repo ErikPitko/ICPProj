@@ -42,7 +42,7 @@ Port* Link::getInPort()
 void Link::setInPort(Port *inPort)
 {
    if (this->outPort != nullptr && inPort != nullptr)
-       Block::unsetCalculated(outPort->GetBlock());
+       Block::UnsetCalculated(outPort->GetBlock());
    this->inPort = inPort;
    if (inPort != nullptr)
        inPort->setLink(this);
@@ -55,7 +55,7 @@ Port* Link::getOutPort()
 void Link::setOutPort(Port *outPort)
 {
    if (this->outPort != nullptr && outPort != nullptr)
-       Block::unsetCalculated(outPort->GetBlock());
+       Block::UnsetCalculated(outPort->GetBlock());
    this->outPort = outPort;
    if (outPort != nullptr)
        outPort->setLink(this);

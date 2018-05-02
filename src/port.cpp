@@ -28,7 +28,7 @@
 
             Link *middle = (*_link)[i];
             if(middle->getOutPort() != nullptr)
-                Block::unsetCalculated(middle->getOutPort()->GetBlock());
+                Block::UnsetCalculated(middle->getOutPort()->GetBlock());
             Port *in = middle->getOutPort();
             if(in != nullptr) {
                 std::vector<Link*>::iterator pos = std::find(in->GetLinks()->begin(), in->GetLinks()->end(), middle);

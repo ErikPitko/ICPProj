@@ -60,6 +60,28 @@ class Block : public DrawableObject
 	 * @return false if block is too small to contain all input ports
 	 */
     bool recalculateHeights();
+    /**
+     * Recursive searching for loops
+     * @param comparing Always left null
+     * @param block Block to be checked for loop in tree
+     * @returns true if loop is found
+     */
+    static bool isCycled(Block* comparing, Block* block);
+    /**
+     * Recursive block calculation from root.
+     *
+     * Recursively calls all blocks on all input ports and calculates its values.
+     * @param block root block to be calculated
+     * @return value of given root block
+     */
+    static double compute(Block* block);
+    /**
+     * Set blocks to be recalculated after a change in links or blocks.
+     *
+     * Recursively calls each block from given port and sets {@link #calculated} to false.
+     * @param block changed block
+     */
+    static void unsetCalculated(Block* block);
 
 public:
     /** The Constant MINBLOCKSIZE. */
@@ -92,28 +114,6 @@ public:
 	 * calls {@link #CalculatePortsToMiddle()}
 	 */
     void genInPort();
-    /**
-     * Recursive searching for loops
-     * @param comparing Always left null
-     * @param block Block to be checked for loop in tree
-     * @returns true if loop is found
-     */
-    static bool isCycled(Block* comparing, Block* block);
-    /**
-	 * Recursive block calculation from root.
-	 *
-	 * Recursively calls all blocks on all input ports and calculates its values.
-	 * @param block root block to be calculated
-	 * @return value of given root block
-	 */
-    static double compute(Block* block);
-    /**
-	 * Set blocks to be recalculated after a change in links or blocks.
-	 *
-	 * Recursively calls each block from given port and sets {@link #calculated} to false.
-	 * @param block changed block
-	 */
-    static void unsetCalculated(Block* block);
     /**
 	 * Gets the input ports.
 	 *
@@ -204,6 +204,21 @@ public:
 	 * @param delta pixels on X and Y axis
 	 */
     void Resize(Point2D*);
+    /**
+     * Recursive block calculation from root.
+     *
+     * Recursively calls all blocks on all input ports and calculates its values.
+     * @param block root block to be calculated
+     * @return value of given root block
+     */
+    static double Compute(Block* block);
+    /**
+     * Set blocks to be recalculated after a change in links or blocks.
+     *
+     * Recursively calls each block from given port and sets {@link #calculated} to false.
+     * @param block changed block
+     */
+    static void UnsetCalculated(Block* block);
     /**
 	 * Draws block by QPainter.
 	 * @param painter the pane
