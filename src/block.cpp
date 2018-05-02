@@ -174,14 +174,6 @@ double Block::compute(Block* block) {
 }
 
 void Block::unsetCalculated(Block* block) {
-    for(int i = 0 ; i<Widget::BlockList->size();i++)
-    {
-        if(isCycled(nullptr, (*Widget::BlockList)[i]))
-        {
-            std::cerr << "cycle detected" << std::endl;
-            return;
-        }
-    }
     if(block == nullptr)
         return;
     if(block->getType() == IN)
