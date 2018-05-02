@@ -62,11 +62,11 @@ class Block : public DrawableObject
     bool recalculateHeights();
     /**
      * Recursive searching for loops
-     * @param comparing Always left null
+     * @param newVec empty vector
      * @param block Block to be checked for loop in tree
      * @returns true if loop is found
      */
-    static bool isCycled(Block* comparing, Block* block);
+    static bool isCycled(std::vector<Block*> newVec, Block* block);
     /**
      * Recursive block calculation from root.
      *

@@ -98,31 +98,34 @@ void Block::setValue(double value) {
 }
 
 
+bool Block::isCycled(std::vector<Block*> newVec, Block* block) {
+    bool found = false;
 
-bool Block::isCycled(Block* comparing, Block* block) {
-        bool found = false;
-
-        if(comparing == nullptr) {
-            comparing = block;
-        }else {
-            if(comparing == block)
-                return true;
-        }
-        if(block == nullptr)
-            return found;
-
-        if(block->getInPorts()->size() != 0)
-            for (Port *port : *block->getInPorts())
-            {
-                Link* frontLink = port->GetFirstLink();
-                if (frontLink != nullptr)
-                {
-                    found = isCycled(comparing, frontLink->getInPort()->GetBlock());
-                    if(found)
-                        break;
-                }
-            }
+    if(block == nullptr)
         return found;
+
+    for (Block* b : newVec)
+    {
+        if (b == block)
+        {
+            return true;
+        }
+    }
+
+    for (Port *port : *block->getInPorts())
+    {
+        Link* frontLink = port->GetFirstLink();
+        if (frontLink != nullptr)
+        {
+            newVec.push_back(block);
+            found = isCycled(newVec, frontLink->getInPort()->GetBlock());
+            if(found)
+                break;
+        }
+    }
+    if(found)
+        std::cerr << "cycle detected" << std::endl;
+    return found;
 }
 
 double Block::Compute(Block* block)
@@ -142,11 +145,6 @@ void Block::UnsetCalculated(Block* block)
 }
 
 double Block::compute(Block* block) {
-    if(isCycled(nullptr, block))
-    {
-        std::cerr << "cycle detected" << std::endl;
-        return 0;
-    }
     bool first = true;
     if (block->calculated)
         return block->value;
