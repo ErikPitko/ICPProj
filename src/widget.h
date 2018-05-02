@@ -118,6 +118,10 @@ public:
      */
     static bool isDebug;
     /**
+     * Bool variable that stores if is cycle detected.
+     */
+    static bool isCycleDetected;
+    /**
      * Event that is called when mouse buttons pressed.
      */
     void mousePressEvent(QMouseEvent*);

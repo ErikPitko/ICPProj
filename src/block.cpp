@@ -132,6 +132,7 @@ double Block::Compute(Block* block)
 {
     std::vector<Block*> vect = std::vector<Block*>();
     bool varIsCycled = isCycled(vect,block);
+    Widget::isCycleDetected = varIsCycled;
     if(!varIsCycled)
         compute(block);
 }
@@ -140,6 +141,7 @@ void Block::UnsetCalculated(Block* block)
 {
     std::vector<Block*> vect = std::vector<Block*>();
     bool varIsCycled = isCycled(vect,block);
+    Widget::isCycleDetected = varIsCycled;
     if(!varIsCycled)
         unsetCalculated(block);
 }

@@ -9,6 +9,7 @@ vector<Block*>* Widget::BlockList = new vector<Block*>();
 Point2D *Widget::ClickPos = nullptr;
 Block *Widget::EditBlock = nullptr;
 bool Widget::isDebug = false;
+bool Widget::isCycleDetected = false;
 int Widget::stepCounter = 0;
 Widget* Widget::storeWidget;
 QAction *Widget::ActionRun = nullptr;
@@ -24,6 +25,10 @@ Widget::Widget(QWidget *parent) : QWidget(parent),ui(new Ui::Widget)
     myMenu.addAction("Edit", this, SLOT(Edit()));
     myMenu.addAction(tr("Delete"), this, SLOT(DeleteBlock()));
     myMenu.addAction(tr("Exit"), this, SLOT(Exit()));
+    QLabel label;
+    label.setText("AAA");
+    label.setGeometry(100,100,100,100);
+    label.show();
 }
 
 Widget::~Widget()
@@ -101,6 +106,13 @@ void Widget::paintEvent(QPaintEvent *event)
             }
         }
     }
+    if(isCycleDetected)
+    {
+        painter.setPen(Qt::red);
+        painter.setFont(QFont("times",14));
+        painter.drawText(QRect(this->rect().width()-125,this->rect().height()-25,125,100),"Cycle detected!");
+        painter.setPen(Qt::white);
+    }
     painter.end();
 }
 
@@ -138,21 +150,11 @@ void Widget::Edit()
 
 void Widget::Clear()
 {
-   /* bool isCycled = false;
     for(int i = 0; i< Widget::BlockList->size();i++)
     {
-        isCycled = Block::isCycled(nullptr,(*Widget::BlockList)[i]);
-        if(isCycled)
-            break;
+        Block::UnsetCalculated((*Widget::BlockList)[i]);
     }
-    if(!isCycled)
-    {
-        for(int i = 0; i< Widget::BlockList->size();i++)
-        {
-            Block::unsetCalculated((*Widget::BlockList)[i]);
-        }
-        storeWidget->repaint();
-    }*/
+    storeWidget->repaint();
 }
 
 void Widget::ExitAll()
@@ -316,6 +318,7 @@ void Widget::mousePressEvent(QMouseEvent *event)
                     {
                         if(clickedPort->GetBlock() != (*BlockList)[i] && wasInPort)  //pokud spojím 2 porty na stejném blocku
                         {
+                            Block::UnsetCalculated(clickedPort->GetBlock());
                             new Link((*BlockList)[i]->getOutPort(),clickedPort);    //spojení linků
                             wasInPort = false;
                         }
@@ -345,7 +348,10 @@ void Widget::mousePressEvent(QMouseEvent *event)
                         if(clickedPort->GetBlock() != (*BlockList)[i] && !wasInPort)    //pokud kliknu na stejný plok a blok nebyl inport
                         {
                             if((*(*BlockList)[i]->getInPorts())[j]->GetLinks()->size() == 0)
+                            {
+                                Block::UnsetCalculated((*(*BlockList)[i]->getInPorts())[j]->GetBlock());
                                 new Link(clickedPort,(*(*BlockList)[i]->getInPorts())[j]); //vytvořím link
+                            }
                             if(clickedPort != nullptr)
                                 clickedPort->SetIsClicked(false);
                             clickedPort = nullptr;
