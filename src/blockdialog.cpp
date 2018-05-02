@@ -3,32 +3,47 @@
 #include "widget.h"
 #include "block.h"
 #include <iostream>
+#include "resources.h"
 using namespace std;
 BlockDialog::BlockDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::BlockDialog)
 {
-    QDir dir;
     ui->setupUi(this);
     ui->lineEdit->hide();
     ui->label_2->hide();
-    ui->ADD->setIcon(QIcon(QString(dir.absolutePath()+"/Resources/ADD.png")));
+
+    QImage img(256, 256, QImage::Format_RGB32);
+//    ADD
+    img.loadFromData((const uchar*)&ADD_png, ADD_png_len, "PNG");
+    ui->ADD->setIcon(QIcon(QPixmap::fromImage(img)));
     ui->ADD->setIconSize(QSize(64,64));
 
-    ui->SUB->setIcon(QIcon(QString(dir.absolutePath()+"/Resources/SUB.png")));
+//    SUB
+    img.loadFromData((const uchar*)&SUB_png, SUB_png_len, "PNG");
+    ui->SUB->setIcon(QIcon(QPixmap::fromImage(img)));
     ui->SUB->setIconSize(QSize(64,64));
 
-    ui->MUL->setIcon(QIcon(QString(dir.absolutePath()+"/Resources/MUL.png")));
+//    MUL
+    img.loadFromData((const uchar*)&MUL_png, MUL_png_len, "PNG");
+    ui->MUL->setIcon(QIcon(QPixmap::fromImage(img)));
     ui->MUL->setIconSize(QSize(64,64));
 
-    ui->DIV->setIcon(QIcon(QString(dir.absolutePath()+"/Resources/DIV.png")));
+//    DIV
+    img.loadFromData((const uchar*)&DIV_png, DIV_png_len, "PNG");
+    ui->DIV->setIcon(QIcon(QPixmap::fromImage(img)));
     ui->DIV->setIconSize(QSize(64,64));
 
-    ui->IN->setIcon(QIcon(QString(dir.absolutePath()+"/Resources/IN.png")));
+//    IN
+    img.loadFromData((const uchar*)&IN_png, IN_png_len, "PNG");
+    ui->IN->setIcon(QIcon(QPixmap::fromImage(img)));
     ui->IN->setIconSize(QSize(64,64));
 
-    ui->OUT->setIcon(QIcon(QString(dir.absolutePath()+"/Resources/OUT.png")));
+//    OUT
+    img.loadFromData((const uchar*)&OUT_png, OUT_png_len, "PNG");
+    ui->OUT->setIcon(QIcon(QPixmap::fromImage(img)));
     ui->OUT->setIconSize(QSize(64,64));
+
     selected = ADD;
     ui->numOfPorts->setText(QString(std::to_string(ui->horizontalSlider->value()).c_str()));
 }

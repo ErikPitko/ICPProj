@@ -26,17 +26,6 @@ Block::Block(EBlock eBlock, MyRect* rect, double value) : DrawableObject()
 Block::~Block()
 {
     std::cout << std::endl;
-//    if(_outPort != nullptr)
-//    {
-//        for (int i = 0; i < _outPort->GetLinks().size(); i++) {
-//            unsetCalculated(_outPort->GetBlock());
-//            _outPort->unSetLink();
-//        }
-//    }
-//    for (int i = 0; i < inPorts.size();i++)
-//    {
-//        inPorts[i]->unSetLink();
-//    }
 
     if (_rect != nullptr)
         delete _rect;
@@ -84,10 +73,12 @@ bool Block::recalculateHeights()
 {
     if(inPorts.size()*Port::PORT_SIZE >= _rect->height()-10)
     {
-        //_rect->setY(inPorts.size()*Port::PORT_SIZE + inPorts.size()*15);
         _rect->setHeight(inPorts.size()*(Port::PORT_SIZE+5));
+        _rect->setWidth(_rect->height());
         if(_outPort!= nullptr)
         {
+            _outPort->Rect->setX(_rect->x()+_rect->width()-Port::PORT_SIZE*1.5);
+            _outPort->Rect->setWidth(Port::PORT_SIZE);
             _outPort->Rect->setY(_rect->y()+_rect->height()/2-Port::PORT_SIZE/2);
             _outPort->Rect->setHeight(Port::PORT_SIZE);
         }
@@ -296,15 +287,16 @@ void Block::Resize(Point2D *resize)
 
 void Block::Draw(QPainter *p)
 {
+    image = QImage(256, 256, QImage::Format_RGB32);
     switch (_eBlock)
-      {
-      case 0: { image = QImage("./ADD.png"); } break;
-      case 1: { image = QImage("./SUB.png"); } break;
-      case 2: { image = QImage("./MUL.png"); } break;
-      case 3: { image = QImage("./DIV.png"); } break;
-      case 4: { image = QImage("./IN.png"); } break;
-      case 5: { image = QImage("./OUT.png"); } break;
-      }
+    {
+      case 0: { image.loadFromData((const uchar*)&ADD_png, ADD_png_len, "PNG"); } break;
+      case 1: { image.loadFromData((const uchar*)&SUB_png, SUB_png_len, "PNG"); } break;
+      case 2: { image.loadFromData((const uchar*)&MUL_png, MUL_png_len, "PNG"); } break;
+      case 3: { image.loadFromData((const uchar*)&DIV_png, DIV_png_len, "PNG"); } break;
+      case 4: { image.loadFromData((const uchar*)&IN_png, IN_png_len, "PNG"); } break;
+      case 5: { image.loadFromData((const uchar*)&OUT_png, OUT_png_len, "PNG"); } break;
+    }
 
     p->drawImage(*_rect,image);
     if(debug != nullptr)

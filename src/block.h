@@ -24,6 +24,8 @@
 #include <QLabel>
 #include "widget.h"
 #include "link.h"
+#include "resources.h"
+
 /**
  * Class of block
  */

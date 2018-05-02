@@ -8,7 +8,7 @@ Point2D::Point2D(double x, double y)
 
 double Point2D::distance(Point2D first, Point2D second)
 {
-    sqrt(pow(first.X -second.X,2)+pow(first.Y -second.Y,2));
+    return sqrt(pow(first.X -second.X,2)+pow(first.Y -second.Y,2));
 }
 
 Point2D *Point2D::vector(Point2D *first, Point2D *second)

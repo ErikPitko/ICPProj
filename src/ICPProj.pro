@@ -24,6 +24,7 @@ SOURCES += main.cpp\
     loadmanager.cpp \
     aboutdialog.cpp \
     helpdialog.cpp
+    resources.cpp
 
 HEADERS  += widget.h \
     block.h \
@@ -37,7 +38,9 @@ HEADERS  += widget.h \
     eeditblock.h \
     loadmanager.h \
     aboutdialog.h \
-    helpdialog.h
+    helpdialog.h \
+    resources.h
+
 FORMS    += widget.ui \
     blockdialog.ui \
     helpdialog.ui \
