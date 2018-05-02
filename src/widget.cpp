@@ -3,6 +3,7 @@
 #include "block.h"
 #include "blockdialog.h"
 #include "loadmanager.h"
+#include "aboutdialog.h"
 vector<Block*>* Widget::BlockList = new vector<Block*>();
 Point2D *Widget::ClickPos = nullptr;
 Block *Widget::EditBlock = nullptr;
@@ -32,21 +33,30 @@ void Widget::InstantiateMenu()
 {
     QVBoxLayout *boxLayout = new QVBoxLayout(this); // Main layout of widget
     QMenuBar* menuBar = new QMenuBar();
+
     fileMenu = new QMenu("File");
     menuBar->addMenu(fileMenu);
     fileMenu->addAction("Open",this, SLOT(Load()));
     fileMenu->addAction("Save",this, SLOT(Save()));
     fileMenu->addAction("Exit",this, SLOT(ExitAll()));
+
     editMenu = new QMenu("Edit");
     menuBar->addMenu(editMenu);
     editMenu->addAction("Clear",this, SLOT(clearBlocks()));
+
     schemeMenu = new QMenu("Scheme");
     menuBar->addMenu(schemeMenu);
     ActionRun = schemeMenu->addAction("Run", this, SLOT(Run()),QKeySequence(tr("Shift+R")));
     ActionDebug = schemeMenu->addAction("Debug", this, SLOT(StartDebug()),QKeySequence(tr("Shift+D")));
     ActionNextStep = schemeMenu->addAction("Next step", this, SLOT(Debug()),QKeySequence(tr("Shift+Space")));
     ActionExitDebug = schemeMenu->addAction("Exit debug", this, SLOT(ExitDebug()),QKeySequence(tr("Shift+Q")));
+
+    helpMenu = new QMenu("Help");
+    menuBar->addMenu(helpMenu);
+    helpMenu->addAction("Show help",this,SLOT(ShowHelp()));
+    helpMenu->addAction("About",this,SLOT(About()));
     this->layout()->setMenuBar(menuBar);
+
     ActionNextStep->setEnabled(false);
     ActionExitDebug->setEnabled(false);
 }
@@ -137,6 +147,22 @@ void Widget::DeleteBlock()
 void Widget::Exit()
 {
     myMenu.hide();
+}
+
+void Widget::ShowHelp()
+{
+    /*HelpDialog block;
+    block.move(this->x()+ClickPos->X,this->y()+ClickPos->Y);
+    block.setModal(true);
+    block.exec();*/
+}
+
+void Widget::About()
+{
+    AboutDialog aboutWindow;
+    aboutWindow.move(this->x()+this->rect().center().x()-aboutWindow.rect().width()/2,this->y()+this->rect().center().y()-aboutWindow.rect().height()/2);
+    aboutWindow.setModal(true);
+    aboutWindow.exec();
 }
 
 void Widget::Run()

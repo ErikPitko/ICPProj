@@ -72,6 +72,10 @@ public slots:
      * Exits all windows and frees the alocated memory.
      */
     static void ExitAll();
+    /**
+     * Shows help window.
+     */
+    static void ShowHelp();
 public:
 	/**
 	 * The constructor that construct the main window (widget)
@@ -145,6 +149,10 @@ private slots:
      * Exits the context menu.
      */
     void Exit();
+    /**
+     * Shows about dialog.
+     */
+    void About();
 private:
     /**
      * Draws all objects on plane and redraw them every transform.
@@ -206,6 +214,10 @@ private:
      * Stores scheme menu.
      */
     QMenu *schemeMenu;
+    /**
+     * Stores help menu.
+     */
+    QMenu *helpMenu;
     /**
      * Store widget as static. I need it in static functions.
      */
