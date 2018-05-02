@@ -53,7 +53,18 @@
     {
         _link = new std::vector<Link*>();
         Rect = rect;
+        isClicked = false;
         this->_block = block;
+    }
+
+    void Port::SetIsClicked(bool value)
+    {
+        isClicked = value;
+    }
+
+    bool Port::GetIsClicked()
+    {
+        return isClicked;
     }
 
     Port::~Port()
@@ -69,5 +80,11 @@
 
     void Port::Draw(QPainter *p)
     {
+        if(isClicked)
+        {
+            QBrush brush(Qt::yellow);
+            p->fillRect(*Rect,brush);
+        }
         p->drawRect(*Rect);
+        QBrush brush(Qt::white);
     }

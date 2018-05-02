@@ -29,7 +29,7 @@ Link::~Link()
     std::vector<Link*>* outLinks = this->inPort->GetLinks();
     std::vector<Link*>::iterator pos = std::find(outLinks->begin(), outLinks->end(), this);
     if(pos != outLinks->end())
-    outLinks->erase(outLinks->begin()+std::distance(outLinks->begin(),pos));
+        outLinks->erase(outLinks->begin()+std::distance(outLinks->begin(),pos));
 //    TODO delete line
     std::cout << "\tLink: " << this << " deleted." << std::endl;
 }
@@ -84,6 +84,10 @@ void Link::UnSetCycled()
 
 bool Link::IsPointOnLine(QLine *line, Point2D *point)
 {
+    if(!(point->X >= line->p1().x() && point->X <= line->p2().x()))
+    {
+        return false;
+    }
     double m = (double)(line->p2().y() - line->p1().y()) / (double)(line->p2().x() - line->p1().x());
     double b = line->p1().y() - m * line->p1().x();
     return (abs(point->Y - (m*point->X+b)) < 3);

@@ -28,10 +28,12 @@ class Link;
 class Port : public DrawableObject
 {
 private:
-	/** The block in which port resides */
+    /** The block in which port resides. */
     Block* _block = nullptr;
-    /** The vector of links connected to the port */
+    /** The vector of links connected to the port. */
     std::vector<Link*> *_link;
+    /** Stores value if on port was clicked. */
+    bool isClicked;
 public:
     /** @see Block#_rect */
     MyRect* Rect = nullptr;
@@ -55,6 +57,17 @@ public:
 	 * @return the block
 	 */
     Block* GetBlock();
+    /**
+     * Gets if port is clicked
+     * @return if port is clicked
+     */
+    bool GetIsClicked();
+    /**
+     * Sets if port is clicked
+     * @param if port is clicked
+     */
+    void SetIsClicked(bool value);
+
     /**
 	 * Instantiates a new port.
 	 *

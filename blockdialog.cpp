@@ -31,6 +31,7 @@ BlockDialog::BlockDialog(QWidget *parent) :
     ui->OUT->setIcon(QIcon("OUT.png"));
     ui->OUT->setIconSize(QSize(64,64));
     selected = ADD;
+    ui->numOfPorts->setText(QString(std::to_string(ui->horizontalSlider->value()).c_str()));
 }
 
 BlockDialog::~BlockDialog()
@@ -45,6 +46,7 @@ void BlockDialog::on_ADD_clicked()
     ui->label_2->hide();
     ui->horizontalSlider->show();
     ui->label->show();
+    ui->numOfPorts->show();
 }
 
 void BlockDialog::on_SUB_clicked()
@@ -54,6 +56,7 @@ void BlockDialog::on_SUB_clicked()
     ui->label_2->hide();
     ui->horizontalSlider->show();
     ui->label->show();
+    ui->numOfPorts->show();
 }
 
 void BlockDialog::on_MUL_clicked()
@@ -63,6 +66,7 @@ void BlockDialog::on_MUL_clicked()
     ui->label_2->hide();
     ui->horizontalSlider->show();
     ui->label->show();
+    ui->numOfPorts->show();
 }
 
 void BlockDialog::on_DIV_clicked()
@@ -72,6 +76,7 @@ void BlockDialog::on_DIV_clicked()
     ui->label_2->hide();
     ui->horizontalSlider->show();
     ui->label->show();
+    ui->numOfPorts->show();
 }
 
 void BlockDialog::on_IN_clicked()
@@ -79,6 +84,7 @@ void BlockDialog::on_IN_clicked()
     selected = IN;
     ui->horizontalSlider->hide();
     ui->label->hide();
+    ui->numOfPorts->hide();
     ui->lineEdit->show();
     ui->label_2->show();
 }
@@ -90,6 +96,7 @@ void BlockDialog::on_OUT_clicked()
     ui->label_2->hide();
     ui->horizontalSlider->show();
     ui->label->show();
+    ui->numOfPorts->show();
 }
 
 void BlockDialog::on_Apply_clicked()
@@ -139,6 +146,8 @@ void BlockDialog::on_Apply_clicked()
 
 void BlockDialog::on_horizontalSlider_sliderMoved(int position)
 {
+    std::cout<<position<<std::endl;
+    ui->numOfPorts->setText(QString(std::to_string(position).c_str()));
     portCount = position;
 }
 

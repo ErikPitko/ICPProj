@@ -184,7 +184,6 @@ void Widget::StartDebug()
     ActionNextStep->setEnabled(true);
     ActionExitDebug->setEnabled(true);
     isDebug = true;
-    Debug();
     storeWidget->repaint();
 }
 
@@ -206,6 +205,7 @@ void Widget::mouseReleaseEvent(QMouseEvent *event)
 {
     EditBlock = nullptr;
     typeOfEdit = NONE;
+    this->setCursor(Qt::ArrowCursor);
     repaint();
 }
 void Widget::mouseMoveEvent(QMouseEvent *event)
@@ -216,13 +216,16 @@ void Widget::mouseMoveEvent(QMouseEvent *event)
     if(EditBlock != nullptr && typeOfEdit == RESIZE)
     {
         EditBlock->Resize(Point2D::vector(ClickPos,endDrag));
+        this->setCursor(Qt::SizeFDiagCursor);
     }
     else if(EditBlock != nullptr && typeOfEdit == MOVE)
     {
+       this->setCursor(Qt::SizeAllCursor);
        EditBlock->Move(Point2D::vector(ClickPos,endDrag));
     }
     else if(typeOfEdit == PLANEMOVE)
     {
+        this->setCursor(Qt::SizeAllCursor);
         for (int i = 0;i < BlockList->size();i++)
         {
             (*BlockList)[i]->Move(Point2D::vector(ClickPos,endDrag));
@@ -269,12 +272,17 @@ void Widget::mousePressEvent(QMouseEvent *event)
                             wasInPort = false;
                         }
                         if(clickedPort != (*BlockList)[i]->getOutPort())    //pokud kliknu 2x na stejný port nevynuluje se ukazatel(je tam pořád uložen ten stejný
+                        {
+                            if(clickedPort != nullptr)
+                                clickedPort->SetIsClicked(false);
                             clickedPort = nullptr;
+                        }
                         goto end;   //vyskočím z vyhledávání
                     }
-                    else    //pokud neni nakliknutý
+                    else    //pokud je nakliknutý port
                     {
                         clickedPort = (*BlockList)[i]->getOutPort();        //nastavím nakliknutý port
+                        clickedPort->SetIsClicked(true);
                         wasInPort = false;      //a byl to inport
                         goto end;   //vyskočím z vyhledávání
                     }
@@ -290,12 +298,18 @@ void Widget::mousePressEvent(QMouseEvent *event)
                         {
                             if((*BlockList)[i]->getInPorts()[j]->GetLinks()->size() == 0)
                                 new Link(clickedPort,(*BlockList)[i]->getInPorts()[j]); //vytvořím link
+                            if(clickedPort != nullptr)
+                                clickedPort->SetIsClicked(false);
                             clickedPort = nullptr;
                             wasInPort = false;
                             goto end;
                         }
                         if(clickedPort != (*BlockList)[i]->getInPorts()[j]) //pokud kliknu 2x na stejný port nevynuluje se ukazatel(je tam pořád uložen ten stejný
+                        {
+                            if(clickedPort != nullptr)
+                                clickedPort->SetIsClicked(false);
                             clickedPort = nullptr;
+                        }
                         goto end;   //vyskočím z vyhledávání
                     }
                     else
@@ -303,10 +317,13 @@ void Widget::mousePressEvent(QMouseEvent *event)
                         if((*BlockList)[i]->getInPorts()[j]->GetLinks()->size()==0)
                         {
                             clickedPort = (*BlockList)[i]->getInPorts()[j]; //nastavím nakliknutý port
+                            clickedPort->SetIsClicked(true);
                             wasInPort = true;   //a nebyl to inport
                         }
                         else
                         {
+                            if(clickedPort != nullptr)
+                                clickedPort->SetIsClicked(false);
                             clickedPort = nullptr;
                             wasInPort = false;
                         }

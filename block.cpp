@@ -271,35 +271,14 @@ void Block::Resize(Point2D *resize)
 {
     if(resize == nullptr)
         return;
-    bool anyIntersects = false;
-
     if(_rect->width()+resize->X > Block::MINBLOCKSIZE && _rect->width()+resize->X < Block::MAXBLOCKSIZE)
     {
-        for(unsigned i =0 ;i< Widget::BlockList->size();i++)
-        {
-            if ((*Widget::BlockList)[i] != this)
-                if (MyRect(_rect->x(),_rect->y(),_rect->width()+resize->X,_rect->height()).intersect((*Widget::BlockList)[i]->getRect()))
-                    anyIntersects = true;
-            if(anyIntersects == true)
-                break;
-        }
-        if(!anyIntersects)
-            _rect->setWidth(_rect->width()+resize->X);
+        _rect->setWidth(_rect->width()+resize->X);
     }
-    anyIntersects = false;
     if(_rect->height()+resize->Y >= inPorts.size()*(Port::PORT_SIZE+2))
         if(_rect->height() + resize->Y > Block::MINBLOCKSIZE && _rect->height()+resize->Y < Block::MAXBLOCKSIZE)
         {
-            for(unsigned i =0 ;i< Widget::BlockList->size();i++)
-            {
-                if ((*Widget::BlockList)[i] != this)
-                    if (MyRect(_rect->x(),_rect->y(),_rect->width(),_rect->height()+resize->Y).intersect((*Widget::BlockList)[i]->getRect()))
-                        anyIntersects = true;
-                if(anyIntersects == true)
-                    break;
-            }
-            if(!anyIntersects)
-                _rect->setHeight(_rect->height() + resize->Y);
+            _rect->setHeight(_rect->height() + resize->Y);
         }
     _resizeRect->setX(_rect->XMax()-8);
     _resizeRect->setY(_rect->YMax()-8);
