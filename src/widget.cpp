@@ -66,11 +66,10 @@ void Widget::InstantiateMenu()
 
 void Widget::clearBlocks()
 {
-    for (Block* block : *Widget::BlockList)
+    for(unsigned i = Widget::BlockList->size(); i > 0; i--)
     {
-        delete block;
+        (*Widget::BlockList)[i]->completeDeleteBlock();
     }
-    Widget::BlockList->clear();
     storeWidget->repaint();
 }
 
