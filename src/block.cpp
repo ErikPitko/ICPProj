@@ -110,9 +110,11 @@ bool Block::isCycled(Block* comparing, Block* block) {
             return found;
 
         if(block->getInPorts()->size() != 0)
-            for (Port *port : *block->getInPorts()) {
+            for (Port *port : *block->getInPorts())
+            {
                 Link* frontLink = port->GetFirstLink();
-                if (frontLink != nullptr) {
+                if (frontLink != nullptr)
+                {
                     found = isCycled(comparing, frontLink->getInPort()->GetBlock());
                     if(found)
                         break;

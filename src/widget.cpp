@@ -138,11 +138,21 @@ void Widget::Edit()
 
 void Widget::Clear()
 {
+    bool isCycled = false;
     for(int i = 0; i< Widget::BlockList->size();i++)
     {
-        Block::unsetCalculated((*Widget::BlockList)[i]);
+        isCycled = Block::isCycled(nullptr,(*Widget::BlockList)[i]);
+        if(isCycled)
+            break;
     }
-    storeWidget->repaint();
+    if(!isCycled)
+    {
+        for(int i = 0; i< Widget::BlockList->size();i++)
+        {
+            Block::unsetCalculated((*Widget::BlockList)[i]);
+        }
+        storeWidget->repaint();
+    }
 }
 
 void Widget::ExitAll()
