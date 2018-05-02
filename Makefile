@@ -1,4 +1,4 @@
-.PHONY: compile run clean
+.PHONY: compile run clean pack
 
 all: compile
 exe=ICPProj
@@ -18,3 +18,5 @@ run: src/ICPProj
 clean:
 	$(MAKE) -C src clean
 	rm -f $(exe)
+pack: Makefile src
+	tar -cvzf xpetra19-xpitko00.tar.gz src/*.cpp src/*.h src/*.ui src/ICPProj.pro Makefile examples README.txt
