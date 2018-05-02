@@ -9,26 +9,25 @@ BlockDialog::BlockDialog(QWidget *parent) :
     ui(new Ui::BlockDialog)
 {
     QDir dir;
-    std::cout<<dir.absolutePath().toStdString()<<endl;
     ui->setupUi(this);
     ui->lineEdit->hide();
     ui->label_2->hide();
-    ui->ADD->setIcon(QIcon("ADD.png"));
+    ui->ADD->setIcon(QIcon(QString(dir.absolutePath()+"/Resources/ADD.png")));
     ui->ADD->setIconSize(QSize(64,64));
 
-    ui->SUB->setIcon(QIcon("SUB.png"));
+    ui->SUB->setIcon(QIcon(QString(dir.absolutePath()+"/Resources/SUB.png")));
     ui->SUB->setIconSize(QSize(64,64));
 
-    ui->MUL->setIcon(QIcon("MUL.png"));
+    ui->MUL->setIcon(QIcon(QString(dir.absolutePath()+"/Resources/MUL.png")));
     ui->MUL->setIconSize(QSize(64,64));
 
-    ui->DIV->setIcon(QIcon("DIV.png"));
+    ui->DIV->setIcon(QIcon(QString(dir.absolutePath()+"/Resources/DIV.png")));
     ui->DIV->setIconSize(QSize(64,64));
 
-    ui->IN->setIcon(QIcon("IN.png"));
+    ui->IN->setIcon(QIcon(QString(dir.absolutePath()+"/Resources/IN.png")));
     ui->IN->setIconSize(QSize(64,64));
 
-    ui->OUT->setIcon(QIcon("OUT.png"));
+    ui->OUT->setIcon(QIcon(QString(dir.absolutePath()+"/Resources/OUT.png")));
     ui->OUT->setIconSize(QSize(64,64));
     selected = ADD;
     ui->numOfPorts->setText(QString(std::to_string(ui->horizontalSlider->value()).c_str()));
