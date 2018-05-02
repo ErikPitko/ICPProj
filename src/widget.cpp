@@ -68,7 +68,7 @@ void Widget::clearBlocks()
 {
     for(unsigned i = Widget::BlockList->size(); i > 0; i--)
     {
-        (*Widget::BlockList)[i]->completeDeleteBlock();
+        (*Widget::BlockList)[i-1]->completeDeleteBlock();
     }
     storeWidget->repaint();
 }
