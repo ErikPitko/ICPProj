@@ -40,7 +40,7 @@ class Block : public DrawableObject
     /** Background image.*/
     QImage image;
     /** List of input ports.*/
-    std::vector<Port*> inPorts = std::vector<Port*>();
+    std::vector<Port*> *inPorts = new std::vector<Port*>();
     /** The out port. */
     Port *_outPort = nullptr;
     /** Stored value inside block. */
@@ -118,8 +118,8 @@ public:
 	 * Gets the input ports.
 	 *
 	 * @return the input ports
-	 */
-    std::vector<Port*> getInPorts();
+     */
+    std::vector<Port*> *getInPorts();
     /**
 	 * Gets the output port.
 	 *

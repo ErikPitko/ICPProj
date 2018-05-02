@@ -143,13 +143,13 @@ void BlockDialog::on_Apply_clicked()
             {
                 new Link(bl->getOutPort(),(*Widget::EditBlock->getOutPort()->GetLinks())[i]->getOutPort());
             }
-            for (int i = 0; i < Widget::EditBlock->getInPorts().size();i++)
+            for (int i = 0; i < Widget::EditBlock->getInPorts()->size();i++)
             {
-                if(i == bl->getInPorts().size())
+                if(i == bl->getInPorts()->size())
                     break;
-                for(int j=0;j < Widget::EditBlock->getInPorts()[i]->GetLinks()->size();j++)
+                for(int j=0;j < (*Widget::EditBlock->getInPorts())[i]->GetLinks()->size();j++)
                 {
-                    new Link((*Widget::EditBlock->getInPorts()[i]->GetLinks())[j]->getInPort(),bl->getInPorts()[i]);
+                    new Link((*(*Widget::EditBlock->getInPorts())[i]->GetLinks())[j]->getInPort(),(*bl->getInPorts())[i]);
                 }
             }
             if(Widget::EditBlock != nullptr)

@@ -69,7 +69,7 @@ void LoadManager::loadScene(string path)
             return;
         }
         new Link(blockPair.find(blockin)->second->getOutPort(),
-                 blockPair.find(blockout)->second->getInPorts()[idxInPort]);
+                 (*blockPair.find(blockout)->second->getInPorts())[idxInPort]);
         cout << "\t" << blockPair.find(blockin)->second << " <--> " << blockPair.find(blockout)->second;
         cout << " <- " << idxInPort << endl;
     }

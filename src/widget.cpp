@@ -91,7 +91,7 @@ void Widget::paintEvent(QPaintEvent *event)
                 link->Draw(&painter);
             }
         }
-        for (Port *port: (*Widget::BlockList)[i]->getInPorts())
+        for (Port *port: (*(*Widget::BlockList)[i]->getInPorts()))
         {
             for (Link *link: *(port->GetLinks()))
             {
@@ -327,23 +327,23 @@ void Widget::mousePressEvent(QMouseEvent *event)
                     }
                 }
             }
-            for(int j = 0;j<(*BlockList)[i]->getInPorts().size();j++)       //projdu všechny inpoty
+            for(int j = 0;j<(*BlockList)[i]->getInPorts()->size();j++)       //projdu všechny inpoty
             {
-                if((*BlockList)[i]->getInPorts()[j]->Rect->contains(new Point2D(event->x(),event->y())))    //spojení inporty
+                if((*(*BlockList)[i]->getInPorts())[j]->Rect->contains(new Point2D(event->x(),event->y())))    //spojení inporty
                 {
                     if(clickedPort != nullptr)  //pokud je nakliknutý null
                     {
                         if(clickedPort->GetBlock() != (*BlockList)[i] && !wasInPort)    //pokud kliknu na stejný plok a blok nebyl inport
                         {
-                            if((*BlockList)[i]->getInPorts()[j]->GetLinks()->size() == 0)
-                                new Link(clickedPort,(*BlockList)[i]->getInPorts()[j]); //vytvořím link
+                            if((*(*BlockList)[i]->getInPorts())[j]->GetLinks()->size() == 0)
+                                new Link(clickedPort,(*(*BlockList)[i]->getInPorts())[j]); //vytvořím link
                             if(clickedPort != nullptr)
                                 clickedPort->SetIsClicked(false);
                             clickedPort = nullptr;
                             wasInPort = false;
                             goto end;
                         }
-                        if(clickedPort != (*BlockList)[i]->getInPorts()[j]) //pokud kliknu 2x na stejný port nevynuluje se ukazatel(je tam pořád uložen ten stejný
+                        if(clickedPort != (*(*BlockList)[i]->getInPorts())[j]) //pokud kliknu 2x na stejný port nevynuluje se ukazatel(je tam pořád uložen ten stejný
                         {
                             if(clickedPort != nullptr)
                                 clickedPort->SetIsClicked(false);
@@ -353,9 +353,9 @@ void Widget::mousePressEvent(QMouseEvent *event)
                     }
                     else
                     {
-                        if((*BlockList)[i]->getInPorts()[j]->GetLinks()->size()==0)
+                        if((*(*BlockList)[i]->getInPorts())[j]->GetLinks()->size()==0)
                         {
-                            clickedPort = (*BlockList)[i]->getInPorts()[j]; //nastavím nakliknutý port
+                            clickedPort = (*(*BlockList)[i]->getInPorts())[j]; //nastavím nakliknutý port
                             clickedPort->SetIsClicked(true);
                             wasInPort = true;   //a nebyl to inport
                         }

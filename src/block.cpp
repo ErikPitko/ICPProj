@@ -29,11 +29,11 @@ Block::~Block()
 
     if (_rect != nullptr)
         delete _rect;
-    for(Port* port:inPorts)
+    for(Port* port:*inPorts)
     {
         delete port;
     }
-    inPorts.clear();
+    inPorts->clear();
     if(_outPort != nullptr)
         delete _outPort;
     if(_resizeRect != nullptr)
@@ -45,14 +45,14 @@ Block::~Block()
 void Block::calculatePortsToMiddle()
 {
     recalculateHeights();
-    if(inPorts.size() != 0)
+    if(inPorts->size() != 0)
     {
-        double step = _rect->height() / inPorts.size();
+        double step = _rect->height() / inPorts->size();
         double div = step / 2;
-        for (int i = 0; i < inPorts.size(); i++)
+        for (int i = 0; i < inPorts->size(); i++)
         {
-            inPorts[i]->Rect->setY((int) (_rect->y() + (i + 1) * step - div- Port::PORT_SIZE / 2));
-            inPorts[i]->Rect->setHeight(Port::PORT_SIZE);
+            (*inPorts)[i]->Rect->setY((int) (_rect->y() + (i + 1) * step - div- Port::PORT_SIZE / 2));
+            (*inPorts)[i]->Rect->setHeight(Port::PORT_SIZE);
         }
     }
 }
@@ -71,9 +71,9 @@ bool Block::completeDeleteBlock()
 
 bool Block::recalculateHeights()
 {
-    if(inPorts.size()*Port::PORT_SIZE >= _rect->height()-10)
+    if(inPorts->size()*Port::PORT_SIZE >= _rect->height()-10)
     {
-        _rect->setHeight(inPorts.size()*(Port::PORT_SIZE+5));
+        _rect->setHeight(inPorts->size()*(Port::PORT_SIZE+5));
         _rect->setWidth(_rect->height());
         if(_outPort!= nullptr)
         {
@@ -88,8 +88,8 @@ bool Block::recalculateHeights()
 }
 
 void Block::genInPort() {
-    MyRect* newport = new MyRect(_rect->x()+Port::PORT_SIZE/2,_rect->y()+Port::PORT_SIZE/2 + Port::PORT_SIZE +15*inPorts.size(),Port::PORT_SIZE,Port::PORT_SIZE);
-    this->inPorts.push_back(new Port(newport, this));
+    MyRect* newport = new MyRect(_rect->x()+Port::PORT_SIZE/2,_rect->y()+Port::PORT_SIZE/2 + Port::PORT_SIZE +15*inPorts->size(),Port::PORT_SIZE,Port::PORT_SIZE);
+    this->inPorts->push_back(new Port(newport, this));
     calculatePortsToMiddle();
 }
 
@@ -109,14 +109,15 @@ bool Block::isCycled(Block* comparing, Block* block) {
         if(block == nullptr)
             return found;
 
-        for (Port *port : block->getInPorts()) {
-            Link* frontLink = port->GetFirstLink();
-            if (frontLink != nullptr) {
-                found = isCycled(comparing, frontLink->getInPort()->GetBlock());
-                if(found)
-                    break;
+        if(block->getInPorts()->size() != 0)
+            for (Port *port : *block->getInPorts()) {
+                Link* frontLink = port->GetFirstLink();
+                if (frontLink != nullptr) {
+                    found = isCycled(comparing, frontLink->getInPort()->GetBlock());
+                    if(found)
+                        break;
+                }
             }
-        }
         return found;
 }
 
@@ -129,7 +130,7 @@ double Block::compute(Block* block) {
     bool first = true;
     if (block->calculated)
         return block->value;
-    for (Port *port : block->getInPorts()) {
+    for (Port *port : *block->getInPorts()) {
         Link* frontLink = port->GetFirstLink();
         if (frontLink != nullptr) {
             double value = compute(frontLink->getInPort()->GetBlock());
@@ -171,6 +172,14 @@ double Block::compute(Block* block) {
 }
 
 void Block::unsetCalculated(Block* block) {
+    for(int i = 0 ; i<Widget::BlockList->size();i++)
+    {
+        if(isCycled(nullptr, (*Widget::BlockList)[i]))
+        {
+            std::cerr << "cycle detected" << std::endl;
+            return;
+        }
+    }
     if(block == nullptr)
         return;
     if(block->getType() == IN)
@@ -189,7 +198,7 @@ void Block::unsetCalculated(Block* block) {
     }
 }
 
-std::vector<Port*> Block::getInPorts()
+std::vector<Port*> *Block::getInPorts()
 {
     return this->inPorts;
 }
@@ -203,13 +212,13 @@ void Block::setOutPort(Port* p)
 
 void Block::setInPorts(std::vector<Port*> portList)
 {
-    inPorts.clear();
-    inPorts.insert(inPorts.end(), portList.begin(), portList.end());
+    inPorts->clear();
+    inPorts->insert(inPorts->end(), portList.begin(), portList.end());
 }
 
 void Block::setInPort(int index, Port* newInPort)
 {
-    inPorts[index] = newInPort;
+    (*inPorts)[index] = newInPort;
     //calculatePortsToMiddle();
 }
 
@@ -252,7 +261,7 @@ void Block::Move(Point2D *move)
     if(_outPort != nullptr) {
         _outPort->Rect->moveTo(_outPort->Rect->x() + move->X,_outPort->Rect->y() + move->Y);
     }
-    for (Port *inport: inPorts)
+    for (Port *inport: *inPorts)
     {
         inport->Rect->moveTo(inport->Rect->x() + move->X,inport->Rect->y() + move->Y);
     }
@@ -266,7 +275,7 @@ void Block::Resize(Point2D *resize)
     {
         _rect->setWidth(_rect->width()+resize->X);
     }
-    if(_rect->height()+resize->Y >= inPorts.size()*(Port::PORT_SIZE+2))
+    if(_rect->height()+resize->Y >= inPorts->size()*(Port::PORT_SIZE+2))
         if(_rect->height() + resize->Y > Block::MINBLOCKSIZE && _rect->height()+resize->Y < Block::MAXBLOCKSIZE)
         {
             _rect->setHeight(_rect->height() + resize->Y);
@@ -320,7 +329,7 @@ void Block::Draw(QPainter *p)
         p->fillRect(*_outPort->Rect,brush);
         _outPort->Draw(p);
     }
-    for (Port *port: inPorts)
+    for (Port *port: *inPorts)
     {
         QBrush brush(Qt::white);
         p->fillRect(*port->Rect,brush);
@@ -360,6 +369,6 @@ std::istream& operator >>(std::istream& is, Block& block)
 
 std::ostream& operator <<(std::ostream& os, Block& block)
 {
-    os << *block.getRect() << ';' << ((block.getType() == IN) ? block.getValue() : 0) << ';' << block.getInPorts().size() << ';' << block.getType();
+    os << *block.getRect() << ';' << ((block.getType() == IN) ? block.getValue() : 0) << ';' << block.getInPorts()->size() << ';' << block.getType();
     return os;
 }

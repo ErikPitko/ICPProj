@@ -106,9 +106,9 @@ void Link::Draw(QPainter *p)
 std::ostream& operator <<(std::ostream& os, Link& link)
 {
     Block* outBlock = link.getOutPort()->GetBlock();
-    std::vector<Port*> inPorts = outBlock->getInPorts();
+    std::vector<Port*> *inPorts = outBlock->getInPorts();
 
-    int idxInputPort = std::find(inPorts.begin(), inPorts.end(), link.getOutPort()) - inPorts.begin();
+    int idxInputPort = std::find(inPorts->begin(), inPorts->end(), link.getOutPort()) - inPorts->begin();
 
     os << link.getInPort()->GetBlock() << "-";
     os << idxInputPort << ":";

@@ -9,8 +9,9 @@
 
     Link* Port::GetFirstLink()
     {
-        if(_link->size()>0)
-            return _link->front();
+        if(_link!= nullptr)
+            if(_link->size() != 0)
+                return (*_link)[0];
         return nullptr;
     }
 

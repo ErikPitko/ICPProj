@@ -23,7 +23,7 @@ SOURCES += main.cpp\
     blockdialog.cpp \
     loadmanager.cpp \
     aboutdialog.cpp \
-    helpdialog.cpp
+    helpdialog.cpp \
     resources.cpp
 
 HEADERS  += widget.h \
