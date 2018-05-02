@@ -1,18 +1,18 @@
 #ifndef HELPDIALOG_H
 #define HELPDIALOG_H
 
-#include <QWidget>
+#include <QDialog>
 
 namespace Ui {
 class HelpDialog;
 }
 
-class HelpDialog : public QWidget
+class HelpDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit HelpDialog(QWidget *parent = 0);
+    explicit HelpDialog(QDialog *parent = 0);
     ~HelpDialog();
 
 private:

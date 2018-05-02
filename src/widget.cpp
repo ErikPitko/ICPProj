@@ -4,6 +4,7 @@
 #include "blockdialog.h"
 #include "loadmanager.h"
 #include "aboutdialog.h"
+#include "helpdialog.h"
 vector<Block*>* Widget::BlockList = new vector<Block*>();
 Point2D *Widget::ClickPos = nullptr;
 Block *Widget::EditBlock = nullptr;
@@ -11,6 +12,7 @@ bool Widget::isDebug = false;
 int Widget::stepCounter = 0;
 Widget* Widget::storeWidget;
 QAction *Widget::ActionRun = nullptr;
+QAction *Widget::ActionClear = nullptr;
 QAction *Widget::ActionDebug = nullptr;
 QAction *Widget::ActionNextStep = nullptr;
 QAction *Widget::ActionExitDebug = nullptr;
@@ -47,6 +49,7 @@ void Widget::InstantiateMenu()
     schemeMenu = new QMenu("Scheme");
     menuBar->addMenu(schemeMenu);
     ActionRun = schemeMenu->addAction("Run", this, SLOT(Run()),QKeySequence(tr("Shift+R")));
+    ActionClear = schemeMenu->addAction("Clear run", this, SLOT(Clear()),QKeySequence(tr("Shift+C")));
     ActionDebug = schemeMenu->addAction("Debug", this, SLOT(StartDebug()),QKeySequence(tr("Shift+D")));
     ActionNextStep = schemeMenu->addAction("Next step", this, SLOT(Debug()),QKeySequence(tr("Shift+Space")));
     ActionExitDebug = schemeMenu->addAction("Exit debug", this, SLOT(ExitDebug()),QKeySequence(tr("Shift+Q")));
@@ -126,10 +129,21 @@ void Widget::ShowContextMenu(const QPoint &pos) // this is a slot
 }
 void Widget::Edit()
 {
-    BlockDialog block;
-    block.move(this->x()+ClickPos->X,this->y()+ClickPos->Y);
-    block.setModal(true);
-    block.exec();
+    BlockDialog blockDialog;
+    blockDialog.setWindowTitle("Block edit");
+    blockDialog.setFixedSize(192,210);
+    blockDialog.move(this->x()+ClickPos->X,this->y()+ClickPos->Y);
+    blockDialog.setModal(true);
+    blockDialog.exec();
+}
+
+void Widget::Clear()
+{
+    for(int i = 0; i< Widget::BlockList->size();i++)
+    {
+        Block::unsetCalculated((*Widget::BlockList)[i]);
+    }
+    storeWidget->repaint();
 }
 
 void Widget::ExitAll()
@@ -151,15 +165,20 @@ void Widget::Exit()
 
 void Widget::ShowHelp()
 {
-    /*HelpDialog block;
-    block.move(this->x()+ClickPos->X,this->y()+ClickPos->Y);
-    block.setModal(true);
-    block.exec();*/
+    HelpDialog helpWindow;
+    helpWindow.setWindowTitle("Help");
+    helpWindow.setFixedSize(400,300);
+    helpWindow.move(this->x()+this->rect().center().x()-helpWindow.rect().width()/2,this->y()+this->rect().center().y()-helpWindow.rect().height()/2);
+    helpWindow.setModal(true);
+    helpWindow.exec();
 }
 
 void Widget::About()
 {
     AboutDialog aboutWindow;
+    aboutWindow.setWindowTitle("About");
+    aboutWindow.setFixedSize(260,130);
+    aboutWindow.setSizePolicy (QSizePolicy::Fixed, QSizePolicy::Fixed);
     aboutWindow.move(this->x()+this->rect().center().x()-aboutWindow.rect().width()/2,this->y()+this->rect().center().y()-aboutWindow.rect().height()/2);
     aboutWindow.setModal(true);
     aboutWindow.exec();
@@ -167,10 +186,7 @@ void Widget::About()
 
 void Widget::Run()
 {
-    for(int i = 0; i< Widget::BlockList->size();i++)
-    {
-        Block::unsetCalculated((*Widget::BlockList)[i]);
-    }
+    Clear();
     Widget::stepCounter = INT_MAX-1;
     for(int i = 0; i < Widget::BlockList->size(); i++)
     {
@@ -201,10 +217,7 @@ void Widget::Debug()
 
 void Widget::StartDebug()
 {
-    for(int i = 0; i< Widget::BlockList->size();i++)
-    {
-        Block::unsetCalculated((*Widget::BlockList)[i]);
-    }
+    Clear();
     ActionRun->setEnabled(false);
     ActionDebug->setEnabled(false);
     ActionNextStep->setEnabled(true);
@@ -374,6 +387,9 @@ void Widget::mousePressEvent(QMouseEvent *event)
                 }
             }
         }
+        if(clickedPort != nullptr)
+            clickedPort->SetIsClicked(false);
+        clickedPort = nullptr;
         typeOfEdit = PLANEMOVE;
     }
     end:

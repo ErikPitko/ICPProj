@@ -318,7 +318,7 @@ void Block::Draw(QPainter *p)
     QBrush brush(Qt::white);
     p->fillRect(*_resizeRect,brush);
     p->drawRect(*_resizeRect);
-    if(Widget::isDebug)
+    if(Widget::isDebug || _eBlock == IN)
         p->drawText(_rect->x(),_rect->y(),std::to_string(value).c_str());
     if(_eBlock == OUT)
         p->drawText(_rect->x()+_rect->width()/5,_rect->y()+_rect->height()/2 ,std::to_string(value).c_str());

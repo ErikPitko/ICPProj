@@ -53,9 +53,13 @@ public slots:
      */
     static void Save();
     /**
-     * Runs calculate all blocks.
+     * Runs calculate all blocks. If blocks are not calculated.
      */
     static void Run();
+    /**
+     * Runs calculate all blocks. Block could be calculated.
+     */
+    static void Clear();
     /**
      * Steps the debug.
      */
@@ -72,10 +76,7 @@ public slots:
      * Exits all windows and frees the alocated memory.
      */
     static void ExitAll();
-    /**
-     * Shows help window.
-     */
-    static void ShowHelp();
+
 public:
 	/**
 	 * The constructor that construct the main window (widget)
@@ -153,6 +154,10 @@ private slots:
      * Shows about dialog.
      */
     void About();
+    /**
+     * Shows help window.
+     */
+    void ShowHelp();
 private:
     /**
      * Draws all objects on plane and redraw them every transform.
@@ -194,6 +199,10 @@ private:
      * Action that will call on run.
      */
     static QAction *ActionRun;
+    /**
+     * Action that will call on clear.
+     */
+    static QAction *ActionClear;
     /**
      * Action that will call on debug.
      */

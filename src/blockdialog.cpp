@@ -93,9 +93,9 @@ void BlockDialog::on_OUT_clicked()
     selected = OUT;
     ui->lineEdit->hide();
     ui->label_2->hide();
-    ui->horizontalSlider->show();
-    ui->label->show();
-    ui->numOfPorts->show();
+    ui->horizontalSlider->hide();
+    ui->label->hide();
+    ui->numOfPorts->hide();
 }
 
 void BlockDialog::on_Apply_clicked()
@@ -109,10 +109,14 @@ void BlockDialog::on_Apply_clicked()
     else bl = new Block(selected,new MyRect( *Widget::ClickPos,100,100));
     if(selected != IN)
     {
-        for (int i = 0;i <portCount;i++ )
+        if(selected != OUT)
         {
-            bl->genInPort();
+            for (int i = 0;i <portCount;i++ )
+            {
+                bl->genInPort();
+            }
         }
+        else bl->genInPort();
     }
     else
         bl->setValue(value.toDouble());
