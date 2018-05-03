@@ -139,10 +139,13 @@ void BlockDialog::on_Apply_clicked()
     {
         if(Widget::EditBlock->getOutPort()!= nullptr)
         {
-            for (int i = 0; i < Widget::EditBlock->getOutPort()->GetLinks()->size();i++)
-            {
-                new Link(bl->getOutPort(),(*Widget::EditBlock->getOutPort()->GetLinks())[i]->getOutPort());
-            }
+            std::vector<Port*> outPort = std::vector<Port*>();
+
+            if(Widget::EditBlock->getOutPort()->GetLinks() != nullptr)
+                for (int i = 0; i < Widget::EditBlock->getOutPort()->GetLinks()->size();i++)
+                {
+                    outPort.push_back((*Widget::EditBlock->getOutPort()->GetLinks())[i]->getOutPort());
+                }
             for (int i = 0; i < Widget::EditBlock->getInPorts()->size();i++)
             {
                 if(i == bl->getInPorts()->size())
@@ -153,10 +156,16 @@ void BlockDialog::on_Apply_clicked()
                 }
             }
             if(Widget::EditBlock != nullptr)
+            {
+                Block::UnsetCalculated(bl);
                 Widget::EditBlock->completeDeleteBlock();
+                for(Port *p : outPort)
+                    new Link(bl->getOutPort(),p);
+            }
         }
     }
     Widget::BlockList->push_back(bl);
+    Widget::EditBlock = nullptr;
     if(this != nullptr)
         close();
 
@@ -164,7 +173,7 @@ void BlockDialog::on_Apply_clicked()
 
 void BlockDialog::on_horizontalSlider_sliderMoved(int position)
 {
-    std::cout<<position<<std::endl;
+    //std::cout<<position<<std::endl;
     ui->numOfPorts->setText(QString(std::to_string(position).c_str()));
     portCount = position;
 }

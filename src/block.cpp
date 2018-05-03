@@ -25,7 +25,7 @@ Block::Block(EBlock eBlock, MyRect* rect, double value) : DrawableObject()
 
 Block::~Block()
 {
-    std::cout << std::endl;
+    //std::cout << std::endl;
 
     if (_rect != nullptr)
         delete _rect;
@@ -38,8 +38,8 @@ Block::~Block()
         delete _outPort;
     if(_resizeRect != nullptr)
         delete _resizeRect;
-    std::cout << "\tBlock: " << this << " deleted." << std::endl;
-    std::cout << std::endl;
+    //std::cout << "\tBlock: " << this << " deleted." << std::endl;
+    //std::cout << std::endl;
 }
 
 void Block::calculatePortsToMiddle()

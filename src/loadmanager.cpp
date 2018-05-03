@@ -37,7 +37,7 @@ void LoadManager::loadScene(string path)
     string op;
     char trash;
 
-    cout << "blocks:" << endl;
+    //cout << "blocks:" << endl;
     while(true)
     {
         fIn >> op;
@@ -52,16 +52,16 @@ void LoadManager::loadScene(string path)
         blockPair[oldPtr] = tempB;
         Widget::BlockList->push_back(tempB);
         ios_base::fmtflags f( cout.flags() );
-        cout << "\t" << hex << oldPtr;
-        cout << " new_value: " << blockPair.find(oldPtr)->second;
-        cout << " : " << *tempB << dec << endl;
+        //cout << "\t" << hex << oldPtr;
+        //cout << " new_value: " << blockPair.find(oldPtr)->second;
+        //cout << " : " << *tempB << dec << endl;
         cout.flags(f);
     }
 
     size_t blockin;
     size_t blockout;
     int idxInPort;
-    cout << "links:" << endl;
+    //cout << "links:" << endl;
 
     while(fIn >> hex >> blockin >> trash >> dec >> idxInPort >> trash >> hex >> blockout)
     {
@@ -70,7 +70,7 @@ void LoadManager::loadScene(string path)
         }
         new Link(blockPair.find(blockin)->second->getOutPort(),
                  (*blockPair.find(blockout)->second->getInPorts())[idxInPort]);
-        cout << "\t" << blockPair.find(blockin)->second << " <--> " << blockPair.find(blockout)->second;
-        cout << " <- " << idxInPort << endl;
+        //cout << "\t" << blockPair.find(blockin)->second << " <--> " << blockPair.find(blockout)->second;
+        //cout << " <- " << idxInPort << endl;
     }
 }
