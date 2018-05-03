@@ -1,7 +1,7 @@
 .PHONY: compile run clean pack
 
 all: compile
-exe=ICPProj
+exe=blockeditor
 
 doxygen: src/DoxyDoc.Doxyfile
 	rm -rf doc
@@ -10,9 +10,9 @@ doxygen: src/DoxyDoc.Doxyfile
 
 compile: src
 	cd src && qmake ICPProj.pro -r -spec linux-g++-64 CONFIG+=debug CONFIG+=qml_debug CONFIG+=c++14
-	$(MAKE) -C src -j$(nproc + nproc/2) && cp src/$(exe) .
+	$(MAKE) -C src -j$(nproc + nproc/2) && mv src/$(exe) .
 
-run: src/ICPProj
+run: src/$(exe)
 	./$(exe)
 
 clean:

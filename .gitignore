@@ -111,5 +111,5 @@ Thumbs.db
 !.vscode/extensions.json
 
 # Executable
-ICPProj
-src/ICPProj
+blockeditor
+src/blockeditor
