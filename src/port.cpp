@@ -23,7 +23,7 @@
 
     void Port::unSetLink()
     {
-        for (int i =0;i<_link->size();)
+        for (unsigned i =0;i<_link->size();)
         {
 
             Link *middle = (*_link)[i];

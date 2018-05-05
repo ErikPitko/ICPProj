@@ -49,7 +49,7 @@ void Block::calculatePortsToMiddle()
     {
         double step = _rect->height() / inPorts->size();
         double div = step / 2;
-        for (int i = 0; i < inPorts->size(); i++)
+        for (unsigned i = 0; i < inPorts->size(); i++)
         {
             (*inPorts)[i]->Rect->setY((int) (_rect->y() + (i + 1) * step - div- Port::PORT_SIZE / 2));
             (*inPorts)[i]->Rect->setHeight(Port::PORT_SIZE);

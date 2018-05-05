@@ -142,15 +142,15 @@ void BlockDialog::on_Apply_clicked()
             std::vector<Port*> outPort = std::vector<Port*>();
 
             if(Widget::EditBlock->getOutPort()->GetLinks() != nullptr)
-                for (int i = 0; i < Widget::EditBlock->getOutPort()->GetLinks()->size();i++)
+                for (unsigned i = 0; i < Widget::EditBlock->getOutPort()->GetLinks()->size();i++)
                 {
                     outPort.push_back((*Widget::EditBlock->getOutPort()->GetLinks())[i]->getOutPort());
                 }
-            for (int i = 0; i < Widget::EditBlock->getInPorts()->size();i++)
+            for (unsigned i = 0; i < Widget::EditBlock->getInPorts()->size();i++)
             {
                 if(i == bl->getInPorts()->size())
                     break;
-                for(int j=0;j < (*Widget::EditBlock->getInPorts())[i]->GetLinks()->size();j++)
+                for(unsigned j=0;j < (*Widget::EditBlock->getInPorts())[i]->GetLinks()->size();j++)
                 {
                     new Link((*(*Widget::EditBlock->getInPorts())[i]->GetLinks())[j]->getInPort(),(*bl->getInPorts())[i]);
                 }
