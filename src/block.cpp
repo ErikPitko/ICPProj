@@ -351,7 +351,7 @@ void Block::Draw(QPainter *p)
     if(Widget::isDebug || _eBlock == IN)
         p->drawText(_rect->x(),_rect->y(),std::to_string(value).c_str());
     if(_eBlock == OUT)
-        p->drawText(_rect->x()+_rect->width()/5,_rect->y()+_rect->height()/2 ,std::to_string(value).c_str());
+        p->drawText(_rect->x()+5+_rect->width()/5,_rect->y()+_rect->height()/2 +5,std::to_string(value).c_str());
     if(_outPort!= nullptr)
     {
         QBrush brush(Qt::red);
