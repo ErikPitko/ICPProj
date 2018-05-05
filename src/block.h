@@ -226,14 +226,15 @@ public:
      * @see Block::compute()
      *
      * @param block root block to be calculated
-     * @return value of given root block
+     * @return true, if no loop is found
      */
-    static double Compute(Block* block);
+    static bool Compute(Block* block);
     /**
      * Set blocks to be recalculated after a change in links or blocks.
      *
      * Recursively calls each block from given port and sets {@link #calculated} to false.
      * @param block changed block
+     * @return true if no loop was found
      */
     static void UnsetCalculated(Block* block);
     /**
