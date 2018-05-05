@@ -61,9 +61,13 @@ class Block : public DrawableObject
 	 */
     bool recalculateHeights();
     /**
-     * Recursive searching for loops
+     * Backward recursive searching for loops.
+     *
+     * Builds list of blocks it goes through and searches for two identical blocks.
+     * Goes in a reverse direction, searches on all input ports.
+     *
      * @param newVec empty vector
-     * @param block Block to be checked for loop in tree
+     * @param block Root block from which to start loop search
      * @returns true if loop is found
      */
     static bool isCycled(std::vector<Block*> newVec, Block* block);
@@ -115,6 +119,12 @@ public:
 	 */
     void genInPort();
     /**
+     * Deletes debug mark on a block.
+     *
+     * calls {@link #CalculatePortsToMiddle()}
+     */
+    static void delDebugRect();
+    /**
 	 * Gets the input ports.
 	 *
 	 * @return the input ports
@@ -145,6 +155,12 @@ public:
 	 * @param newInPort new input port
 	 */
     void setInPort(int index, Port* newInPort);
+    /**
+     * Checks if block is already calculated.
+     *
+     * @return true if block is calculated
+     */
+    bool getCalculated();
     /**
 	 * Gets the value.
 	 *
@@ -205,9 +221,10 @@ public:
 	 */
     void Resize(Point2D*);
     /**
-     * Recursive block calculation from root.
+     * Checks for the loops in scheme and if none are found calls compute()
      *
-     * Recursively calls all blocks on all input ports and calculates its values.
+     * @see Block::compute()
+     *
      * @param block root block to be calculated
      * @return value of given root block
      */

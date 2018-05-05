@@ -214,15 +214,18 @@ void Widget::Debug()
     Block *outBlock = nullptr;
     for(int i = 0; i < Widget::BlockList->size(); i++)
     {
-        if((*Widget::BlockList)[i]->getType() == OUT && (*Widget::BlockList)[i]->getValue() == 0)
+        if((*Widget::BlockList)[i]->getType() == OUT && (*Widget::BlockList)[i]->getCalculated() == false)
+        {
             outBlock = (*Widget::BlockList)[i];
+            break;
+        }
     }
     if(outBlock != nullptr)
     {
         stepCounter++;
         Block::Compute(outBlock);
     }
-    else isDebug = false;
+    else ExitDebug();
     storeWidget->repaint();
 }
 
@@ -247,6 +250,7 @@ void Widget::ExitDebug()
     ActionDebug->setEnabled(true);
     ActionNextStep->setEnabled(false);
     ActionExitDebug->setEnabled(false);
+    Block::delDebugRect();
     isDebug = false;
     storeWidget->repaint();
 }

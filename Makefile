@@ -12,7 +12,7 @@ compile: src
 	cd src && qmake ICPProj.pro -r -spec linux-g++-64 CONFIG+=debug CONFIG+=qml_debug CONFIG+=c++14
 	$(MAKE) -C src -j$(nproc + nproc/2) && mv src/$(exe) .
 
-run: src/$(exe)
+run: $(exe)
 	./$(exe)
 
 clean:

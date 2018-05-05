@@ -128,13 +128,16 @@ bool Block::isCycled(std::vector<Block*> newVec, Block* block) {
     return found;
 }
 
-double Block::Compute(Block* block)
+bool Block::Compute(Block* block)
 {
     std::vector<Block*> vect = std::vector<Block*>();
     bool varIsCycled = isCycled(vect,block);
     Widget::isCycleDetected = varIsCycled;
-    if(!varIsCycled)
-        compute(block);
+    if(varIsCycled)
+        return false;
+    compute(block);
+    return true;
+
 }
 
 void Block::UnsetCalculated(Block* block)
@@ -158,9 +161,13 @@ double Block::compute(Block* block) {
             {
                 return value;
             }
-            else
+            else if (Widget::isDebug == true)
             {
                 debug = block;
+            }
+            else
+            {
+                debug = nullptr;
             }
             if (first) {
                 first = false;
@@ -189,6 +196,11 @@ double Block::compute(Block* block) {
         stepCounter++;
     block->calculated = true;
     return block->value;
+}
+
+bool Block::getCalculated()
+{
+    return this->calculated;
 }
 
 void Block::unsetCalculated(Block* block) {
@@ -306,6 +318,11 @@ void Block::Resize(Point2D *resize)
     }
 }
 
+void Block::delDebugRect()
+{
+    debug = nullptr;
+}
+
 void Block::Draw(QPainter *p)
 {
     image = QImage(256, 256, QImage::Format_RGB32);
@@ -320,7 +337,7 @@ void Block::Draw(QPainter *p)
     }
 
     p->drawImage(*_rect,image);
-    if(debug != nullptr)
+    if(Widget::isDebug == true && debug != nullptr)
         if(this == debug)
         {
             p->setPen(QPen(Qt::yellow, 5));
