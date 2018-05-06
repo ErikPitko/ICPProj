@@ -30,7 +30,6 @@ Link::~Link()
     std::vector<Link*>::iterator pos = std::find(outLinks->begin(), outLinks->end(), this);
     if(pos != outLinks->end())
         outLinks->erase(outLinks->begin()+std::distance(outLinks->begin(),pos));
-    //std::cout << "\tLink: " << this << " deleted." << std::endl;
 }
 
 Port* Link::getInPort()

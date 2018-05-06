@@ -36,6 +36,7 @@ Block::~Block()
     inPorts->clear();
     if(_outPort != nullptr)
         delete _outPort;
+    _outPort = nullptr;
     if(_resizeRect != nullptr)
         delete _resizeRect;
     //std::cout << "\tBlock: " << this << " deleted." << std::endl;
@@ -118,7 +119,7 @@ bool Block::isCycled(std::vector<Block*> newVec, Block* block) {
         if (frontLink != nullptr)
         {
             newVec.push_back(block);
-                found = isCycled(newVec, frontLink->getInPort()->GetBlock());
+            found = isCycled(newVec, frontLink->getInPort()->GetBlock());
             if(found)
                 break;
         }

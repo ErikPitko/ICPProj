@@ -73,10 +73,11 @@
         delete Rect;
         for(Link* link : (*_link))
         {
+            std::cout << link << std::endl;
             delete link;
         }
         _link->clear();
-        //std::cout << "\tPort: " << this << " deleted." << std::endl;
+        std::cout << "\tPort: " << this << " deleted." << std::endl;
     }
 
     void Port::Draw(QPainter *p)

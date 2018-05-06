@@ -71,9 +71,10 @@ void Widget::InstantiateMenu()
 
 void Widget::clearBlocks()
 {
-    for(unsigned i = Widget::BlockList->size(); i > 0; i--)
+    unsigned blockVecSize = Widget::BlockList->size();
+    for(unsigned i = 0; i < blockVecSize; i++)
     {
-        (*Widget::BlockList)[i-1]->completeDeleteBlock();
+        (*Widget::BlockList)[0]->completeDeleteBlock();
     }
     storeWidget->repaint();
 }

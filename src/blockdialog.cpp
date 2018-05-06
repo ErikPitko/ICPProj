@@ -166,8 +166,7 @@ void BlockDialog::on_Apply_clicked()
     }
     Widget::BlockList->push_back(bl);
     Widget::EditBlock = nullptr;
-    if(this != nullptr)
-        close();
+    close();
 
 }
 
@@ -180,8 +179,7 @@ void BlockDialog::on_horizontalSlider_sliderMoved(int position)
 
 void BlockDialog::on_Cancel_clicked()
 {
-    if(this != nullptr)
-        close();
+    close();
 }
 
 void BlockDialog::on_lineEdit_textChanged(const QString &arg1)
