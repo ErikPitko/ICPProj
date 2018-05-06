@@ -71,13 +71,13 @@
     Port::~Port()
     {
         delete Rect;
-        for(Link* link : (*_link))
+        unsigned linkSize = _link->size();
+        for (unsigned i = 0; i < linkSize; i++)
         {
-            std::cout << link << std::endl;
-            delete link;
+            delete (*_link)[0];
         }
         _link->clear();
-        std::cout << "\tPort: " << this << " deleted." << std::endl;
+//        std::cout << "\tPort: " << this << " deleted." << std::endl;
     }
 
     void Port::Draw(QPainter *p)
