@@ -118,7 +118,7 @@ bool Block::isCycled(std::vector<Block*> newVec, Block* block) {
         if (frontLink != nullptr)
         {
             newVec.push_back(block);
-            found = isCycled(newVec, frontLink->getInPort()->GetBlock());
+                found = isCycled(newVec, frontLink->getInPort()->GetBlock());
             if(found)
                 break;
         }
