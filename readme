@@ -1,0 +1,11 @@
+Create new block by pressing <righ-click> on empty place and choose block.
+
+Edit block by pressing <right-click> on top of a block.
+
+Create new link by pressing <left-click> on input/output port and then on output/input port.
+
+Delete link by double clicking on existing link.
+
+Warning: You can't calculate if there is no display block.
+
+Warning: Input port doesn't have input port you have to set it in menu.

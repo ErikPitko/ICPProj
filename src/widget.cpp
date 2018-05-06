@@ -129,7 +129,8 @@ void Widget::Save()
 {
     QString fileName = QFileDialog::getSaveFileName(storeWidget,
         tr("Save file"), "", tr("Scheme Files (*.icp)"));
-    fileName.append(".icp");
+    if(!fileName.contains(".icp"))
+        fileName.append(".icp");
     LoadManager::saveScene(fileName.toStdString());
     storeWidget->repaint();
 }
