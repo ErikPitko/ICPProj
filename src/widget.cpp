@@ -82,11 +82,11 @@ void Widget::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);
     painter.begin(this);
-    for (int i = 0;i<Widget::BlockList->size();i++)
+    for (unsigned i = 0;i<Widget::BlockList->size();i++)
     {
         (*Widget::BlockList)[i]->Draw(&painter);
     }
-    for(int i = 0;i<Widget::BlockList->size();i++)
+    for(unsigned i = 0;i<Widget::BlockList->size();i++)
     {
         if((*Widget::BlockList)[i]->getOutPort() != nullptr)
         {
@@ -150,7 +150,7 @@ void Widget::Edit()
 
 void Widget::Clear()
 {
-    for(int i = 0; i< Widget::BlockList->size();i++)
+    for(unsigned i = 0; i< Widget::BlockList->size();i++)
     {
         Block::UnsetCalculated((*Widget::BlockList)[i]);
     }
@@ -199,7 +199,7 @@ void Widget::Run()
 {
     Clear();
     Widget::stepCounter = INT_MAX-1;
-    for(int i = 0; i < Widget::BlockList->size(); i++)
+    for(unsigned i = 0; i < Widget::BlockList->size(); i++)
     {
         if((*Widget::BlockList)[i]->getType() == OUT)
         {
@@ -212,7 +212,7 @@ void Widget::Run()
 void Widget::Debug()
 {
     Block *outBlock = nullptr;
-    for(int i = 0; i < Widget::BlockList->size(); i++)
+    for(unsigned i = 0; i < Widget::BlockList->size(); i++)
     {
         if((*Widget::BlockList)[i]->getType() == OUT && (*Widget::BlockList)[i]->getCalculated() == false)
         {
@@ -242,7 +242,7 @@ void Widget::StartDebug()
 
 void Widget::ExitDebug()
 {
-    for(int i = 0; i< Widget::BlockList->size();i++)
+    for(unsigned i = 0; i< Widget::BlockList->size();i++)
     {
         Block::UnsetCalculated((*Widget::BlockList)[i]);
     }
@@ -280,7 +280,7 @@ void Widget::mouseMoveEvent(QMouseEvent *event)
     else if(typeOfEdit == PLANEMOVE)
     {
         this->setCursor(Qt::SizeAllCursor);
-        for (int i = 0;i < BlockList->size();i++)
+        for (unsigned i = 0;i < BlockList->size();i++)
         {
             (*BlockList)[i]->Move(Point2D::vector(ClickPos,endDrag));
         }
@@ -306,7 +306,7 @@ void Widget::mousePressEvent(QMouseEvent *event)
     ClickPos = new Point2D(event->x(),event->y());
     if(event->button() == Qt::LeftButton)
     {
-        for (int i = 0;i < BlockList->size();i++)
+        for (unsigned i = 0;i < BlockList->size();i++)
         {
             if((*BlockList)[i]->getResizeRect()->contains(new Point2D(event->x(),event->y())))
             {
@@ -343,7 +343,7 @@ void Widget::mousePressEvent(QMouseEvent *event)
                     }
                 }
             }
-            for(int j = 0;j<(*BlockList)[i]->getInPorts()->size();j++)       //projdu všechny inpoty
+            for(unsigned j = 0;j<(*BlockList)[i]->getInPorts()->size();j++)       //projdu všechny inpoty
             {
                 if((*(*BlockList)[i]->getInPorts())[j]->Rect->contains(new Point2D(event->x(),event->y())))    //spojení inporty
                 {
@@ -414,7 +414,7 @@ void Widget::mousePressEvent(QMouseEvent *event)
     end:
     if(event->button() == Qt::RightButton)
     {
-        for (int i = 0;i < BlockList->size();i++)
+        for (unsigned i = 0;i < BlockList->size();i++)
         {
             if((*BlockList)[i]->getRect()->contains(new Point2D(event->x(),event->y())))
             {
