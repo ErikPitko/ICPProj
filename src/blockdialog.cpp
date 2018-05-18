@@ -155,14 +155,14 @@ void BlockDialog::on_Apply_clicked()
                     new Link((*(*Widget::EditBlock->getInPorts())[i]->GetLinks())[j]->getInPort(),(*bl->getInPorts())[i]);
                 }
             }
-            if(Widget::EditBlock != nullptr)
+            for(Port *p : outPort)
             {
-                Block::UnsetCalculated(bl);
-                Widget::EditBlock->completeDeleteBlock();
-                for(Port *p : outPort)
+                if (bl->getOutPort() != nullptr)
                     new Link(bl->getOutPort(),p);
             }
         }
+        Block::UnsetCalculated(bl);
+        Widget::EditBlock->completeDeleteBlock();
     }
     Widget::BlockList->push_back(bl);
     Widget::EditBlock = nullptr;
